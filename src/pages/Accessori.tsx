@@ -29,7 +29,7 @@ const accessoryCategories = [
 const Accessori = () => {
   return (
     <Layout>
-      <section className="py-16 lg:py-24 bg-muted/30">
+      <section className="py-20 lg:py-28 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
@@ -40,12 +40,12 @@ const Accessori = () => {
             </p>
           </div>
 
-          <div className="space-y-16">
+          <div className="space-y-20">
             {accessoryCategories.map((cat, i) => (
               <div key={cat.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
                 <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="rounded-lg overflow-hidden shadow-elevated">
-                    <img src={cat.image} alt={cat.title} className="w-full h-80 object-cover" loading="lazy" />
+                  <div className="rounded-lg overflow-hidden shadow-elevated group">
+                    <img src={cat.image} alt={cat.title} className="w-full h-80 object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out" loading="lazy" />
                   </div>
                 </div>
                 <div className={i % 2 === 1 ? "lg:order-1" : ""}>
@@ -73,13 +73,13 @@ const Accessori = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 gradient-primary text-primary-foreground">
+      <section className="py-20 gradient-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">Hai bisogno di un accessorio specifico?</h2>
-          <p className="text-primary-foreground/70 mb-8">Contattaci per ricevere una consulenza personalizzata</p>
+          <p className="text-primary-foreground/60 mb-10">Contattaci per ricevere una consulenza personalizzata</p>
           <Link
             to="/contatti"
-            className="gradient-accent text-accent-foreground px-8 py-4 rounded-md font-semibold uppercase tracking-wide inline-block hover:opacity-90 transition-opacity"
+            className="gradient-accent text-accent-foreground px-10 py-4 rounded-md font-bold uppercase tracking-wider inline-block hover:opacity-90 transition-opacity shadow-elevated"
           >
             Contattaci Ora
           </Link>
