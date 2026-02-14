@@ -22,7 +22,7 @@ const Contatti = () => {
 
   return (
     <Layout>
-      <section className="py-16 lg:py-24 bg-muted/30">
+      <section className="py-20 lg:py-28 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">Contattaci</h1>
@@ -56,7 +56,7 @@ const Contatti = () => {
                     Acconsento al trattamento dei dati personali ai sensi del GDPR. *
                   </span>
                 </label>
-                <button type="submit" className="w-full gradient-accent text-accent-foreground py-3 rounded-md font-semibold uppercase tracking-wide inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                <button type="submit" className="w-full gradient-accent text-accent-foreground py-4 rounded-md font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated">
                   <Send className="h-4 w-4" /> Invia Messaggio
                 </button>
               </form>
@@ -95,7 +95,7 @@ const Contatti = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="tel:+390000000000"
-                  className="flex-1 gradient-primary text-primary-foreground py-4 rounded-md font-semibold uppercase tracking-wide inline-flex items-center justify-center gap-2"
+                  className="flex-1 gradient-primary text-primary-foreground py-4 rounded-md font-semibold uppercase tracking-wide inline-flex items-center justify-center gap-2 shadow-card"
                 >
                   <Phone className="h-4 w-4" /> Chiamaci
                 </a>
@@ -103,7 +103,7 @@ const Contatti = () => {
                   href="https://wa.me/390000000000"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-[hsl(142,70%,40%)] text-primary-foreground py-4 rounded-md font-semibold uppercase tracking-wide inline-flex items-center justify-center gap-2"
+                  className="flex-1 bg-[hsl(142,70%,40%)] text-primary-foreground py-4 rounded-md font-semibold uppercase tracking-wide inline-flex items-center justify-center gap-2 shadow-card"
                 >
                   <MessageCircle className="h-4 w-4" /> WhatsApp
                 </a>

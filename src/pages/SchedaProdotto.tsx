@@ -21,7 +21,7 @@ const SchedaProdotto = () => {
   if (!tractor) {
     return (
       <Layout>
-        <div className="container mx-auto px-4 py-24 text-center">
+        <div className="container mx-auto px-4 py-28 text-center">
           <h1 className="text-3xl font-display font-bold text-foreground mb-4">Prodotto non trovato</h1>
           <Link to="/trattori" className="text-secondary font-semibold">Torna alla gamma</Link>
         </div>
@@ -47,18 +47,18 @@ const SchedaProdotto = () => {
             <ArrowLeft className="h-4 w-4" /> Torna alla gamma
           </Link>
         </div>
-        <div className="container mx-auto px-4 lg:px-8 pb-16">
+        <div className="container mx-auto px-4 lg:px-8 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="rounded-lg overflow-hidden shadow-elevated">
-              <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover" />
+            <div className="rounded-lg overflow-hidden shadow-elevated group">
+              <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
             </div>
             <div>
-              <span className="text-secondary font-semibold text-sm uppercase tracking-wider">{tractor.hpRange}</span>
+              <span className="text-secondary font-semibold text-sm uppercase tracking-[0.15em]">{tractor.hpRange}</span>
               <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mt-2 mb-4">{tractor.name}</h1>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{tractor.shortDescription}</p>
+              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
               <Link
                 to={`/configuratore?modello=${tractor.id}`}
-                className="gradient-accent text-accent-foreground px-8 py-4 rounded-md text-base font-semibold uppercase tracking-wide inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-md text-base font-bold uppercase tracking-wider inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 <Settings className="h-5 w-5" />
                 Configura questo Trattore
@@ -69,10 +69,10 @@ const SchedaProdotto = () => {
       </section>
 
       {/* Specs */}
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Specifiche Tecniche</h2>
-          <div className="bg-card rounded-lg border border-border overflow-hidden">
+          <div className="bg-card rounded-lg border border-border overflow-hidden shadow-card">
             <table className="w-full">
               <tbody>
                 {specs.map((spec, i) => (
@@ -88,12 +88,12 @@ const SchedaProdotto = () => {
       </section>
 
       {/* Features */}
-      <section className="py-16 lg:py-24 bg-muted/30">
+      <section className="py-20 lg:py-28 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Caratteristiche Principali</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tractor.features.map((f) => (
-              <div key={f} className="flex items-center gap-3 bg-card p-4 rounded-lg border border-border">
+              <div key={f} className="flex items-center gap-3 bg-card p-4 rounded-lg border border-border shadow-card">
                 <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
                 <span className="text-foreground text-sm font-medium">{f}</span>
               </div>
@@ -103,7 +103,7 @@ const SchedaProdotto = () => {
       </section>
 
       {/* Accessories */}
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Accessori Disponibili</h2>
           <div className="flex flex-wrap gap-3">
@@ -111,10 +111,10 @@ const SchedaProdotto = () => {
               <span key={a} className="bg-muted text-foreground px-4 py-2 rounded-md text-sm font-medium">{a}</span>
             ))}
           </div>
-          <div className="mt-12">
+          <div className="mt-14">
             <Link
               to={`/configuratore?modello=${tractor.id}`}
-              className="gradient-accent text-accent-foreground px-8 py-4 rounded-md text-base font-semibold uppercase tracking-wide inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+              className="gradient-accent text-accent-foreground px-10 py-4 rounded-md text-base font-bold uppercase tracking-wider inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
             >
               <Settings className="h-5 w-5" />
               Configura questo Trattore

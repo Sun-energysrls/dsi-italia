@@ -11,9 +11,9 @@ const GammaTrattori = () => {
 
   return (
     <Layout>
-      <section className="py-16 lg:py-24 bg-muted/30">
+      <section className="py-20 lg:py-28 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
               Gamma Trattori DSI
             </h1>
@@ -23,12 +23,12 @@ const GammaTrattori = () => {
           </div>
 
           {/* Category filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
             <button
               onClick={() => setSearchParams({})}
               className={`px-5 py-2.5 rounded-md text-sm font-semibold uppercase tracking-wide transition-all ${
                 activeCategory === "all"
-                  ? "gradient-primary text-primary-foreground"
+                  ? "gradient-primary text-primary-foreground shadow-card"
                   : "bg-card text-foreground border border-border hover:border-secondary/50"
               }`}
             >
@@ -40,7 +40,7 @@ const GammaTrattori = () => {
                 onClick={() => setSearchParams({ categoria: cat.id })}
                 className={`px-5 py-2.5 rounded-md text-sm font-semibold uppercase tracking-wide transition-all ${
                   activeCategory === cat.id
-                    ? "gradient-primary text-primary-foreground"
+                    ? "gradient-primary text-primary-foreground shadow-card"
                     : "bg-card text-foreground border border-border hover:border-secondary/50"
                 }`}
               >
