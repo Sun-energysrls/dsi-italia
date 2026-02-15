@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Send, MessageCircle, CheckCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
-import { tractors } from "@/data/tractors";
+import { tractors, globalColorOptions } from "@/data/tractors";
 import { toast } from "sonner";
 
 const WHATSAPP_NUMBER = "393330000000"; // Replace with actual number
@@ -43,7 +43,7 @@ const Configuratore = () => {
   // Dynamic options based on selected model
   const transmissionOptions = selectedTractor?.transmissionOptions ?? [];
   const tractionOptions = selectedTractor?.tractionOptions ?? [];
-  const colorOptions = selectedTractor?.availableColors ?? [];
+  const colorOptions = globalColorOptions;
   const accessoryOptions = selectedTractor?.accessories ?? [];
 
   const handleModelChange = (newModel: string) => {
