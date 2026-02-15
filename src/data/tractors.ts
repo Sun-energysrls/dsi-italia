@@ -1,3 +1,19 @@
+export interface ColorOption {
+  name: string;
+  value: string;
+}
+
+export interface TechnicalSpecs {
+  cilindrata: string;
+  coppia: string;
+  normativa: string;
+  sollevatore: string;
+  pto: string;
+  serbatoio: string;
+  impianto_idraulico: string;
+  [key: string]: string;
+}
+
 export interface Tractor {
   id: string;
   name: string;
@@ -13,6 +29,10 @@ export interface Tractor {
   features: string[];
   accessories: string[];
   image: string;
+  transmissionOptions: string[];
+  tractionOptions: string[];
+  availableColors: ColorOption[];
+  fullTechnicalSpecs: TechnicalSpecs;
 }
 
 export const categories = [
@@ -36,8 +56,24 @@ export const tractors: Tractor[] = [
     weight: "12.500 kg",
     dimensions: "5.200 x 2.600 x 3.400 mm",
     features: ["Cabina premium climatizzata", "GPS integrato", "Sospensioni pneumatiche", "Monitor touchscreen", "Impianto idraulico potenziato"],
-    accessories: ["Rimorchio ribaltabile", "Aratro reversibile", "Zavorre frontali"],
+    accessories: ["Rimorchio ribaltabile", "Aratro reversibile", "Zavorre frontali", "Cabina climatizzata", "Impianto idraulico potenziato"],
     image: "tractor-large",
+    transmissionOptions: ["Powershift 24+24", "Powershift 20+20"],
+    tractionOptions: ["4WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Nero", value: "hsl(0, 0%, 11%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "7.400 cc",
+      coppia: "1.150 Nm",
+      normativa: "Stage V",
+      sollevatore: "10.000 kg",
+      pto: "540/1000 giri/min",
+      serbatoio: "450 L",
+      impianto_idraulico: "Load Sensing 200 L/min",
+    },
   },
   {
     id: "dsi-titan-240",
@@ -52,8 +88,24 @@ export const tractors: Tractor[] = [
     weight: "11.200 kg",
     dimensions: "5.000 x 2.550 x 3.300 mm",
     features: ["Cabina climatizzata", "Sollevatore posteriore 10.000 kg", "PTO 540/1000", "Sistema idraulico LS"],
-    accessories: ["Erpice rotante", "Seminatrice", "Zavorre"],
+    accessories: ["Erpice rotante", "Seminatrice", "Zavorre", "Cabina climatizzata", "Impianto idraulico potenziato"],
     image: "tractor-large",
+    transmissionOptions: ["Powershift 20+20", "Powershift 16+16"],
+    tractionOptions: ["4WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Nero", value: "hsl(0, 0%, 11%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "6.700 cc",
+      coppia: "980 Nm",
+      normativa: "Stage V",
+      sollevatore: "10.000 kg",
+      pto: "540/1000 giri/min",
+      serbatoio: "400 L",
+      impianto_idraulico: "Load Sensing 160 L/min",
+    },
   },
   {
     id: "dsi-forza-180",
@@ -68,8 +120,25 @@ export const tractors: Tractor[] = [
     weight: "7.800 kg",
     dimensions: "4.500 x 2.400 x 2.900 mm",
     features: ["Cabina comfort", "Inversore elettroidraulico", "Sollevatore 6.000 kg", "Aria condizionata"],
-    accessories: ["Caricatore frontale", "Rimorchio", "Attrezzatura per campo"],
+    accessories: ["Caricatore frontale", "Rimorchio", "Attrezzatura per campo", "Cabina climatizzata", "Zavorre"],
     image: "tractor-medium",
+    transmissionOptions: ["Sincronizzato 16+16", "Sincronizzato 12+12", "Powershift 16+16"],
+    tractionOptions: ["4WD", "2WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+      { name: "Blu", value: "hsl(220, 60%, 40%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "4.500 cc",
+      coppia: "720 Nm",
+      normativa: "Stage V",
+      sollevatore: "6.000 kg",
+      pto: "540/750/1000 giri/min",
+      serbatoio: "280 L",
+      impianto_idraulico: "Open center 90 L/min",
+    },
   },
   {
     id: "dsi-forza-150",
@@ -84,8 +153,25 @@ export const tractors: Tractor[] = [
     weight: "6.900 kg",
     dimensions: "4.300 x 2.350 x 2.800 mm",
     features: ["Cabina climatizzata", "PTO 540/750/1000", "Sollevatore 5.500 kg"],
-    accessories: ["Botte da diserbo", "Trinciasarmenti", "Rimorchio"],
+    accessories: ["Botte da diserbo", "Trinciasarmenti", "Rimorchio", "Cabina climatizzata", "Zavorre"],
     image: "tractor-medium",
+    transmissionOptions: ["Sincronizzato 12+12", "Manuale 8+8"],
+    tractionOptions: ["4WD", "2WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+      { name: "Nero", value: "hsl(0, 0%, 11%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "4.500 cc",
+      coppia: "620 Nm",
+      normativa: "Stage V",
+      sollevatore: "5.500 kg",
+      pto: "540/750/1000 giri/min",
+      serbatoio: "220 L",
+      impianto_idraulico: "Open center 80 L/min",
+    },
   },
   {
     id: "dsi-campo-90",
@@ -100,8 +186,26 @@ export const tractors: Tractor[] = [
     weight: "4.200 kg",
     dimensions: "3.900 x 2.100 x 2.600 mm",
     features: ["Sterzo idrostatico", "Raggio di volta ridotto", "Cabina con tetto apribile"],
-    accessories: ["Atomizzatore", "Tagliaerba", "Caricatore frontale"],
+    accessories: ["Atomizzatore", "Tagliaerba", "Caricatore frontale", "Zavorre", "Cabina climatizzata"],
     image: "tractor-small",
+    transmissionOptions: ["Sincronizzato 12+12", "Manuale 8+8"],
+    tractionOptions: ["4WD", "2WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+      { name: "Blu", value: "hsl(220, 60%, 40%)" },
+      { name: "Nero", value: "hsl(0, 0%, 11%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "3.300 cc",
+      coppia: "380 Nm",
+      normativa: "Stage V",
+      sollevatore: "3.500 kg",
+      pto: "540/750 giri/min",
+      serbatoio: "120 L",
+      impianto_idraulico: "Open center 60 L/min",
+    },
   },
   {
     id: "dsi-campo-75",
@@ -116,8 +220,25 @@ export const tractors: Tractor[] = [
     weight: "3.600 kg",
     dimensions: "3.700 x 1.950 x 2.500 mm",
     features: ["Design compatto", "Presa di forza indipendente", "Freni a disco in bagno d'olio"],
-    accessories: ["Fresa", "Rimorchio leggero", "Lama sgombraneve"],
+    accessories: ["Fresa", "Rimorchio leggero", "Lama sgombraneve", "Zavorre"],
     image: "tractor-small",
+    transmissionOptions: ["Manuale 8+8", "Sincronizzato 8+8"],
+    tractionOptions: ["4WD", "2WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+      { name: "Nero", value: "hsl(0, 0%, 11%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "2.900 cc",
+      coppia: "310 Nm",
+      normativa: "Stage V",
+      sollevatore: "2.800 kg",
+      pto: "540 giri/min",
+      serbatoio: "90 L",
+      impianto_idraulico: "Open center 50 L/min",
+    },
   },
   {
     id: "dsi-agile-45",
@@ -132,8 +253,24 @@ export const tractors: Tractor[] = [
     weight: "1.800 kg",
     dimensions: "3.200 x 1.600 x 2.300 mm",
     features: ["Ultra compatto", "Servosterzo", "Presa di forza posteriore e centrale"],
-    accessories: ["Tagliaerba", "Benna", "Rimorchietto"],
+    accessories: ["Tagliaerba", "Benna", "Rimorchietto", "Fresa"],
     image: "tractor-compact",
+    transmissionOptions: ["Manuale 8+8", "Manuale 6+2"],
+    tractionOptions: ["4WD", "2WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Rosso", value: "hsl(0, 70%, 45%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "1.500 cc",
+      coppia: "180 Nm",
+      normativa: "Stage V",
+      sollevatore: "1.500 kg",
+      pto: "540 giri/min",
+      serbatoio: "50 L",
+      impianto_idraulico: "Open center 35 L/min",
+    },
   },
   {
     id: "dsi-agile-30",
@@ -148,8 +285,23 @@ export const tractors: Tractor[] = [
     weight: "1.400 kg",
     dimensions: "2.900 x 1.450 x 2.200 mm",
     features: ["Leggerissimo", "Facile da manovrare", "Manutenzione semplificata"],
-    accessories: ["Fresa piccola", "Carrello", "Lama"],
+    accessories: ["Fresa piccola", "Carrello", "Lama", "Tagliaerba"],
     image: "tractor-compact",
+    transmissionOptions: ["Manuale 6+2"],
+    tractionOptions: ["2WD", "4WD"],
+    availableColors: [
+      { name: "Verde", value: "hsl(156, 32%, 17%)" },
+      { name: "Arancione", value: "hsl(27, 82%, 52%)" },
+    ],
+    fullTechnicalSpecs: {
+      cilindrata: "1.100 cc",
+      coppia: "120 Nm",
+      normativa: "Stage V",
+      sollevatore: "900 kg",
+      pto: "540 giri/min",
+      serbatoio: "35 L",
+      impianto_idraulico: "Open center 25 L/min",
+    },
   },
 ];
 
