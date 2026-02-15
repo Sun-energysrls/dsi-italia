@@ -19,31 +19,31 @@ const Index = () => {
       {/* Hero */}
       <section className="relative min-h-[85vh] flex items-center">
         <img src={heroImage} alt="Trattore in campo" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="relative container mx-auto px-4 lg:px-8 py-28">
-          <div className="max-w-3xl">
-            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-4 animate-fade-in-up">
-              DSI — For Industry & Agriculture
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsla(156,32%,6%,0.93)] via-[hsla(156,32%,10%,0.82)] to-[hsla(156,32%,16%,0.65)]" />
+        <div className="relative container mx-auto px-4 lg:px-8 py-36 lg:py-44">
+          <div className="max-w-2xl">
+            <p className="text-secondary/90 font-semibold text-[11px] uppercase tracking-[0.35em] mb-6 animate-fade-in-up">
+              DSI Import — Industry & Agriculture
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-primary-foreground leading-[1.08] mb-6 uppercase tracking-tight animate-fade-in-up">
-              Trattori Professionali per l'Agricoltura Moderna
+            <h1 className="text-3xl md:text-[2.5rem] lg:text-[2.85rem] font-display font-bold text-primary-foreground leading-[1.25] mb-8 animate-fade-in-up">
+              Macchine agricole d'élite per aziende ad alte prestazioni
             </h1>
-            <p className="text-base md:text-lg text-primary-foreground/70 mb-12 leading-relaxed max-w-xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
-              Importazione diretta, configurazione personalizzata e soluzioni complete per aziende agricole professionali
+            <p className="text-sm md:text-base text-primary-foreground/60 mb-14 leading-[1.8] max-w-lg animate-fade-in-up font-light" style={{ animationDelay: "0.15s" }}>
+              Importazione diretta, configurazione su misura e soluzioni professionali per imprese agricole strutturate.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <Link
-                to="/trattori"
-                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
-              >
-                Scopri i Modelli
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
                 to="/configuratore"
-                className="border-2 border-primary-foreground/25 text-primary-foreground px-10 py-4 rounded-sm text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-primary-foreground/10 transition-colors"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-sm font-bold uppercase tracking-[0.2em] inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 Configura il tuo Trattore
+              </Link>
+              <Link
+                to="/trattori"
+                className="border border-primary-foreground/20 text-primary-foreground/80 px-10 py-4 rounded-sm text-sm font-medium uppercase tracking-[0.2em] inline-flex items-center justify-center gap-2 hover:bg-primary-foreground/5 hover:text-primary-foreground transition-all"
+              >
+                Esplora i Modelli
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
