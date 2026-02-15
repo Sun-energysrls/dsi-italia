@@ -1,27 +1,12 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, MessageCircle, CheckCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import { toast } from "sonner";
 
-const transmissionOptions = ["Manuale", "Sincronizzato", "Powershift"];
-const tractionOptions = ["2WD", "4WD"];
-const colorOptions = [
-  { name: "Verde", value: "hsl(156, 32%, 17%)" },
-  { name: "Rosso", value: "hsl(0, 70%, 45%)" },
-  { name: "Arancione", value: "hsl(27, 82%, 52%)" },
-  { name: "Blu", value: "hsl(220, 60%, 40%)" },
-  { name: "Nero", value: "hsl(0, 0%, 11%)" },
-];
-const accessoryOptions = [
-  "Rimorchio",
-  "Attrezzatura agricola",
-  "Cabina climatizzata",
-  "Zavorre",
-  "Impianto idraulico potenziato",
-];
+const WHATSAPP_NUMBER = "393330000000"; // Replace with actual number
 
 const SectionLabel = ({ number, title }: { number: string; title: string }) => (
   <div className="flex items-center gap-3 mb-5">
@@ -55,11 +40,51 @@ const Configuratore = () => {
 
   const selectedTractor = tractors.find((t) => t.id === model);
 
+  // Dynamic options based on selected model
+  const transmissionOptions = selectedTractor?.transmissionOptions ?? [];
+  const tractionOptions = selectedTractor?.tractionOptions ?? [];
+  const colorOptions = selectedTractor?.availableColors ?? [];
+  const accessoryOptions = selectedTractor?.accessories ?? [];
+
+  const handleModelChange = (newModel: string) => {
+    setModel(newModel);
+    setPower("");
+    setTransmission("");
+    setColor("");
+    setTraction("");
+    setAccessories([]);
+  };
+
   const toggleAccessory = (acc: string) => {
     setAccessories((prev) => prev.includes(acc) ? prev.filter((a) => a !== acc) : [...prev, acc]);
   };
 
   const canProceed = model && transmission && traction && color && name && email && phone && gdpr;
+
+  const buildSummaryText = () => {
+    const lines = [
+      `Modello: ${selectedTractor?.name || model}`,
+      `Potenza: ${power ? `${power} HP` : "Standard"}`,
+      `Cambio: ${transmission}`,
+      `Colore: ${color}`,
+      `Trazione: ${traction}`,
+      `Accessori: ${accessories.length > 0 ? accessories.join(", ") : "Nessuno"}`,
+      `Quantità: ${quantity}`,
+      `---`,
+      `Nome: ${name}`,
+      company ? `Azienda: ${company}` : "",
+      `Email: ${email}`,
+      `Telefono: ${phone}`,
+      hectares ? `Ettari: ${hectares}` : "",
+      message ? `Messaggio: ${message}` : "",
+    ].filter(Boolean);
+    return lines.join("\n");
+  };
+
+  const whatsappUrl = () => {
+    const text = encodeURIComponent(`Richiesta Preventivo DSI\n\n${buildSummaryText()}`);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  };
 
   const handleSubmit = () => {
     toast.success("Richiesta inviata con successo! Vi contatteremo al più presto.");
@@ -109,12 +134,12 @@ const Configuratore = () => {
             <AnimatedSection>
               <div className="bg-card border border-border p-6 lg:p-10 shadow-card space-y-10">
                 
-                {/* Step 1: Vehicle */}
+                {/* Step 1: Model */}
                 <div>
                   <SectionLabel number="1" title="Scegli il Modello" />
                   <select
                     value={model}
-                    onChange={(e) => { setModel(e.target.value); setPower(""); }}
+                    onChange={(e) => handleModelChange(e.target.value)}
                     className="w-full border border-input px-4 py-3 bg-background text-foreground text-sm focus:ring-2 focus:ring-ring focus:outline-none"
                   >
                     <option value="">Seleziona un modello</option>
@@ -140,93 +165,101 @@ const Configuratore = () => {
 
                 <div className="section-divider" />
 
-                {/* Step 2: Configuration */}
-                <div>
-                  <SectionLabel number="2" title="Configurazione Tecnica" />
-
-                  <div className="space-y-6">
-                    {/* Transmission */}
-                    <div>
-                      <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Tipo cambio *</label>
-                      <div className="flex flex-wrap gap-3">
-                        {transmissionOptions.map((t) => (
-                          <label key={t} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${transmission === t ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
-                            <input type="radio" name="transmission" value={t} className="sr-only" onChange={() => setTransmission(t)} checked={transmission === t} />
-                            {t}
-                          </label>
-                        ))}
+                {/* Step 2: Configuration - only show when model selected */}
+                {selectedTractor ? (
+                  <div>
+                    <SectionLabel number="2" title="Configurazione Tecnica" />
+                    <div className="space-y-6">
+                      {/* Transmission */}
+                      <div>
+                        <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Tipo cambio *</label>
+                        <div className="flex flex-wrap gap-3">
+                          {transmissionOptions.map((t) => (
+                            <label key={t} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${transmission === t ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
+                              <input type="radio" name="transmission" value={t} className="sr-only" onChange={() => setTransmission(t)} checked={transmission === t} />
+                              {t}
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Color swatches */}
-                    <div>
-                      <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Colore *</label>
-                      <div className="flex flex-wrap gap-4">
-                        {colorOptions.map((c) => (
-                          <button
-                            key={c.name}
-                            type="button"
-                            onClick={() => setColor(c.name)}
-                            className="flex flex-col items-center gap-1.5 group"
-                            title={c.name}
-                          >
-                            <span
-                              className={`w-10 h-10 rounded-full border-2 transition-all ${color === c.name ? "border-secondary ring-2 ring-secondary/30 scale-110" : "border-border group-hover:border-secondary/50"}`}
-                              style={{ backgroundColor: c.value }}
-                            />
-                            <span className={`text-xs font-medium ${color === c.name ? "text-secondary" : "text-muted-foreground"}`}>
-                              {c.name}
-                            </span>
-                          </button>
-                        ))}
+                      {/* Color swatches */}
+                      <div>
+                        <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Colore *</label>
+                        <div className="flex flex-wrap gap-4">
+                          {colorOptions.map((c) => (
+                            <button
+                              key={c.name}
+                              type="button"
+                              onClick={() => setColor(c.name)}
+                              className="flex flex-col items-center gap-1.5 group"
+                              title={c.name}
+                            >
+                              <span
+                                className={`w-10 h-10 rounded-full border-2 transition-all ${color === c.name ? "border-secondary ring-2 ring-secondary/30 scale-110" : "border-border group-hover:border-secondary/50"}`}
+                                style={{ backgroundColor: c.value }}
+                              />
+                              <span className={`text-xs font-medium ${color === c.name ? "text-secondary" : "text-muted-foreground"}`}>
+                                {c.name}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Traction */}
-                    <div>
-                      <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Trazione *</label>
-                      <div className="flex gap-3">
-                        {tractionOptions.map((t) => (
-                          <label key={t} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${traction === t ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
-                            <input type="radio" name="traction" value={t} className="sr-only" onChange={() => setTraction(t)} checked={traction === t} />
-                            {t}
-                          </label>
-                        ))}
+                      {/* Traction */}
+                      <div>
+                        <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Trazione *</label>
+                        <div className="flex gap-3">
+                          {tractionOptions.map((t) => (
+                            <label key={t} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${traction === t ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
+                              <input type="radio" name="traction" value={t} className="sr-only" onChange={() => setTraction(t)} checked={traction === t} />
+                              {t}
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div>
+                    <SectionLabel number="2" title="Configurazione Tecnica" />
+                    <p className="text-muted-foreground text-sm">Seleziona un modello per visualizzare le opzioni disponibili.</p>
+                  </div>
+                )}
 
                 <div className="section-divider" />
 
                 {/* Step 3: Accessories */}
                 <div>
                   <SectionLabel number="3" title="Accessori e Quantità" />
-
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Accessori opzionali</label>
-                      <div className="flex flex-wrap gap-3">
-                        {accessoryOptions.map((acc) => (
-                          <label key={acc} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${accessories.includes(acc) ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
-                            <input type="checkbox" className="sr-only" checked={accessories.includes(acc)} onChange={() => toggleAccessory(acc)} />
-                            {acc}
-                          </label>
-                        ))}
+                  {selectedTractor ? (
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Accessori opzionali</label>
+                        <div className="flex flex-wrap gap-3">
+                          {accessoryOptions.map((acc) => (
+                            <label key={acc} className={`cursor-pointer px-4 py-2 border text-sm font-medium transition-all ${accessories.includes(acc) ? "border-secondary bg-secondary/10 text-secondary" : "border-border text-foreground hover:border-secondary/50"}`}>
+                              <input type="checkbox" className="sr-only" checked={accessories.includes(acc)} onChange={() => toggleAccessory(acc)} />
+                              {acc}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Quantità</label>
+                        <input
+                          type="number"
+                          min="1"
+                          value={quantity}
+                          onChange={(e) => setQuantity(e.target.value)}
+                          className="w-24 border border-input px-4 py-3 bg-background text-foreground text-sm focus:ring-2 focus:ring-ring focus:outline-none"
+                        />
                       </div>
                     </div>
-
-                    <div>
-                      <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Quantità</label>
-                      <input
-                        type="number"
-                        min="1"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        className="w-24 border border-input px-4 py-3 bg-background text-foreground text-sm focus:ring-2 focus:ring-ring focus:outline-none"
-                      />
-                    </div>
-                  </div>
+                  ) : (
+                    <p className="text-muted-foreground text-sm">Seleziona un modello per visualizzare gli accessori disponibili.</p>
+                  )}
                 </div>
 
                 <div className="section-divider" />
@@ -234,7 +267,6 @@ const Configuratore = () => {
                 {/* Step 4: Customer data */}
                 <div>
                   <SectionLabel number="4" title="I Tuoi Dati" />
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[
                       { label: "Nome e Cognome *", value: name, setter: setName, placeholder: "Mario Rossi" },
@@ -329,8 +361,17 @@ const Configuratore = () => {
                     className="flex-1 gradient-accent text-accent-foreground py-4 font-black uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated text-base"
                   >
                     <Send className="h-4 w-4" />
-                    Richiedi Preventivo Personalizzato
+                    Invia via Email
                   </button>
+                  <a
+                    href={whatsappUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-[hsl(142,70%,35%)] text-white py-4 font-black uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated text-base"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    WhatsApp
+                  </a>
                 </div>
               </div>
             </AnimatedSection>

@@ -30,7 +30,17 @@ const SchedaProdotto = () => {
     );
   }
 
-  const specs = [
+  const specLabels: Record<string, string> = {
+    cilindrata: "Cilindrata",
+    coppia: "Coppia max",
+    normativa: "Normativa emissioni",
+    sollevatore: "Capacità sollevatore",
+    pto: "PTO",
+    serbatoio: "Serbatoio",
+    impianto_idraulico: "Impianto idraulico",
+  };
+
+  const baseSpecs = [
     { label: "Potenza", value: `${tractor.hp} HP` },
     { label: "Tipo motore", value: tractor.engine },
     { label: "Tipo cambio", value: tractor.transmission },
@@ -38,6 +48,13 @@ const SchedaProdotto = () => {
     { label: "Peso", value: tractor.weight },
     { label: "Dimensioni", value: tractor.dimensions },
   ];
+
+  const fullSpecs = Object.entries(tractor.fullTechnicalSpecs).map(([key, value]) => ({
+    label: specLabels[key] || key,
+    value,
+  }));
+
+  const specs = [...baseSpecs, ...fullSpecs];
 
   return (
     <Layout>
