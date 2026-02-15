@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import TractorCard from "@/components/TractorCard";
+import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, getTractorsByCategory } from "@/data/tractors";
 
 const GammaTrattori = () => {
@@ -11,25 +12,25 @@ const GammaTrattori = () => {
 
   return (
     <Layout>
-      <section className="py-20 lg:py-28 bg-muted/30">
+      <section className="section-dark py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
+          <AnimatedSection className="text-center mb-14">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">
               Gamma Trattori DSI
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-[hsl(120,10%,55%)] text-lg max-w-2xl mx-auto">
               Scopri la nostra gamma completa di trattori professionali, suddivisi per fascia di potenza.
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Category filter */}
           <div className="flex flex-wrap justify-center gap-3 mb-14">
             <button
               onClick={() => setSearchParams({})}
-              className={`px-5 py-2.5 rounded-md text-sm font-semibold uppercase tracking-wide transition-all ${
+              className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
                 activeCategory === "all"
-                  ? "gradient-primary text-primary-foreground shadow-card"
-                  : "bg-card text-foreground border border-border hover:border-secondary/50"
+                  ? "gradient-accent text-accent-foreground shadow-card"
+                  : "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"
               }`}
             >
               Tutti
@@ -38,20 +39,26 @@ const GammaTrattori = () => {
               <button
                 key={cat.id}
                 onClick={() => setSearchParams({ categoria: cat.id })}
-                className={`px-5 py-2.5 rounded-md text-sm font-semibold uppercase tracking-wide transition-all ${
+                className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
                   activeCategory === cat.id
-                    ? "gradient-primary text-primary-foreground shadow-card"
-                    : "bg-card text-foreground border border-border hover:border-secondary/50"
+                    ? "gradient-accent text-accent-foreground shadow-card"
+                    : "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"
                 }`}
               >
                 {cat.label}
               </button>
             ))}
           </div>
+        </div>
+      </section>
 
+      <section className="py-20 lg:py-28 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTractors.map((t) => (
-              <TractorCard key={t.id} tractor={t} />
+            {filteredTractors.map((t, i) => (
+              <AnimatedSection key={t.id} delay={i * 0.06}>
+                <TractorCard tractor={t} />
+              </AnimatedSection>
             ))}
           </div>
 

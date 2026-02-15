@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { Settings, CheckCircle, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
+import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { getTractorById } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -41,29 +42,31 @@ const SchedaProdotto = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-muted/30">
+      <section className="section-dark">
         <div className="container mx-auto px-4 lg:px-8 py-8">
-          <Link to="/trattori" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm mb-6 transition-colors">
+          <Link to="/trattori" className="inline-flex items-center gap-2 text-[hsl(120,10%,55%)] hover:text-[hsl(40,100%,97%)] text-sm mb-6 transition-colors">
             <ArrowLeft className="h-4 w-4" /> Torna alla gamma
           </Link>
         </div>
         <div className="container mx-auto px-4 lg:px-8 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="rounded-lg overflow-hidden shadow-elevated group">
-              <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
-            </div>
-            <div>
-              <span className="text-secondary font-semibold text-sm uppercase tracking-[0.15em]">{tractor.hpRange}</span>
-              <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mt-2 mb-4">{tractor.name}</h1>
-              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
+            <AnimatedSection>
+              <div className="overflow-hidden shadow-elevated group">
+                <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.15}>
+              <span className="text-secondary font-bold text-xs uppercase tracking-[0.2em]">{tractor.hpRange}</span>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mt-2 mb-4 uppercase tracking-tight">{tractor.name}</h1>
+              <p className="text-[hsl(120,10%,55%)] text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
               <Link
                 to={`/configuratore?modello=${tractor.id}`}
-                className="gradient-accent text-accent-foreground px-10 py-4 rounded-md text-base font-bold uppercase tracking-wider inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 <Settings className="h-5 w-5" />
                 Configura questo Trattore
               </Link>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -71,32 +74,38 @@ const SchedaProdotto = () => {
       {/* Specs */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Specifiche Tecniche</h2>
-          <div className="bg-card rounded-lg border border-border overflow-hidden shadow-card">
-            <table className="w-full">
-              <tbody>
-                {specs.map((spec, i) => (
-                  <tr key={spec.label} className={i % 2 === 0 ? "bg-muted/30" : ""}>
-                    <td className="px-6 py-4 font-semibold text-foreground text-sm w-1/3">{spec.label}</td>
-                    <td className="px-6 py-4 text-muted-foreground text-sm">{spec.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <AnimatedSection>
+            <h2 className="text-2xl md:text-3xl font-display font-black text-foreground mb-8 uppercase tracking-tight">Specifiche Tecniche</h2>
+            <div className="bg-card border border-border overflow-hidden shadow-card">
+              <table className="w-full">
+                <tbody>
+                  {specs.map((spec, i) => (
+                    <tr key={spec.label} className={i % 2 === 0 ? "bg-muted/30" : ""}>
+                      <td className="px-6 py-4 font-bold text-foreground text-sm w-1/3 uppercase tracking-wide">{spec.label}</td>
+                      <td className="px-6 py-4 text-muted-foreground text-sm">{spec.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 lg:py-28 bg-muted/30">
+      <section className="section-dark py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Caratteristiche Principali</h2>
+          <AnimatedSection>
+            <h2 className="text-2xl md:text-3xl font-display font-black mb-8 uppercase tracking-tight">Caratteristiche Principali</h2>
+          </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tractor.features.map((f) => (
-              <div key={f} className="flex items-center gap-3 bg-card p-4 rounded-lg border border-border shadow-card">
-                <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
-                <span className="text-foreground text-sm font-medium">{f}</span>
-              </div>
+            {tractor.features.map((f, i) => (
+              <AnimatedSection key={f} delay={i * 0.05}>
+                <div className="flex items-center gap-3 bg-[hsl(156,32%,14%)] p-4 border border-[hsl(156,20%,20%)]">
+                  <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
+                  <span className="text-sm font-medium">{f}</span>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -105,21 +114,23 @@ const SchedaProdotto = () => {
       {/* Accessories */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">Accessori Disponibili</h2>
-          <div className="flex flex-wrap gap-3">
-            {tractor.accessories.map((a) => (
-              <span key={a} className="bg-muted text-foreground px-4 py-2 rounded-md text-sm font-medium">{a}</span>
-            ))}
-          </div>
-          <div className="mt-14">
-            <Link
-              to={`/configuratore?modello=${tractor.id}`}
-              className="gradient-accent text-accent-foreground px-10 py-4 rounded-md text-base font-bold uppercase tracking-wider inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
-            >
-              <Settings className="h-5 w-5" />
-              Configura questo Trattore
-            </Link>
-          </div>
+          <AnimatedSection>
+            <h2 className="text-2xl md:text-3xl font-display font-black text-foreground mb-8 uppercase tracking-tight">Accessori Disponibili</h2>
+            <div className="flex flex-wrap gap-3">
+              {tractor.accessories.map((a) => (
+                <span key={a} className="bg-muted text-foreground px-4 py-2 text-sm font-medium border border-border">{a}</span>
+              ))}
+            </div>
+            <div className="mt-14">
+              <Link
+                to={`/configuratore?modello=${tractor.id}`}
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
+              >
+                <Settings className="h-5 w-5" />
+                Configura questo Trattore
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </Layout>
