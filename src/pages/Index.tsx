@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative min-h-[92vh] flex items-center">
+      <section className="relative min-h-[85vh] flex items-center">
         <img src={heroImage} alt="Trattore in campo" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative container mx-auto px-4 lg:px-8 py-28">
@@ -25,10 +25,10 @@ const Index = () => {
             <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-4 animate-fade-in-up">
               DSI — For Industry & Agriculture
             </p>
-            <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-black text-primary-foreground leading-[1.02] mb-6 uppercase tracking-tight animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-primary-foreground leading-[1.08] mb-6 uppercase tracking-tight animate-fade-in-up">
               Trattori Professionali per l'Agricoltura Moderna
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/70 mb-14 leading-relaxed max-w-2xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
+            <p className="text-base md:text-lg text-primary-foreground/70 mb-12 leading-relaxed max-w-xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
               Importazione diretta, configurazione personalizzata e soluzioni complete per aziende agricole professionali
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
