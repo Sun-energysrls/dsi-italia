@@ -28,49 +28,49 @@ const GammaTrattori = () => {
             <button
               onClick={() => setSearchParams({})}
               className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
-              activeCategory === "all" ?
-              "gradient-accent text-accent-foreground shadow-card" :
-              "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"}`
-              }>
-
+                activeCategory === "all"
+                  ? "gradient-accent text-accent-foreground shadow-card"
+                  : "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"
+              }`}
+            >
               Tutti
             </button>
-            {categories.map((cat) =>
-            <button
-              key={cat.id}
-              onClick={() => setSearchParams({ categoria: cat.id })}
-              className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
-              activeCategory === cat.id ?
-              "gradient-accent text-accent-foreground shadow-card" :
-              "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"}`
-              }>
-
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSearchParams({ categoria: cat.id })}
+                className={`px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-all ${
+                  activeCategory === cat.id
+                    ? "gradient-accent text-accent-foreground shadow-card"
+                    : "bg-[hsl(156,32%,14%)] text-[hsl(40,100%,97%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50"
+                }`}
+              >
                 {cat.label}
               </button>
-            )}
+            ))}
           </div>
         </div>
       </section>
 
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredTractors.map((t, i) => (
+              <AnimatedSection key={t.id} delay={i * 0.06}>
+                <TractorCard tractor={t} />
+              </AnimatedSection>
+            ))}
+          </div>
 
-
-
-
-
-
-
-          {filteredTractors.length === 0 &&
-          <p className="text-center text-muted-foreground text-lg mt-12">
+          {filteredTractors.length === 0 && (
+            <p className="text-center text-muted-foreground text-lg mt-12">
               Nessun trattore trovato per questa categoria.
             </p>
-          }
+          )}
         </div>
       </section>
-    </Layout>);
-
+    </Layout>
+  );
 };
 
 export default GammaTrattori;
