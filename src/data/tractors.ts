@@ -25,7 +25,7 @@ export const categories = [
 export const tractors: Tractor[] = [
   {
     id: "dsi-titan-280",
-    name: "SD SD 2604 - Series AUMAHR",
+    name: "SD 2604 - Series AUMAHR",
     category: "oltre-200",
     hp: 280,
     hpRange: "Oltre 200 HP",
