@@ -28,15 +28,18 @@ export interface Tractor {
   image: string;
   transmissionOptions: string[];
   tractionOptions: string[];
-  availableColors: ColorOption[];
+  
   fullTechnicalSpecs: TechnicalSpecs;
 }
 
-const colorMap: Record<string, string> = {
-  "Verde DSI": "hsl(156, 32%, 17%)",
-  "Nero Industrial": "hsl(0, 0%, 11%)",
-  "Rosso Agricolo": "hsl(0, 70%, 45%)",
-};
+export const globalColorOptions: ColorOption[] = [
+  { name: "Verde DSI", value: "hsl(156, 32%, 17%)" },
+  { name: "Nero Industrial", value: "hsl(0, 0%, 11%)" },
+  { name: "Rosso Agricolo", value: "hsl(0, 70%, 45%)" },
+  { name: "Grigio Titanio", value: "hsl(0, 0%, 40%)" },
+  { name: "Blu Tecnico", value: "hsl(210, 60%, 35%)" },
+  { name: "Bianco Premium", value: "hsl(0, 0%, 95%)" },
+];
 
 export const categories = [
   { id: "large", label: "Alta Potenza", description: "Oltre 160 HP per grandi aziende agricole" },
@@ -67,10 +70,8 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Power Shift", "CVT"],
     tractionOptions: ["4WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-      { name: "Nero Industrial", value: colorMap["Nero Industrial"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "191 kW",
       cilindrata: "6 cilindri turbo intercooler",
@@ -99,10 +100,8 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Power Shift"],
     tractionOptions: ["4WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-      { name: "Nero Industrial", value: colorMap["Nero Industrial"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "162 kW",
       cilindrata: "6 cilindri turbo",
@@ -131,10 +130,8 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Manuale sincronizzata"],
     tractionOptions: ["4WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-      { name: "Nero Industrial", value: colorMap["Nero Industrial"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "132 kW",
       cilindrata: "6 cilindri",
@@ -163,10 +160,8 @@ export const tractors: Tractor[] = [
     image: "tractor-medium",
     transmissionOptions: ["Manuale sincronizzata"],
     tractionOptions: ["4WD", "2WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-      { name: "Rosso Agricolo", value: colorMap["Rosso Agricolo"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "118 kW",
       cilindrata: "4 cilindri turbo",
@@ -195,9 +190,8 @@ export const tractors: Tractor[] = [
     image: "tractor-compact",
     transmissionOptions: ["Manuale"],
     tractionOptions: ["4WD", "2WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "66 kW",
       cilindrata: "4 cilindri",
@@ -226,9 +220,8 @@ export const tractors: Tractor[] = [
     image: "tractor-compact",
     transmissionOptions: ["Manuale"],
     tractionOptions: ["4WD", "2WD"],
-    availableColors: [
-      { name: "Verde DSI", value: colorMap["Verde DSI"] },
-    ],
+
+
     fullTechnicalSpecs: {
       potenza_kw: "37 kW",
       cilindrata: "3 cilindri",
