@@ -25,7 +25,7 @@ const Index = () => {
             <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-4 animate-fade-in-up">
               DSI — For Industry & Agriculture
             </p>
-            <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-black text-primary-foreground leading-[1.02] mb-6 uppercase tracking-tight animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-primary-foreground leading-[1.08] mb-6 uppercase tracking-tight animate-fade-in-up">
               Trattori Professionali per l'Agricoltura Moderna
             </h1>
             <p className="text-lg md:text-xl text-primary-foreground/70 mb-14 leading-relaxed max-w-2xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
