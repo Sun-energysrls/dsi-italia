@@ -25,6 +25,7 @@ const TractorCard = ({ tractor }: { tractor: Tractor }) => {
         />
       </div>
       <div className="p-6">
+        <span className="text-secondary font-bold text-xs uppercase tracking-widest mb-1 block">{tractor.category}</span>
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-display text-xl font-bold text-foreground">{tractor.name}</h3>
           <span className="text-secondary font-black text-lg">{tractor.hp} HP</span>
