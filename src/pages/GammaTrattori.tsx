@@ -15,7 +15,7 @@ const GammaTrattori = () => {
       <section className="section-dark py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">
               Gamma Trattori DSI
             </h1>
             <p className="text-[hsl(120,10%,55%)] text-lg max-w-2xl mx-auto">

@@ -17,33 +17,33 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center">
+      <section className="relative min-h-[92vh] flex items-center">
         <img src={heroImage} alt="Trattore in campo" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="relative container mx-auto px-4 lg:px-8 py-32">
+        <div className="relative container mx-auto px-4 lg:px-8 py-28">
           <div className="max-w-3xl">
-            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-5 animate-fade-in-up">
-              DSI Import — Industry & Agriculture
+            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-4 animate-fade-in-up">
+              DSI — For Industry & Agriculture
             </p>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-primary-foreground leading-[1.15] mb-7 uppercase tracking-tight animate-fade-in-up">
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-black text-primary-foreground leading-[1.02] mb-6 uppercase tracking-tight animate-fade-in-up">
               Trattori Professionali per l'Agricoltura Moderna
             </h1>
-            <p className="text-base md:text-lg text-primary-foreground/85 mb-12 leading-relaxed max-w-xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
+            <p className="text-lg md:text-xl text-primary-foreground/70 mb-14 leading-relaxed max-w-2xl animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
               Importazione diretta, configurazione personalizzata e soluzioni complete per aziende agricole professionali
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <Link
-                to="/configuratore"
-                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
-              >
-                Configura il tuo Trattore
-              </Link>
-              <Link
                 to="/trattori"
-                className="border-2 border-primary-foreground/25 text-primary-foreground px-10 py-4 rounded-sm text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-primary-foreground/10 transition-colors"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 Scopri i Modelli
                 <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                to="/configuratore"
+                className="border-2 border-primary-foreground/25 text-primary-foreground px-10 py-4 rounded-sm text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-primary-foreground/10 transition-colors"
+              >
+                Configura il tuo Trattore
               </Link>
             </div>
           </div>
