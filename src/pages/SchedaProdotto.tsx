@@ -73,7 +73,7 @@ const SchedaProdotto = () => {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
-              <span className="text-secondary font-bold text-xs uppercase tracking-[0.2em]">{tractor.hpRange}</span>
+              <span className="text-secondary font-bold text-xs uppercase tracking-[0.2em]">{tractor.category} — {tractor.hpRange}</span>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mt-2 mb-4 uppercase tracking-tight">{tractor.name}</h1>
               <p className="text-[hsl(120,10%,55%)] text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
               <Link

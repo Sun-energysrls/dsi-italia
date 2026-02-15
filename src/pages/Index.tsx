@@ -8,10 +8,11 @@ import { categories, tractors } from "@/data/tractors";
 
 const Index = () => {
   const featuredTractors = [
-  tractors.find((t) => t.id === "dsi-titan-280")!,
-  tractors.find((t) => t.id === "dsi-forza-180")!,
-  tractors.find((t) => t.id === "dsi-campo-90")!,
-  tractors.find((t) => t.id === "dsi-agile-45")!];
+    tractors.find((t) => t.id === "sd2604"),
+    tractors.find((t) => t.id === "sd1604"),
+    tractors.find((t) => t.id === "sd904"),
+    tractors.find((t) => t.id === "sd504g"),
+  ].filter(Boolean) as typeof tractors;
 
 
   return (
@@ -90,7 +91,7 @@ const Index = () => {
             </h2>
             <p className="text-[hsl(120,10%,55%)] text-lg">Trattori per ogni fascia di potenza</p>
           </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {categories.map((cat, i) =>
             <AnimatedSection key={cat.id} delay={i * 0.08}>
                 <Link
