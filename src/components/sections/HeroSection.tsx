@@ -83,7 +83,7 @@ const HeroSection = () => {
           </Link>
           <Link
             to="/configuratore"
-            className="border-2 border-white/30 text-white px-10 py-4 rounded-full text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+            className="border-2 border-white/30 text-white px-10 py-4 rounded-[6px] text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
           >
             Configura il tuo trattore
           </Link>
