@@ -76,7 +76,7 @@ const HeroSection = () => {
         >
           <Link
             to="/trattori"
-            className="gradient-accent text-accent-foreground px-10 py-4 rounded-full text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
+            className="gradient-accent text-accent-foreground px-10 py-4 rounded-[6px] text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
           >
             Scopri i modelli
             <ArrowRight className="h-5 w-5" />
