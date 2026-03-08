@@ -18,30 +18,39 @@ const HeroSection = () => {
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Minimal overlay for text readability only */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.03) 40%, rgba(0,0,0,0.15) 100%)' }} />
-
-      {/* Bottom-right patch to cover Runway watermark */}
+      {/* Dark cinematic overlay */}
       <div
-        className="absolute bottom-0 right-0 w-48 h-16 z-10"
-        style={{ background: 'linear-gradient(to left, rgba(30,20,10,0.85) 0%, transparent 100%)' }}
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.55) 100%)",
+        }}
       />
 
-      <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-20">
+      {/* Decorative Chinese watermark behind text */}
+      <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none select-none">
+        <span
+          className="text-[12rem] md:text-[18rem] lg:text-[24rem] font-thin leading-none"
+          style={{ color: "rgba(255,255,255,0.08)" }}
+        >
+          载新
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
         <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-6 animate-fade-in-up">
           DSI — FOR INDUSTRY & AGRICULTURE
         </p>
-        <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display font-black text-white leading-[1.0] mb-8 uppercase tracking-tight animate-fade-in-up max-w-5xl mx-auto">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight animate-fade-in-up max-w-4xl mx-auto">
           IMPORTAZIONE
           <br />
-          DIRETTA
-          <br />
-          DI MACCHINE
+          DIRETTA DI MACCHINE
           <br />
           AGRICOLE
         </h1>
         <p
-          className="text-white/60 text-sm md:text-base uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
+          className="text-white/55 text-xs md:text-sm uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
           style={{ animationDelay: "0.15s" }}
         >
           POTENZA. AFFIDABILITÀ. CONTROLLO TOTALE.
@@ -69,10 +78,12 @@ const HeroSection = () => {
       {/* Scroll indicator */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors animate-fade-in z-20"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors animate-fade-in z-[3]"
         style={{ animationDelay: "0.6s" }}
       >
-        <span className="text-xs uppercase tracking-[0.3em] font-medium">Scorri</span>
+        <span className="text-xs uppercase tracking-[0.3em] font-medium">
+          Scorri
+        </span>
         <ArrowDown className="h-5 w-5 animate-bounce" />
       </button>
     </section>
