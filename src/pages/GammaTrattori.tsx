@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, getTractorsByCategory, brands } from "@/data/tractors";
-import { ArrowRight, Tractor, Clock } from "lucide-react";
+import { ArrowRight, Tractor, Clock, Bell } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -77,18 +77,11 @@ const GammaTrattori = () => {
           {/* Brand filters */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Brand</span>
-            <FilterButton
-              active={activeBrand === "all"}
-              onClick={() => setFilter("brand", "all")}
-            >
+            <FilterButton active={activeBrand === "all"} onClick={() => setFilter("brand", "all")}>
               Tutti
             </FilterButton>
             {brands.map((brand) => (
-              <FilterButton
-                key={brand}
-                active={activeBrand === brand}
-                onClick={() => setFilter("brand", brand)}
-              >
+              <FilterButton key={brand} active={activeBrand === brand} onClick={() => setFilter("brand", brand)}>
                 {brand}
               </FilterButton>
             ))}
@@ -96,18 +89,11 @@ const GammaTrattori = () => {
           {/* Category filters */}
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Potenza</span>
-            <FilterButton
-              active={activeCategory === "all"}
-              onClick={() => setFilter("categoria", "all")}
-            >
+            <FilterButton active={activeCategory === "all"} onClick={() => setFilter("categoria", "all")}>
               Tutte
             </FilterButton>
             {categories.map((cat) => (
-              <FilterButton
-                key={cat.id}
-                active={activeCategory === cat.id}
-                onClick={() => setFilter("categoria", cat.id)}
-              >
+              <FilterButton key={cat.id} active={activeCategory === cat.id} onClick={() => setFilter("categoria", cat.id)}>
                 {cat.label}
               </FilterButton>
             ))}
@@ -142,59 +128,55 @@ const GammaTrattori = () => {
       </section>
 
       {/* IN ARRIVO section */}
-      <section className="py-16 lg:py-24 bg-muted/50 border-t border-border">
+      <section className="py-16 lg:py-24 bg-primary">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Clock className="h-5 w-5 text-secondary" />
-              <span className="text-secondary font-bold text-sm uppercase tracking-[0.2em]">
-                Prossimamente
+              <h2 className="text-3xl md:text-4xl font-display font-black text-primary-foreground uppercase tracking-tight">
+                In Arrivo
+              </h2>
+              <span className="bg-secondary text-secondary-foreground text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-[4px]">
+                Coming Soon
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-display font-black text-foreground uppercase tracking-tight">
-              In Arrivo
-            </h2>
-            <p className="text-muted-foreground mt-2">Nuovi modelli in fase di lancio</p>
+            <p className="text-primary-foreground/50 text-base max-w-lg mx-auto">
+              Nuovi modelli in fase di importazione. Registrati per essere avvisato.
+            </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-10">
             {upcomingModels.map((model, i) => (
               <AnimatedSection key={model.name} delay={i * 0.08}>
-                <div className="bg-card border border-border p-6 text-center relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-secondary/60" />
+                <div className="bg-primary-foreground/5 border border-primary-foreground/15 p-6 text-center backdrop-blur-sm">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-secondary block mb-3">
                     {model.brand}
                   </span>
-                  <h3 className="font-display text-2xl font-black text-foreground uppercase tracking-tight mb-1">
+                  <h3 className="font-display text-2xl font-black text-primary-foreground uppercase tracking-tight mb-1">
                     {model.name}
                   </h3>
-                  <span className="text-secondary font-black text-lg block mb-2">{model.hp}</span>
-                  <span className="text-muted-foreground text-xs uppercase tracking-widest">
+                  <span className="text-secondary font-black text-lg block mb-3">{model.hp}</span>
+                  <span className="text-[hsl(0,0%,64%)] text-xs uppercase tracking-widest">
                     Arrivo previsto: {model.eta}
                   </span>
                 </div>
               </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* CTA bottom */}
-      <section className="bg-primary py-16">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <AnimatedSection>
-            <h2 className="text-2xl md:text-3xl font-display font-black text-primary-foreground uppercase tracking-tight mb-4">
-              Non trovi il modello giusto?
-            </h2>
-            <p className="text-primary-foreground/60 mb-8 max-w-lg mx-auto">
-              Contattaci per una consulenza personalizzata. Il nostro team ti aiuterà a trovare la soluzione perfetta.
-            </p>
+          <AnimatedSection className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/contatti"
-              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-3 rounded-[6px] font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 border-2 border-secondary text-secondary px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest text-sm hover:bg-secondary hover:text-secondary-foreground transition-all"
             >
-              Contattaci
+              Scopri di più
               <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/contatti"
+              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-opacity"
+            >
+              <Bell className="h-4 w-4" />
+              Registrati
             </Link>
           </AnimatedSection>
         </div>
@@ -232,7 +214,6 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
       to={`/trattori/${tractor.id}`}
       className="group block bg-card border border-border hover:border-secondary/40 overflow-hidden transition-all duration-300 hover:shadow-elevated"
     >
-      {/* Image */}
       <div className="aspect-[16/10] overflow-hidden bg-muted relative">
         <img
           src={imageMap[tractor.image]}
@@ -246,8 +227,6 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
           </span>
         </div>
       </div>
-
-      {/* Content */}
       <div className="p-5">
         <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest block mb-1">
           {tractor.brand}
@@ -259,8 +238,6 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
           {tractor.shortDescription}
         </p>
-
-        {/* CTA */}
         <span className="inline-flex items-center gap-2 text-secondary text-xs font-bold uppercase tracking-[0.15em] group-hover:gap-3 transition-all">
           Scopri di più
           <ArrowRight className="h-3.5 w-3.5" />
