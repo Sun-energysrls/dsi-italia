@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
-import { categories, tractors, getTractorsByCategory } from "@/data/tractors";
-import { ArrowRight, SlidersHorizontal, Tractor, Filter } from "lucide-react";
+import { categories, tractors, getTractorsByCategory, brands } from "@/data/tractors";
+import { ArrowRight, Tractor, Clock } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -17,20 +17,32 @@ const imageMap: Record<string, string> = {
   "tractor-compact": tractorCompact,
 };
 
+const upcomingModels = [
+  { name: "SD 3004", brand: "John Deere", hp: "300 HP", eta: "Q3 2026" },
+  { name: "SD 1404", brand: "New Holland", hp: "140 HP", eta: "Q4 2026" },
+  { name: "SD 704 G", brand: "Fendt", hp: "70 HP", eta: "Q1 2027" },
+];
+
 const GammaTrattori = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const activeBrand = searchParams.get("brand") || "all";
   const activeCategory = searchParams.get("categoria") || "all";
-  const [sortBy, setSortBy] = useState<"hp-desc" | "hp-asc" | "name">("hp-desc");
 
-  const filteredTractors = activeCategory === "all" ? tractors : getTractorsByCategory(activeCategory);
-
-  const sortedTractors = [...filteredTractors].sort((a, b) => {
-    if (sortBy === "hp-desc") return b.hp - a.hp;
-    if (sortBy === "hp-asc") return a.hp - b.hp;
-    return a.name.localeCompare(b.name);
+  const filteredTractors = tractors.filter((t) => {
+    const brandMatch = activeBrand === "all" || t.brand === activeBrand;
+    const catMatch = activeCategory === "all" || t.categorySlug === activeCategory;
+    return brandMatch && catMatch;
   });
 
-  const totalModels = tractors.length;
+  const setFilter = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (value === "all") {
+      params.delete(key);
+    } else {
+      params.set(key, value);
+    }
+    setSearchParams(params);
+  };
 
   return (
     <Layout>
@@ -52,58 +64,53 @@ const GammaTrattori = () => {
               Gamma Trattori
             </h1>
             <p className="text-primary-foreground/60 text-lg max-w-xl">
-              {totalModels} modelli professionali suddivisi per fascia di potenza.
+              {tractors.length} modelli professionali di 3 brand partner.
               Trova il trattore perfetto per la tua azienda.
             </p>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Filters bar */}
-      <section className="bg-card border-b border-border sticky top-16 z-30">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4">
-            <div className="flex items-center gap-2 flex-wrap">
-              <Filter className="h-4 w-4 text-muted-foreground hidden sm:block" />
-              <button
-                onClick={() => setSearchParams({})}
-                className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[6px] transition-all ${
-                  activeCategory === "all"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                }`}
+      {/* Filters */}
+      <section className="bg-primary border-t border-primary-foreground/10 sticky top-16 z-30">
+        <div className="container mx-auto px-4 lg:px-8 py-4">
+          {/* Brand filters */}
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Brand</span>
+            <FilterButton
+              active={activeBrand === "all"}
+              onClick={() => setFilter("brand", "all")}
+            >
+              Tutti
+            </FilterButton>
+            {brands.map((brand) => (
+              <FilterButton
+                key={brand}
+                active={activeBrand === brand}
+                onClick={() => setFilter("brand", brand)}
               >
-                Tutti ({totalModels})
-              </button>
-              {categories.map((cat) => {
-                const count = getTractorsByCategory(cat.id).length;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSearchParams({ categoria: cat.id })}
-                    className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[6px] transition-all ${
-                      activeCategory === cat.id
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                    }`}
-                  >
-                    {cat.label} ({count})
-                  </button>
-                );
-              })}
-            </div>
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="bg-muted text-foreground text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-[6px] border-none outline-none cursor-pointer"
+                {brand}
+              </FilterButton>
+            ))}
+          </div>
+          {/* Category filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Potenza</span>
+            <FilterButton
+              active={activeCategory === "all"}
+              onClick={() => setFilter("categoria", "all")}
+            >
+              Tutte
+            </FilterButton>
+            {categories.map((cat) => (
+              <FilterButton
+                key={cat.id}
+                active={activeCategory === cat.id}
+                onClick={() => setFilter("categoria", cat.id)}
               >
-                <option value="hp-desc">Potenza ↓</option>
-                <option value="hp-asc">Potenza ↑</option>
-                <option value="name">Nome A–Z</option>
-              </select>
-            </div>
+                {cat.label}
+              </FilterButton>
+            ))}
           </div>
         </div>
       </section>
@@ -111,27 +118,64 @@ const GammaTrattori = () => {
       {/* Results */}
       <section className="py-12 lg:py-20 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          {/* Results count */}
           <p className="text-muted-foreground text-sm mb-8">
-            {sortedTractors.length} {sortedTractors.length === 1 ? "modello" : "modelli"} trovati
+            {filteredTractors.length} {filteredTractors.length === 1 ? "modello" : "modelli"} trovati
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {sortedTractors.map((tractor, i) => (
+            {filteredTractors.map((tractor, i) => (
               <AnimatedSection key={tractor.id} delay={i * 0.04}>
                 <TractorCatalogCard tractor={tractor} />
               </AnimatedSection>
             ))}
           </div>
 
-          {sortedTractors.length === 0 && (
+          {filteredTractors.length === 0 && (
             <div className="text-center py-20">
               <Tractor className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
               <p className="text-muted-foreground text-lg">
-                Nessun trattore trovato per questa categoria.
+                Nessun trattore trovato con i filtri selezionati.
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* IN ARRIVO section */}
+      <section className="py-16 lg:py-24 bg-muted/50 border-t border-border">
+        <div className="container mx-auto px-4 lg:px-8">
+          <AnimatedSection className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Clock className="h-5 w-5 text-secondary" />
+              <span className="text-secondary font-bold text-sm uppercase tracking-[0.2em]">
+                Prossimamente
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-display font-black text-foreground uppercase tracking-tight">
+              In Arrivo
+            </h2>
+            <p className="text-muted-foreground mt-2">Nuovi modelli in fase di lancio</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            {upcomingModels.map((model, i) => (
+              <AnimatedSection key={model.name} delay={i * 0.08}>
+                <div className="bg-card border border-border p-6 text-center relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-secondary/60" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-secondary block mb-3">
+                    {model.brand}
+                  </span>
+                  <h3 className="font-display text-2xl font-black text-foreground uppercase tracking-tight mb-1">
+                    {model.name}
+                  </h3>
+                  <span className="text-secondary font-black text-lg block mb-2">{model.hp}</span>
+                  <span className="text-muted-foreground text-xs uppercase tracking-widest">
+                    Arrivo previsto: {model.eta}
+                  </span>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -159,7 +203,29 @@ const GammaTrattori = () => {
   );
 };
 
-/* Enhanced catalog card */
+/* Filter button */
+const FilterButton = ({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => (
+  <button
+    onClick={onClick}
+    className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[4px] transition-all ${
+      active
+        ? "bg-secondary text-secondary-foreground"
+        : "bg-transparent text-primary-foreground border border-primary-foreground/30 hover:border-primary-foreground/60"
+    }`}
+  >
+    {children}
+  </button>
+);
+
+/* Catalog card */
 const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
   return (
     <Link
@@ -175,45 +241,28 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
           loading="lazy"
         />
         <div className="absolute top-3 left-3">
-          <span className="bg-primary/90 text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 backdrop-blur-sm">
+          <span className="bg-secondary text-secondary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1.5">
             {tractor.category}
-          </span>
-        </div>
-        <div className="absolute top-3 right-3">
-          <span className="bg-secondary text-secondary-foreground text-sm font-black px-3 py-1.5">
-            {tractor.hp} HP
           </span>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-5">
+        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest block mb-1">
+          {tractor.brand}
+        </span>
         <h3 className="font-display text-xl font-black text-foreground mb-1 uppercase tracking-tight">
           {tractor.name}
         </h3>
+        <span className="text-secondary font-black text-2xl block mb-2">{tractor.hp} HP</span>
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
           {tractor.shortDescription}
         </p>
 
-        {/* Specs row */}
-        <div className="grid grid-cols-3 gap-3 mb-4 pt-4 border-t border-border">
-          <div>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-widest block">Motore</span>
-            <span className="text-xs font-bold text-foreground">{tractor.engine.split(" ").slice(0, 3).join(" ")}</span>
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-widest block">Trasmissione</span>
-            <span className="text-xs font-bold text-foreground">{tractor.transmission}</span>
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-widest block">Trazione</span>
-            <span className="text-xs font-bold text-foreground">{tractor.traction}</span>
-          </div>
-        </div>
-
         {/* CTA */}
         <span className="inline-flex items-center gap-2 text-secondary text-xs font-bold uppercase tracking-[0.15em] group-hover:gap-3 transition-all">
-          Scheda completa
+          Scopri di più
           <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>
