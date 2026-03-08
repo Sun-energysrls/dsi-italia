@@ -27,15 +27,6 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Decorative Chinese watermark behind text */}
-      <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none select-none">
-        <span
-          className="text-[12rem] md:text-[18rem] lg:text-[24rem] font-thin leading-none"
-          style={{ color: "rgba(255,255,255,0.08)" }}
-        >
-          载新
-        </span>
-      </div>
 
       {/* Content */}
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
