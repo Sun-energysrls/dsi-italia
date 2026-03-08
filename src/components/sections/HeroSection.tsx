@@ -7,7 +7,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
         autoPlay
         muted
@@ -17,8 +17,15 @@ const HeroSection = () => {
       >
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
-      {/* Warm semi-transparent overlay matching reference screenshot */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/50" />
+
+      {/* Neutral gray overlay matching reference */}
+      <div className="absolute inset-0" style={{ background: 'rgba(80, 80, 80, 0.55)' }} />
+
+      {/* Bottom-right patch to cover Runway watermark */}
+      <div
+        className="absolute bottom-0 right-0 w-48 h-16 z-10"
+        style={{ background: 'linear-gradient(to left, rgba(60,60,60,0.85) 0%, transparent 100%)' }}
+      />
 
       {/* Large watermark text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -27,7 +34,7 @@ const HeroSection = () => {
         </span>
       </div>
 
-      <div className="relative container mx-auto px-4 lg:px-8 text-center py-28">
+      <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-20">
         <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-6 animate-fade-in-up">
           DSI — FOR INDUSTRY & AGRICULTURE
         </p>
@@ -69,7 +76,7 @@ const HeroSection = () => {
       {/* Scroll indicator */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors animate-fade-in"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors animate-fade-in z-20"
         style={{ animationDelay: "0.6s" }}
       >
         <span className="text-xs uppercase tracking-[0.3em] font-medium">Scorri</span>
