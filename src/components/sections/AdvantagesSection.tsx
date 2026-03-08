@@ -25,10 +25,10 @@ const advantages = [
 
 const AdvantagesSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="py-28 lg:py-36 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="text-center mb-16">
-          <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
+          <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em] mb-4">
             I NOSTRI VANTAGGI
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
@@ -36,14 +36,14 @@ const AdvantagesSection = () => {
           </h2>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30 max-w-4xl mx-auto">
           {advantages.map((adv, i) => (
             <AnimatedSection key={adv.number} delay={i * 0.08}>
-              <div className="p-8 bg-muted/30 border border-border hover:border-secondary/30 transition-all duration-300">
-                <span className="text-secondary font-display font-black text-3xl block mb-4">
+              <div className="p-10 bg-background hover:bg-card transition-all duration-500">
+                <span className="text-secondary font-display font-black text-3xl block mb-5">
                   {adv.number}
                 </span>
-                <h3 className="font-display text-xl font-bold text-foreground mb-3 uppercase tracking-wide">
+                <h3 className="font-display text-lg font-bold text-foreground mb-3 uppercase tracking-[0.1em]">
                   {adv.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">

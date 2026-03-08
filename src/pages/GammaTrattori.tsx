@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
-import { categories, tractors, getTractorsByCategory, brands } from "@/data/tractors";
-import { ArrowRight, Tractor, Clock, Bell } from "lucide-react";
+import { categories, tractors, brands } from "@/data/tractors";
+import { ArrowRight, Tractor, Bell } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -47,23 +47,19 @@ const GammaTrattori = () => {
   return (
     <Layout>
       {/* Hero header */}
-      <section className="bg-primary pt-28 pb-16 lg:pt-36 lg:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/30 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-[80px]" />
-        </div>
+      <section className="bg-background pt-28 pb-16 lg:pt-36 lg:pb-20 relative overflow-hidden border-b border-border/30">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-4">
-              <Tractor className="h-6 w-6 text-secondary" />
-              <span className="text-secondary font-bold text-sm uppercase tracking-[0.2em]">
+              <Tractor className="h-5 w-5 text-secondary" />
+              <span className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em]">
                 Catalogo completo
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-primary-foreground mb-4 uppercase tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
               Gamma Trattori
             </h1>
-            <p className="text-primary-foreground/60 text-lg max-w-xl">
+            <p className="text-muted-foreground text-base max-w-xl">
               {tractors.length} modelli professionali di 3 brand partner.
               Trova il trattore perfetto per la tua azienda.
             </p>
@@ -72,11 +68,10 @@ const GammaTrattori = () => {
       </section>
 
       {/* Filters */}
-      <section className="bg-primary border-t border-primary-foreground/10 sticky top-16 z-30">
+      <section className="bg-card border-b border-border/30 sticky top-16 z-30">
         <div className="container mx-auto px-4 lg:px-8 py-4">
-          {/* Brand filters */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Brand</span>
+            <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.2em] mr-2 hidden sm:block">Brand</span>
             <FilterButton active={activeBrand === "all"} onClick={() => setFilter("brand", "all")}>
               Tutti
             </FilterButton>
@@ -86,9 +81,8 @@ const GammaTrattori = () => {
               </FilterButton>
             ))}
           </div>
-          {/* Category filters */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-primary-foreground/40 text-[10px] font-bold uppercase tracking-widest mr-2 hidden sm:block">Potenza</span>
+            <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.2em] mr-2 hidden sm:block">Potenza</span>
             <FilterButton active={activeCategory === "all"} onClick={() => setFilter("categoria", "all")}>
               Tutte
             </FilterButton>
@@ -104,11 +98,11 @@ const GammaTrattori = () => {
       {/* Results */}
       <section className="py-12 lg:py-20 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <p className="text-muted-foreground text-sm mb-8">
+          <p className="text-muted-foreground text-xs mb-8 tracking-[0.1em]">
             {filteredTractors.length} {filteredTractors.length === 1 ? "modello" : "modelli"} trovati
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border/30">
             {filteredTractors.map((tractor, i) => (
               <AnimatedSection key={tractor.id} delay={i * 0.04}>
                 <TractorCatalogCard tractor={tractor} />
@@ -128,34 +122,34 @@ const GammaTrattori = () => {
       </section>
 
       {/* IN ARRIVO section */}
-      <section className="py-16 lg:py-24 bg-primary">
+      <section className="py-20 lg:py-28 bg-card border-t border-border/30">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-primary-foreground uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-foreground uppercase tracking-tight">
                 In Arrivo
               </h2>
-              <span className="bg-secondary text-secondary-foreground text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-[4px]">
+              <span className="bg-secondary text-secondary-foreground text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5">
                 Coming Soon
               </span>
             </div>
-            <p className="text-primary-foreground/50 text-base max-w-lg mx-auto">
+            <p className="text-muted-foreground text-base max-w-lg mx-auto">
               Nuovi modelli in fase di importazione. Registrati per essere avvisato.
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30 max-w-4xl mx-auto mb-12">
             {upcomingModels.map((model, i) => (
               <AnimatedSection key={model.name} delay={i * 0.08}>
-                <div className="bg-primary-foreground/5 border border-primary-foreground/15 p-6 text-center backdrop-blur-sm">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-secondary block mb-3">
+                <div className="bg-card p-8 text-center">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary block mb-3">
                     {model.brand}
                   </span>
-                  <h3 className="font-display text-2xl font-black text-primary-foreground uppercase tracking-tight mb-1">
+                  <h3 className="font-display text-2xl font-black text-foreground uppercase tracking-tight mb-1">
                     {model.name}
                   </h3>
                   <span className="text-secondary font-black text-lg block mb-3">{model.hp}</span>
-                  <span className="text-[hsl(0,0%,64%)] text-xs uppercase tracking-widest">
+                  <span className="text-muted-foreground text-[10px] uppercase tracking-[0.2em]">
                     Arrivo previsto: {model.eta}
                   </span>
                 </div>
@@ -166,14 +160,14 @@ const GammaTrattori = () => {
           <AnimatedSection className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/contatti"
-              className="inline-flex items-center gap-2 border-2 border-secondary text-secondary px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest text-sm hover:bg-secondary hover:text-secondary-foreground transition-all"
+              className="inline-flex items-center gap-2 border border-secondary text-secondary px-8 py-3 font-bold uppercase tracking-[0.15em] text-[11px] hover:bg-secondary hover:text-secondary-foreground transition-all"
             >
               Scopri di più
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               to="/contatti"
-              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-8 py-3 font-bold uppercase tracking-[0.15em] text-[11px] hover:opacity-90 transition-opacity"
             >
               <Bell className="h-4 w-4" />
               Registrati
@@ -185,7 +179,6 @@ const GammaTrattori = () => {
   );
 };
 
-/* Filter button */
 const FilterButton = ({
   active,
   onClick,
@@ -197,22 +190,21 @@ const FilterButton = ({
 }) => (
   <button
     onClick={onClick}
-    className={`px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-[4px] transition-all ${
+    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] transition-all ${
       active
         ? "bg-secondary text-secondary-foreground"
-        : "bg-transparent text-primary-foreground border border-primary-foreground/30 hover:border-primary-foreground/60"
+        : "bg-transparent text-foreground/60 border border-border hover:border-foreground/30"
     }`}
   >
     {children}
   </button>
 );
 
-/* Catalog card */
 const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
   return (
     <Link
       to={`/trattori/${tractor.id}`}
-      className="group block bg-card border border-border hover:border-secondary/40 overflow-hidden transition-all duration-300 hover:shadow-elevated"
+      className="group block bg-background hover:bg-card overflow-hidden transition-all duration-500"
     >
       <div className="aspect-[16/10] overflow-hidden bg-muted relative">
         <img
@@ -221,14 +213,15 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="absolute top-3 left-3">
-          <span className="bg-secondary text-secondary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1.5">
+          <span className="bg-secondary text-secondary-foreground text-[9px] font-bold uppercase tracking-[0.2em] px-3 py-1.5">
             {tractor.category}
           </span>
         </div>
       </div>
-      <div className="p-5">
-        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest block mb-1">
+      <div className="p-6">
+        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.2em] block mb-1">
           {tractor.brand}
         </span>
         <h3 className="font-display text-xl font-black text-foreground mb-1 uppercase tracking-tight">
@@ -238,7 +231,7 @@ const TractorCatalogCard = ({ tractor }: { tractor: TractorType }) => {
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
           {tractor.shortDescription}
         </p>
-        <span className="inline-flex items-center gap-2 text-secondary text-xs font-bold uppercase tracking-[0.15em] group-hover:gap-3 transition-all">
+        <span className="inline-flex items-center gap-2 text-secondary text-[10px] font-bold uppercase tracking-[0.2em] group-hover:gap-3 transition-all">
           Scopri di più
           <ArrowRight className="h-3.5 w-3.5" />
         </span>
