@@ -7,7 +7,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen flex flex-col justify-end overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
         autoPlay
         muted
@@ -18,86 +18,88 @@ const HeroSection = () => {
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Cinematic gradient — darker at bottom for text legibility */}
+      {/* Dark cinematic overlay */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.7) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.55) 100%)",
         }}
       />
 
-      {/* Content — left-aligned, bottom-anchored like Lamborghini */}
-      <div className="relative z-[3] px-8 lg:px-16 pb-20 lg:pb-28">
-        {/* Small label */}
-        <p className="text-secondary font-bold text-[10px] lg:text-xs uppercase tracking-[0.4em] mb-4 animate-fade-in-up">
-          DSI — For Industry & Agriculture
+
+      {/* Content */}
+      <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
+        <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-8 animate-fade-in-up">
+          DSI — FOR INDUSTRY & AGRICULTURE
         </p>
 
-        {/* Brand stamp */}
-        <div className="flex items-center gap-4 mb-6 animate-fade-in-up" style={{ animationDelay: "0.05s" }}>
-          <span className="block w-10 h-px bg-white/30" />
-          <div>
-            <span className="block leading-none text-white" style={{ fontSize: "2.5rem", fontWeight: 300 }}>
+        {/* Premium brand stamp */}
+        <div className="flex items-center justify-center gap-5 mb-8 animate-fade-in-up" style={{ animationDelay: "0.05s" }}>
+          <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
+          <div className="text-center">
+            <span
+              className="block leading-tight"
+              style={{ fontSize: "3.5rem", fontWeight: 300, color: "white" }}
+            >
               载新
             </span>
-            <span className="block uppercase italic text-white/50 text-[9px] tracking-[0.25em] mt-1">
+            <span
+              className="block uppercase italic mt-1"
+              style={{
+                fontSize: "0.75rem",
+                letterSpacing: "0.25em",
+                color: "rgba(255,255,255,0.6)",
+              }}
+            >
               Portare l'Innovazione
             </span>
           </div>
+          <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
         </div>
-
-        {/* Main headline — massive, left-aligned */}
-        <h1
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[7rem] font-display font-black text-white leading-[0.9] uppercase tracking-tighter mb-6 animate-fade-in-up max-w-5xl"
-          style={{ animationDelay: "0.1s" }}
-        >
-          Importazione
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight animate-fade-in-up max-w-4xl mx-auto">
+          IMPORTAZIONE
           <br />
-          Diretta di
+          DIRETTA DI MACCHINE
           <br />
-          <span className="text-secondary">Macchine Agricole</span>
+          AGRICOLE
         </h1>
-
-        {/* Subtitle */}
         <p
-          className="text-white/40 text-[10px] sm:text-xs uppercase tracking-[0.4em] mb-10 animate-fade-in-up"
-          style={{ animationDelay: "0.2s" }}
+          className="text-white/55 text-xs md:text-sm uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
+          style={{ animationDelay: "0.15s" }}
         >
-          Potenza. Affidabilità. Controllo Totale.
+          POTENZA. AFFIDABILITÀ. CONTROLLO TOTALE.
         </p>
-
-        {/* CTAs — clean, minimal */}
         <div
-          className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
+          className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
           style={{ animationDelay: "0.3s" }}
         >
           <Link
             to="/trattori"
-            className="gradient-accent text-accent-foreground px-10 py-4 text-[11px] font-bold uppercase tracking-[0.25em] inline-flex items-center justify-center gap-3 hover:opacity-90 transition-opacity"
+            className="gradient-accent text-accent-foreground px-10 py-4 rounded-[6px] text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
           >
             Scopri i modelli
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-5 w-5" />
           </Link>
           <Link
             to="/configuratore"
-            className="border border-white/25 text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.25em] inline-flex items-center justify-center gap-3 hover:bg-white/5 transition-colors"
+            className="border-2 border-white/30 text-white px-10 py-4 rounded-[6px] text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
           >
             Configura il tuo trattore
           </Link>
         </div>
       </div>
 
-      {/* Scroll indicator — right side */}
+      {/* Scroll indicator */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 right-8 lg:right-16 flex flex-col items-center gap-2 text-white/40 hover:text-white/60 transition-colors animate-fade-in z-[3]"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors animate-fade-in z-[3]"
         style={{ animationDelay: "0.6s" }}
       >
-        <span className="text-[9px] uppercase tracking-[0.4em] font-medium [writing-mode:vertical-lr]">
+        <span className="text-xs uppercase tracking-[0.3em] font-medium">
           Scorri
         </span>
-        <ArrowDown className="h-4 w-4 animate-bounce" />
+        <ArrowDown className="h-5 w-5 animate-bounce" />
       </button>
     </section>
   );

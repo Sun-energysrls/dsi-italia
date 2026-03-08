@@ -8,28 +8,26 @@ const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
 
 const ConfiguratorPreview = () => {
   return (
-    <section className="section-dark overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
-        {/* Left: text */}
-        <div className="flex flex-col justify-center px-8 lg:px-16 py-20 lg:py-28">
+    <section className="section-dark py-24 lg:py-32 overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left: text */}
           <AnimatedSection>
-            <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.4em] mb-4">
+            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
               CONFIGURA LA TUA MACCHINA
             </p>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-[0.95] uppercase tracking-tight mb-8">
-              Configura il tuo
-              <br />
-              trattore ideale
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight">
+              Configura il tuo trattore ideale
             </h2>
-            <p className="text-[hsl(120,10%,50%)] text-base lg:text-lg leading-relaxed mb-10 max-w-lg">
+            <p className="text-[hsl(120,10%,55%)] text-base leading-relaxed mb-8">
               Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-12">
+            <div className="flex flex-wrap gap-3 mb-10">
               {previewFeatures.map((feat) => (
                 <span
                   key={feat}
-                  className="px-5 py-2.5 border border-[hsl(156,20%,20%)] text-[10px] font-bold uppercase tracking-[0.25em] text-primary-foreground/70"
+                  className="px-4 py-2 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)] text-sm font-medium"
                 >
                   {feat}
                 </span>
@@ -38,45 +36,47 @@ const ConfiguratorPreview = () => {
 
             <Link
               to="/configuratore"
-              className="gradient-accent text-accent-foreground px-10 py-4 text-[11px] font-bold uppercase tracking-[0.25em] inline-flex items-center gap-3 hover:opacity-90 transition-opacity shadow-elevated w-fit"
+              className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
             >
               Configura il tuo trattore
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </AnimatedSection>
-        </div>
 
-        {/* Right: tractor image + stats */}
-        <div className="flex flex-col justify-center items-center px-8 lg:px-16 py-20 lg:py-28 bg-[hsl(156,32%,8%)]">
+          {/* Right: tractor image + stats */}
           <AnimatedSection delay={0.15}>
-            <p className="text-[hsl(120,10%,40%)] text-[9px] uppercase tracking-[0.4em] mb-6 font-bold text-center">
-              ANTEPRIMA CONFIGURAZIONE
-            </p>
-            <img
-              src={tractorGreen}
-              alt="Trattore configurabile"
-              className="w-full max-w-xl mx-auto h-auto mb-12"
-            />
+            <div className="relative">
+              <div className="text-center">
+                <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-[0.2em] mb-4 font-medium">
+                  ANTEPRIMA CONFIGURAZIONE
+                </p>
+                <img
+                  src={tractorGreen}
+                  alt="Trattore configurabile"
+                  className="w-full max-w-lg mx-auto h-auto"
+                />
+              </div>
 
-            {/* Mini stats */}
-            <div className="grid grid-cols-3 gap-px bg-[hsl(156,20%,14%)]">
-              <div className="text-center p-6 bg-[hsl(156,32%,8%)]">
-                <div className="text-2xl lg:text-3xl font-display font-black">
-                  <AnimatedCounter end={180} />-<AnimatedCounter end={620} />
+              {/* Mini stats */}
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={180} />-<AnimatedCounter end={620} />
+                  </div>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">CV</p>
                 </div>
-                <p className="text-[hsl(120,10%,40%)] text-[9px] uppercase tracking-[0.3em] mt-2 font-bold">CV</p>
-              </div>
-              <div className="text-center p-6 bg-[hsl(156,32%,8%)]">
-                <div className="text-2xl lg:text-3xl font-display font-black">
-                  <AnimatedCounter end={4} />
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={4} />
+                  </div>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Brand</p>
                 </div>
-                <p className="text-[hsl(120,10%,40%)] text-[9px] uppercase tracking-[0.3em] mt-2 font-bold">Brand</p>
-              </div>
-              <div className="text-center p-6 bg-[hsl(156,32%,8%)]">
-                <div className="text-2xl lg:text-3xl font-display font-black">
-                  <AnimatedCounter end={50} suffix="+" />
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={50} suffix="+" />
+                  </div>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Accessori</p>
                 </div>
-                <p className="text-[hsl(120,10%,40%)] text-[9px] uppercase tracking-[0.3em] mt-2 font-bold">Accessori</p>
               </div>
             </div>
           </AnimatedSection>

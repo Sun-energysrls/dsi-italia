@@ -10,16 +10,16 @@ const stats = [
 
 const StatsBar = () => {
   return (
-    <section className="section-dark border-t border-[hsl(156,20%,14%)]">
-      <div className="w-full">
+    <section className="section-dark py-16 border-t border-[hsl(156,20%,14%)]">
+      <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection>
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[hsl(156,20%,14%)]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             {stats.map((stat) => (
-              <div key={stat.label} className="text-center py-14 lg:py-20">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-primary-foreground mb-3">
+              <div key={stat.label} className="text-center">
+                <div className="text-4xl md:text-5xl font-display font-black text-primary-foreground mb-2">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <p className="text-[hsl(120,10%,40%)] text-[10px] uppercase tracking-[0.3em] font-medium">
+                <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-[0.2em] font-medium">
                   {stat.label}
                 </p>
               </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Search } from "lucide-react";
+import { Menu, X, Phone, Settings } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
 
@@ -25,132 +25,103 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
-
   const transparent = isHome && !scrolled && !isOpen;
 
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          transparent
-            ? "bg-transparent"
-            : "bg-background/98 backdrop-blur-xl border-b border-border/50"
-        }`}
-      >
-        <div className="w-full px-6 lg:px-10">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Left: Menu trigger */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`flex items-center gap-3 transition-colors ${
-                transparent ? "text-white" : "text-foreground"
-              } hover:text-secondary`}
-              aria-label="Menu"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              <span className="text-[11px] font-bold uppercase tracking-[0.3em] hidden sm:inline">
-                Menu
-              </span>
-            </button>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transparent
+          ? "bg-transparent border-b border-transparent"
+          : "bg-background/95 backdrop-blur-md border-b border-border"
+      }`}
+    >
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <Link to="/" className="flex items-center">
+            <img
+              src={transparent ? logoLight : logoDark}
+              alt="DSI Import"
+              className="h-14 w-auto"
+            />
+          </Link>
 
-            {/* Center: Logo */}
-            <Link to="/" className="absolute left-1/2 -translate-x-1/2">
-              <img
-                src={transparent ? logoLight : logoDark}
-                alt="DSI Import"
-                className="h-10 lg:h-12 w-auto"
-              />
-            </Link>
-
-            {/* Right: Minimal actions */}
-            <div className="flex items-center gap-5">
-              <a
-                href="tel:+390000000000"
-                className={`hidden sm:flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors hover:text-secondary ${
-                  transparent ? "text-white/80" : "text-muted-foreground"
-                }`}
-              >
-                <Phone className="h-3.5 w-3.5" />
-              </a>
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navItems.map((item) => (
               <Link
-                to="/configuratore"
-                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors hover:text-secondary ${
-                  transparent ? "text-white" : "text-foreground"
+                key={item.path}
+                to={item.path}
+                className={`font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-secondary ${
+                  location.pathname === item.path
+                    ? "text-secondary"
+                    : transparent
+                    ? "text-primary-foreground"
+                    : "text-foreground"
                 }`}
               >
-                Configura
+                {item.label}
               </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+            ))}
+          </nav>
 
-      {/* Full-screen overlay menu */}
-      <div
-        className={`fixed inset-0 z-[60] transition-all duration-500 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="absolute inset-0 bg-primary/98 backdrop-blur-xl" />
-        <div className="relative h-full flex flex-col">
-          {/* Close button */}
-          <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 text-primary-foreground hover:text-secondary transition-colors"
+          <div className="hidden lg:flex items-center gap-4">
+            <a
+              href="tel:+390000000000"
+              className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-secondary ${
+                transparent ? "text-primary-foreground" : "text-foreground"
+              }`}
             >
-              <X className="h-5 w-5" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.3em]">Chiudi</span>
-            </button>
+              <Phone className="h-4 w-4" />
+              Chiamaci
+            </a>
+            <Link
+              to="/configuratore"
+              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90 inline-flex items-center gap-2"
+            >
+              <Settings className="h-4 w-4" />
+              Configura
+            </Link>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex-1 flex flex-col justify-center px-10 lg:px-20">
-            <div className="space-y-1">
-              {navItems.map((item, i) => (
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`lg:hidden p-2 ${transparent ? "text-primary-foreground" : "text-foreground"}`}
+            aria-label="Menu"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Nav */}
+        {isOpen && (
+          <nav className="lg:hidden pb-6 animate-fade-in">
+            <div className="flex flex-col gap-4">
+              {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`block text-4xl lg:text-6xl font-display font-black uppercase tracking-tight py-3 lg:py-4 transition-all duration-300 hover:translate-x-4 ${
-                    location.pathname === item.path
-                      ? "text-secondary"
-                      : "text-primary-foreground/80 hover:text-primary-foreground"
+                  className={`font-body text-base font-medium py-2 transition-colors ${
+                    location.pathname === item.path ? "text-secondary" : "text-foreground"
                   }`}
-                  style={{ animationDelay: `${i * 0.05}s` }}
                 >
                   {item.label}
                 </Link>
               ))}
+              <Link
+                to="/configuratore"
+                onClick={() => setIsOpen(false)}
+                className="gradient-accent text-accent-foreground px-5 py-3 rounded-md text-sm font-semibold text-center uppercase mt-2 inline-flex items-center justify-center gap-2"
+              >
+                <Settings className="h-4 w-4" />
+                Configura il tuo Trattore
+              </Link>
             </div>
           </nav>
-
-          {/* Bottom bar */}
-          <div className="px-10 lg:px-20 py-8 border-t border-primary-foreground/10 flex items-center justify-between">
-            <a
-              href="tel:+390000000000"
-              className="text-primary-foreground/50 text-[11px] font-bold uppercase tracking-[0.2em] hover:text-secondary transition-colors"
-            >
-              +39 000 000 0000
-            </a>
-            <a
-              href="mailto:info@dsi-import.it"
-              className="text-primary-foreground/50 text-[11px] font-bold uppercase tracking-[0.2em] hover:text-secondary transition-colors"
-            >
-              info@dsi-import.it
-            </a>
-          </div>
-        </div>
+        )}
       </div>
-    </>
+    </header>
   );
 };
 

@@ -5,49 +5,42 @@ import { brands } from "@/data/brands";
 
 const BrandPartnersSection = () => {
   return (
-    <section className="section-dark py-28 lg:py-40">
-      <div className="px-8 lg:px-16 max-w-[1600px] mx-auto">
-        <AnimatedSection className="mb-20">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-            <div>
-              <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.4em] mb-4">
-                I NOSTRI PARTNER
-              </p>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[0.95]">
-                Brand di
-                <br />
-                Eccellenza
-              </h2>
-            </div>
-            <p className="text-[hsl(120,10%,50%)] text-sm lg:text-base max-w-md leading-relaxed">
-              Selezioniamo solo i migliori produttori mondiali di macchine agricole.
-            </p>
-          </div>
+    <section className="section-dark py-24 lg:py-32">
+      <div className="container mx-auto px-4 lg:px-8">
+        <AnimatedSection className="text-center mb-16">
+          <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
+            I NOSTRI PARTNER
+          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight">
+            Brand di Eccellenza
+          </h2>
+          <p className="text-[hsl(120,10%,55%)] text-lg max-w-2xl mx-auto">
+            Selezioniamo solo i migliori produttori mondiali di macchine agricole.
+          </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-[hsl(156,20%,18%)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {brands.map((brand, i) => (
             <AnimatedSection key={brand.id} delay={i * 0.08}>
-              <div className="group p-10 lg:p-14 bg-[hsl(156,32%,10%)] hover:bg-[hsl(156,32%,13%)] transition-all duration-500 h-full">
+              <div className="group p-8 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50 transition-all duration-300">
                 {/* Initials badge */}
-                <div className="w-16 h-16 bg-[hsl(156,32%,18%)] flex items-center justify-center mb-8">
-                  <span className="font-display font-black text-xl text-primary-foreground">
+                <div className="w-14 h-14 bg-[hsl(156,32%,20%)] flex items-center justify-center mb-5">
+                  <span className="font-display font-black text-lg text-primary-foreground">
                     {brand.initials}
                   </span>
                 </div>
-                <h3 className="font-display text-2xl font-bold mb-1">{brand.name}</h3>
-                <span className="text-secondary text-[10px] font-bold uppercase tracking-[0.3em] block mb-4">
+                <h3 className="font-display text-xl font-bold mb-1">{brand.name}</h3>
+                <span className="text-secondary text-xs font-bold uppercase tracking-widest block mb-3">
                   {brand.country}
                 </span>
-                <p className="text-[hsl(120,10%,50%)] text-sm leading-relaxed mb-8">
+                <p className="text-[hsl(120,10%,55%)] text-sm leading-relaxed mb-5">
                   {brand.description}
                 </p>
                 <Link
                   to="/trattori"
-                  className="inline-flex items-center gap-2 text-secondary text-[11px] font-bold uppercase tracking-[0.25em] hover:opacity-80 transition-opacity"
+                  className="inline-flex items-center gap-1 text-secondary text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
                 >
-                  Scopri modelli
-                  <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  Scopri modelli <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </AnimatedSection>
