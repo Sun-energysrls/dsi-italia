@@ -27,21 +27,36 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Decorative Chinese watermark behind text */}
-      <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none select-none">
-        <span
-          className="text-[12rem] md:text-[18rem] lg:text-[24rem] font-thin leading-none"
-          style={{ color: "rgba(255,255,255,0.08)" }}
-        >
-          载新
-        </span>
-      </div>
 
       {/* Content */}
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
-        <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-6 animate-fade-in-up">
+        <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-8 animate-fade-in-up">
           DSI — FOR INDUSTRY & AGRICULTURE
         </p>
+
+        {/* Premium brand stamp */}
+        <div className="flex items-center justify-center gap-5 mb-8 animate-fade-in-up" style={{ animationDelay: "0.05s" }}>
+          <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
+          <div className="text-center">
+            <span
+              className="block leading-tight"
+              style={{ fontSize: "3.5rem", fontWeight: 300, color: "white" }}
+            >
+              载新
+            </span>
+            <span
+              className="block uppercase italic mt-1"
+              style={{
+                fontSize: "0.75rem",
+                letterSpacing: "0.25em",
+                color: "rgba(255,255,255,0.6)",
+              }}
+            >
+              Portare l'Innovazione
+            </span>
+          </div>
+          <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
+        </div>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight animate-fade-in-up max-w-4xl mx-auto">
           IMPORTAZIONE
           <br />
