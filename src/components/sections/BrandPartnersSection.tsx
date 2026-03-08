@@ -19,7 +19,7 @@ const BrandPartnersSection = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {brands.map((brand, i) => (
             <AnimatedSection key={brand.id} delay={i * 0.08}>
               <div className="group p-8 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)] hover:border-secondary/50 transition-all duration-300">

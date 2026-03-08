@@ -2,8 +2,8 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
 const stats = [
-  { value: 1, suffix: "", label: "BRAND PARTNER" },
-  { value: 6, suffix: "+", label: "MODELLI DISPONIBILI" },
+  { value: 3, suffix: "", label: "BRAND PARTNER" },
+  { value: 23, suffix: "+", label: "MODELLI DISPONIBILI" },
   { value: 50, suffix: "+", label: "CONFIGURAZIONI" },
   { value: 100, suffix: "%", label: "CLIENTI SODDISFATTI" },
 ];
