@@ -18,8 +18,8 @@ const HeroSection = () => {
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Warm overlay */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.35) 100%)' }} />
+      {/* Minimal overlay for text readability only */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.03) 40%, rgba(0,0,0,0.15) 100%)' }} />
 
       {/* Bottom-right patch to cover Runway watermark */}
       <div
