@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowDown } from "lucide-react";
-import heroImage from "@/assets/hero-tractor.jpg";
 
 const HeroSection = () => {
   const scrollToContent = () => {
@@ -9,11 +8,15 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center">
-      <img
-        src={heroImage}
-        alt="Trattore in campo"
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 hero-overlay" />
 
       {/* Large watermark text */}

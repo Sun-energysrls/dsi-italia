@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Settings } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -13,14 +14,35 @@ const navItems = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const transparent = isHome && !scrolled && !isOpen;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transparent
+          ? "bg-transparent border-b border-transparent"
+          : "bg-background/95 backdrop-blur-md border-b border-border"
+      }`}
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
-            <img src={logoDark} alt="DSI Import" className="h-14 w-auto" />
+            <img
+              src={transparent ? logoLight : logoDark}
+              alt="DSI Import"
+              className="h-14 w-auto"
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -30,7 +52,11 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 className={`font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-secondary ${
-                  location.pathname === item.path ? "text-secondary" : "text-foreground"
+                  location.pathname === item.path
+                    ? "text-secondary"
+                    : transparent
+                    ? "text-primary-foreground"
+                    : "text-foreground"
                 }`}
               >
                 {item.label}
@@ -41,7 +67,9 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:+390000000000"
-              className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-secondary transition-colors"
+              className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-secondary ${
+                transparent ? "text-primary-foreground" : "text-foreground"
+              }`}
             >
               <Phone className="h-4 w-4" />
               Chiamaci
@@ -58,7 +86,7 @@ const Header = () => {
           {/* Mobile toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground"
+            className={`lg:hidden p-2 ${transparent ? "text-primary-foreground" : "text-foreground"}`}
             aria-label="Menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
