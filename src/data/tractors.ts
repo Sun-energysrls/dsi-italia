@@ -13,6 +13,7 @@ export interface TechnicalSpecs {
 export interface Tractor {
   id: string;
   name: string;
+  brand: string;
   category: string;
   categorySlug: string;
   hp: number;
@@ -28,7 +29,6 @@ export interface Tractor {
   image: string;
   transmissionOptions: string[];
   tractionOptions: string[];
-  
   fullTechnicalSpecs: TechnicalSpecs;
 }
 
@@ -41,16 +41,20 @@ export const globalColorOptions: ColorOption[] = [
   { name: "Bianco Premium", value: "hsl(0, 0%, 95%)" },
 ];
 
+export const brands = ["John Deere", "New Holland", "Fendt"] as const;
+export type Brand = (typeof brands)[number];
+
 export const categories = [
   { id: "large", label: "Alta Potenza", description: "Oltre 160 HP per grandi aziende agricole" },
   { id: "medium", label: "Media Potenza", description: "120–160 HP per coltivazioni miste" },
-  { id: "compact", label: "Compatti / Serre", description: "Fino a 90 HP, agili e maneggevoli" },
+  { id: "compact", label: "Compatti / Serre", description: "40–100 HP, agili e maneggevoli" },
 ];
 
 export const tractors: Tractor[] = [
   {
     id: "sd2604",
     name: "SD 2604",
+    brand: "John Deere",
     category: "Alta Potenza",
     categorySlug: "large",
     hp: 260,
@@ -70,8 +74,6 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Power Shift", "CVT"],
     tractionOptions: ["4WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "191 kW",
       cilindrata: "6 cilindri turbo intercooler",
@@ -81,6 +83,7 @@ export const tractors: Tractor[] = [
   {
     id: "sd2204",
     name: "SD 2204",
+    brand: "John Deere",
     category: "Alta Potenza",
     categorySlug: "large",
     hp: 220,
@@ -100,8 +103,6 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Power Shift"],
     tractionOptions: ["4WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "162 kW",
       cilindrata: "6 cilindri turbo",
@@ -111,6 +112,7 @@ export const tractors: Tractor[] = [
   {
     id: "sd1804",
     name: "SD 1804",
+    brand: "New Holland",
     category: "Alta Potenza",
     categorySlug: "large",
     hp: 180,
@@ -130,8 +132,6 @@ export const tractors: Tractor[] = [
     image: "tractor-large",
     transmissionOptions: ["Manuale sincronizzata"],
     tractionOptions: ["4WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "132 kW",
       cilindrata: "6 cilindri",
@@ -141,6 +141,7 @@ export const tractors: Tractor[] = [
   {
     id: "sd1604",
     name: "SD 1604",
+    brand: "New Holland",
     category: "Media Potenza",
     categorySlug: "medium",
     hp: 160,
@@ -160,8 +161,6 @@ export const tractors: Tractor[] = [
     image: "tractor-medium",
     transmissionOptions: ["Manuale sincronizzata"],
     tractionOptions: ["4WD", "2WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "118 kW",
       cilindrata: "4 cilindri turbo",
@@ -171,6 +170,7 @@ export const tractors: Tractor[] = [
   {
     id: "sd904",
     name: "SD 904",
+    brand: "Fendt",
     category: "Compatti / Serre",
     categorySlug: "compact",
     hp: 90,
@@ -190,8 +190,6 @@ export const tractors: Tractor[] = [
     image: "tractor-compact",
     transmissionOptions: ["Manuale"],
     tractionOptions: ["4WD", "2WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "66 kW",
       cilindrata: "4 cilindri",
@@ -201,6 +199,7 @@ export const tractors: Tractor[] = [
   {
     id: "sd504g",
     name: "SD 504 G",
+    brand: "Fendt",
     category: "Compatti / Serre",
     categorySlug: "compact",
     hp: 50,
@@ -220,8 +219,6 @@ export const tractors: Tractor[] = [
     image: "tractor-compact",
     transmissionOptions: ["Manuale"],
     tractionOptions: ["4WD", "2WD"],
-
-
     fullTechnicalSpecs: {
       potenza_kw: "37 kW",
       cilindrata: "3 cilindri",
@@ -232,6 +229,10 @@ export const tractors: Tractor[] = [
 
 export function getTractorsByCategory(categoryId: string) {
   return tractors.filter((t) => t.categorySlug === categoryId);
+}
+
+export function getTractorsByBrand(brand: string) {
+  return tractors.filter((t) => t.brand === brand);
 }
 
 export function getTractorById(id: string) {
