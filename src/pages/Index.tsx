@@ -18,7 +18,7 @@ const Index = () => {
       <BrandPartnersSection />
       <AdvantagesSection />
       <ConfiguratorPreview />
-      <CategorySection />
+      
       <FeaturedModels />
       <CtaSection />
     </Layout>
