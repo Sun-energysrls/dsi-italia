@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle, Send } from "lucide-react";
 import Layout from "@/components/Layout";
+import SeoHead from "@/components/SeoHead";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { toast } from "sonner";
 
@@ -23,11 +24,17 @@ const Contatti = () => {
 
   return (
     <Layout>
-      <section className="section-dark py-20 lg:py-24">
+      <SeoHead
+        title="Contatti — DSI Import"
+        description="Contattaci per informazioni sui trattori agricoli DSI Import."
+        canonical="https://dsi-italia.com/contatti"
+      />
+
+      <section className="py-20 lg:py-24" style={{ backgroundColor: "#1B4332" }}>
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">Contattaci</h1>
-            <p className="text-[hsl(120,10%,55%)] text-lg">Siamo a disposizione per qualsiasi richiesta</p>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight">Contattaci</h1>
+            <p className="text-white/50 text-lg">Siamo a disposizione per qualsiasi richiesta</p>
           </AnimatedSection>
         </div>
       </section>
@@ -35,7 +42,6 @@ const Contatti = () => {
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Form */}
             <AnimatedSection>
               <div className="bg-card border border-border p-6 lg:p-8 shadow-card">
                 <h2 className="font-display text-2xl font-black text-foreground mb-6 uppercase tracking-tight">Scrivici</h2>
@@ -58,9 +64,7 @@ const Contatti = () => {
                   </div>
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-1 h-4 w-4 border-border" />
-                    <span className="text-sm text-muted-foreground">
-                      Acconsento al trattamento dei dati personali ai sensi del GDPR. *
-                    </span>
+                    <span className="text-sm text-muted-foreground">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</span>
                   </label>
                   <button type="submit" className="w-full gradient-accent text-accent-foreground py-4 font-black uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated">
                     <Send className="h-4 w-4" /> Invia Messaggio
@@ -69,7 +73,6 @@ const Contatti = () => {
               </div>
             </AnimatedSection>
 
-            {/* Info */}
             <AnimatedSection delay={0.15}>
               <div className="space-y-8">
                 <div className="bg-card border border-border p-6 shadow-card space-y-6">
@@ -99,35 +102,19 @@ const Contatti = () => {
                   </div>
                 </div>
 
-                {/* Quick actions */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href="tel:+390000000000"
-                    className="flex-1 gradient-primary text-primary-foreground py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card"
-                  >
+                  <a href="tel:+390000000000" className="flex-1 py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card text-white" style={{ backgroundColor: "#1B4332" }}>
                     <Phone className="h-4 w-4" /> Chiamaci
                   </a>
-                  <a
-                    href="https://wa.me/390000000000"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 bg-[hsl(142,70%,40%)] text-primary-foreground py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card"
-                  >
+                  <a href="https://wa.me/390000000000" target="_blank" rel="noopener noreferrer" className="flex-1 bg-[hsl(142,70%,40%)] text-white py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card">
                     <MessageCircle className="h-4 w-4" /> WhatsApp
                   </a>
                 </div>
 
-                {/* Map */}
                 <div className="overflow-hidden shadow-card border border-border h-64">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6!2d12.4964!3d41.9028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDU0JzEwLjEiTiAxMsKwMjknNDcuMCJF!5e0!3m2!1sit!2sit!4v1234567890"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="DSI Import Sede"
+                    width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="DSI Import Sede"
                   />
                 </div>
               </div>

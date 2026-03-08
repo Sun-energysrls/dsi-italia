@@ -1,8 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import { Settings, CheckCircle, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
+import SeoHead from "@/components/SeoHead";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { getTractorById } from "@/data/tractors";
+import { getBrandById } from "@/data/brands";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
 import tractorSmall from "@/assets/tractor-small.jpg";
@@ -30,6 +32,8 @@ const SchedaProdotto = () => {
     );
   }
 
+  const brand = getBrandById(tractor.brandId);
+
   const specLabels: Record<string, string> = {
     cilindrata: "Cilindrata",
     coppia: "Coppia max",
@@ -41,7 +45,8 @@ const SchedaProdotto = () => {
   };
 
   const baseSpecs = [
-    { label: "Potenza", value: `${tractor.hp} HP` },
+    { label: "Brand", value: brand?.name || "" },
+    { label: "Potenza", value: `${tractor.hp} CV` },
     { label: "Tipo motore", value: tractor.engine },
     { label: "Tipo cambio", value: tractor.transmission },
     { label: "Trazione", value: tractor.traction },
@@ -58,26 +63,39 @@ const SchedaProdotto = () => {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="section-dark">
+      <SeoHead
+        title={`${tractor.name} ${brand?.name || ""} — DSI Import`}
+        description={tractor.shortDescription}
+        canonical={`https://dsi-italia.com/trattori/${tractor.id}`}
+      />
+
+      <section style={{ backgroundColor: "#1B4332" }}>
         <div className="container mx-auto px-4 lg:px-8 py-8">
-          <Link to="/trattori" className="inline-flex items-center gap-2 text-[hsl(120,10%,55%)] hover:text-[hsl(40,100%,97%)] text-sm mb-6 transition-colors">
+          <Link to="/trattori" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-6 transition-colors">
             <ArrowLeft className="h-4 w-4" /> Torna alla gamma
           </Link>
         </div>
         <div className="container mx-auto px-4 lg:px-8 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <div className="overflow-hidden shadow-elevated group">
+              <div className="overflow-hidden shadow-elevated group relative">
                 <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
+                {brand && (
+                  <span
+                    className="absolute top-4 left-4 px-3 py-1.5 text-sm font-bold text-white uppercase tracking-wider"
+                    style={{ backgroundColor: brand.color }}
+                  >
+                    {brand.name}
+                  </span>
+                )}
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
               <span className="text-secondary font-bold text-xs uppercase tracking-[0.2em]">{tractor.category} — {tractor.hpRange}</span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mt-2 mb-4 uppercase tracking-tight">{tractor.name}</h1>
-              <p className="text-[hsl(120,10%,55%)] text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white mt-2 mb-4 uppercase tracking-tight">{tractor.name}</h1>
+              <p className="text-white/50 text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
               <Link
-                to={`/configuratore?modello=${tractor.id}`}
+                to={`/configuratore?brand=${tractor.brandId}&modello=${tractor.id}`}
                 className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 <Settings className="h-5 w-5" />
@@ -88,7 +106,6 @@ const SchedaProdotto = () => {
         </div>
       </section>
 
-      {/* Specs */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
@@ -109,18 +126,17 @@ const SchedaProdotto = () => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="section-dark py-20 lg:py-28">
+      <section className="py-20 lg:py-28" style={{ backgroundColor: "#1B4332" }}>
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-2xl md:text-3xl font-display font-black mb-8 uppercase tracking-tight">Caratteristiche Principali</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-black text-white mb-8 uppercase tracking-tight">Caratteristiche Principali</h2>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tractor.features.map((f, i) => (
               <AnimatedSection key={f} delay={i * 0.05}>
-                <div className="flex items-center gap-3 bg-[hsl(156,32%,14%)] p-4 border border-[hsl(156,20%,20%)]">
+                <div className="flex items-center gap-3 p-4 border" style={{ backgroundColor: "hsl(154, 25%, 20%)", borderColor: "hsl(154, 25%, 28%)" }}>
                   <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
-                  <span className="text-sm font-medium">{f}</span>
+                  <span className="text-sm font-medium text-white">{f}</span>
                 </div>
               </AnimatedSection>
             ))}
@@ -128,7 +144,6 @@ const SchedaProdotto = () => {
         </div>
       </section>
 
-      {/* Accessories */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
@@ -140,7 +155,7 @@ const SchedaProdotto = () => {
             </div>
             <div className="mt-14">
               <Link
-                to={`/configuratore?modello=${tractor.id}`}
+                to={`/configuratore?brand=${tractor.brandId}&modello=${tractor.id}`}
                 className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
                 <Settings className="h-5 w-5" />
