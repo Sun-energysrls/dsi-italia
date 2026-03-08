@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Settings } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 
 const navItems = [
@@ -48,8 +48,9 @@ const Header = () => {
             </a>
             <Link
               to="/configuratore"
-              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90"
+              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90 inline-flex items-center gap-2"
             >
+              <Settings className="h-4 w-4" />
               Configura
             </Link>
           </div>
@@ -83,8 +84,9 @@ const Header = () => {
               <Link
                 to="/configuratore"
                 onClick={() => setIsOpen(false)}
-                className="gradient-accent text-accent-foreground px-5 py-3 rounded-md text-sm font-semibold text-center uppercase mt-2"
+                className="gradient-accent text-accent-foreground px-5 py-3 rounded-md text-sm font-semibold text-center uppercase mt-2 inline-flex items-center justify-center gap-2"
               >
+                <Settings className="h-4 w-4" />
                 Configura il tuo Trattore
               </Link>
             </div>
