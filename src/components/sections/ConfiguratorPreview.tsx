@@ -8,18 +8,18 @@ const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
 
 const ConfiguratorPreview = () => {
   return (
-    <section className="py-28 lg:py-36 bg-card border-y border-border/30 overflow-hidden">
+    <section className="section-dark py-24 lg:py-32 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left: text */}
           <AnimatedSection>
-            <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em] mb-4">
+            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
               CONFIGURA LA TUA MACCHINA
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight text-foreground">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight">
               Configura il tuo trattore ideale
             </h2>
-            <p className="text-muted-foreground text-base leading-relaxed mb-8">
+            <p className="text-[hsl(120,10%,55%)] text-base leading-relaxed mb-8">
               Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
             </p>
 
@@ -27,7 +27,7 @@ const ConfiguratorPreview = () => {
               {previewFeatures.map((feat) => (
                 <span
                   key={feat}
-                  className="px-4 py-2 bg-muted border border-border/50 text-[11px] font-medium text-foreground/80 uppercase tracking-[0.15em]"
+                  className="px-4 py-2 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)] text-sm font-medium"
                 >
                   {feat}
                 </span>
@@ -36,10 +36,10 @@ const ConfiguratorPreview = () => {
 
             <Link
               to="/configuratore"
-              className="border border-secondary text-secondary px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2 hover:bg-secondary hover:text-secondary-foreground transition-all"
+              className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
             >
               Configura il tuo trattore
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </AnimatedSection>
 
@@ -47,7 +47,7 @@ const ConfiguratorPreview = () => {
           <AnimatedSection delay={0.15}>
             <div className="relative">
               <div className="text-center">
-                <p className="text-muted-foreground text-[10px] uppercase tracking-[0.3em] mb-6 font-medium">
+                <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-[0.2em] mb-4 font-medium">
                   ANTEPRIMA CONFIGURAZIONE
                 </p>
                 <img
@@ -58,24 +58,24 @@ const ConfiguratorPreview = () => {
               </div>
 
               {/* Mini stats */}
-              <div className="grid grid-cols-3 gap-px bg-border/30 mt-10">
-                <div className="text-center p-5 bg-card">
-                  <div className="text-2xl font-display font-black text-foreground">
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
                     <AnimatedCounter end={180} />-<AnimatedCounter end={620} />
                   </div>
-                  <p className="text-muted-foreground text-[10px] uppercase tracking-[0.2em] mt-1">CV</p>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">CV</p>
                 </div>
-                <div className="text-center p-5 bg-card">
-                  <div className="text-2xl font-display font-black text-foreground">
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
                     <AnimatedCounter end={4} />
                   </div>
-                  <p className="text-muted-foreground text-[10px] uppercase tracking-[0.2em] mt-1">Brand</p>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Brand</p>
                 </div>
-                <div className="text-center p-5 bg-card">
-                  <div className="text-2xl font-display font-black text-foreground">
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
                     <AnimatedCounter end={50} suffix="+" />
                   </div>
-                  <p className="text-muted-foreground text-[10px] uppercase tracking-[0.2em] mt-1">Accessori</p>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Accessori</p>
                 </div>
               </div>
             </div>

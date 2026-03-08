@@ -59,28 +59,28 @@ const SchedaProdotto = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-background border-b border-border/30">
+      <section className="section-dark">
         <div className="container mx-auto px-4 lg:px-8 py-8">
-          <Link to="/trattori" className="inline-flex items-center gap-2 text-muted-foreground hover:text-secondary text-[11px] uppercase tracking-[0.15em] mb-6 transition-colors">
+          <Link to="/trattori" className="inline-flex items-center gap-2 text-[hsl(120,10%,55%)] hover:text-[hsl(40,100%,97%)] text-sm mb-6 transition-colors">
             <ArrowLeft className="h-4 w-4" /> Torna alla gamma
           </Link>
         </div>
         <div className="container mx-auto px-4 lg:px-8 pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <div className="overflow-hidden group">
+              <div className="overflow-hidden shadow-elevated group">
                 <img src={imageMap[tractor.image]} alt={tractor.name} className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
-              <span className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em]">{tractor.category} — {tractor.hpRange}</span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mt-2 mb-4 uppercase tracking-tight text-foreground">{tractor.name}</h1>
-              <p className="text-muted-foreground text-base mb-10 leading-relaxed">{tractor.shortDescription}</p>
+              <span className="text-secondary font-bold text-xs uppercase tracking-[0.2em]">{tractor.category} — {tractor.hpRange}</span>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mt-2 mb-4 uppercase tracking-tight">{tractor.name}</h1>
+              <p className="text-[hsl(120,10%,55%)] text-lg mb-10 leading-relaxed">{tractor.shortDescription}</p>
               <Link
                 to={`/configuratore?modello=${tractor.id}`}
-                className="border border-secondary text-secondary px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2 hover:bg-secondary hover:text-secondary-foreground transition-all"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
-                <Settings className="h-4 w-4" />
+                <Settings className="h-5 w-5" />
                 Configura questo Trattore
               </Link>
             </AnimatedSection>
@@ -93,12 +93,12 @@ const SchedaProdotto = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <h2 className="text-2xl md:text-3xl font-display font-black text-foreground mb-8 uppercase tracking-tight">Specifiche Tecniche</h2>
-            <div className="bg-card border border-border/30 overflow-hidden">
+            <div className="bg-card border border-border overflow-hidden shadow-card">
               <table className="w-full">
                 <tbody>
                   {specs.map((spec, i) => (
-                    <tr key={spec.label} className={`border-b border-border/20 last:border-0 ${i % 2 === 0 ? "bg-card" : "bg-muted/20"}`}>
-                      <td className="px-6 py-4 font-bold text-foreground/80 text-[10px] w-1/3 uppercase tracking-[0.15em]">{spec.label}</td>
+                    <tr key={spec.label} className={i % 2 === 0 ? "bg-muted/30" : ""}>
+                      <td className="px-6 py-4 font-bold text-foreground text-sm w-1/3 uppercase tracking-wide">{spec.label}</td>
                       <td className="px-6 py-4 text-muted-foreground text-sm">{spec.value}</td>
                     </tr>
                   ))}
@@ -110,17 +110,17 @@ const SchedaProdotto = () => {
       </section>
 
       {/* Features */}
-      <section className="py-20 lg:py-28 bg-card border-y border-border/30">
+      <section className="section-dark py-20 lg:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-2xl md:text-3xl font-display font-black mb-8 uppercase tracking-tight text-foreground">Caratteristiche Principali</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-black mb-8 uppercase tracking-tight">Caratteristiche Principali</h2>
           </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/30">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tractor.features.map((f, i) => (
               <AnimatedSection key={f} delay={i * 0.05}>
-                <div className="flex items-center gap-3 bg-card p-5">
-                  <CheckCircle className="h-4 w-4 text-secondary shrink-0" />
-                  <span className="text-sm font-medium text-foreground/80">{f}</span>
+                <div className="flex items-center gap-3 bg-[hsl(156,32%,14%)] p-4 border border-[hsl(156,20%,20%)]">
+                  <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
+                  <span className="text-sm font-medium">{f}</span>
                 </div>
               </AnimatedSection>
             ))}
@@ -133,17 +133,17 @@ const SchedaProdotto = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <h2 className="text-2xl md:text-3xl font-display font-black text-foreground mb-8 uppercase tracking-tight">Accessori Disponibili</h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {tractor.accessories.map((a) => (
-                <span key={a} className="bg-card text-foreground/80 px-4 py-2 text-sm font-medium border border-border/30">{a}</span>
+                <span key={a} className="bg-muted text-foreground px-4 py-2 text-sm font-medium border border-border">{a}</span>
               ))}
             </div>
             <div className="mt-14">
               <Link
                 to={`/configuratore?modello=${tractor.id}`}
-                className="border border-secondary text-secondary px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2 hover:bg-secondary hover:text-secondary-foreground transition-all"
+                className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
               >
-                <Settings className="h-4 w-4" />
+                <Settings className="h-5 w-5" />
                 Configura questo Trattore
               </Link>
             </div>

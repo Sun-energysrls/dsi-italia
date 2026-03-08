@@ -82,7 +82,7 @@ const Configuratore = () => {
     if (step === 2) return !!power;
     if (step === 3) return !!transmission;
     if (step === 4) return !!color;
-    if (step === 5) return true;
+    if (step === 5) return true; // accessories optional
     if (step === 6) return !!name && !!email && !!phone;
     return false;
   };
@@ -97,18 +97,18 @@ const Configuratore = () => {
       <Layout>
         <section className="min-h-[80vh] flex items-center justify-center bg-background">
           <div className="text-center max-w-md px-4">
-            <div className="w-20 h-20 border border-secondary flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="h-10 w-10 text-secondary" />
+            <div className="w-20 h-20 bg-secondary flex items-center justify-center mx-auto mb-6 rounded-full">
+              <CheckCircle className="h-10 w-10 text-secondary-foreground" />
             </div>
-            <h1 className="text-3xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
+            <h1 className="text-3xl font-display font-black text-foreground mb-4 uppercase">
               Richiesta Inviata!
             </h1>
-            <p className="text-muted-foreground text-base mb-8">
+            <p className="text-muted-foreground text-lg mb-8">
               Il nostro team vi risponderà entro 24 ore con un preventivo personalizzato.
             </p>
             <a
               href="/"
-              className="border border-secondary text-secondary px-8 py-3 font-bold uppercase tracking-[0.2em] text-[11px] inline-block hover:bg-secondary hover:text-secondary-foreground transition-all"
+              className="bg-secondary text-secondary-foreground px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest inline-block hover:opacity-90 transition-opacity"
             >
               Torna alla Home
             </a>
@@ -121,24 +121,25 @@ const Configuratore = () => {
   return (
     <Layout>
       <div className="min-h-[calc(100vh-4rem)] flex flex-col lg:flex-row">
-        {/* LEFT PANEL */}
-        <div className="w-full lg:w-[40%] bg-card border-r border-border/30 flex flex-col">
+        {/* LEFT PANEL — 40% */}
+        <div className="w-full lg:w-[40%] bg-card border-r border-border flex flex-col">
           {/* Step progress */}
-          <div className="px-6 pt-8 pb-4 border-b border-border/30 overflow-x-auto">
+          <div className="px-6 pt-8 pb-4 border-b border-border overflow-x-auto">
             <div className="flex items-center min-w-max">
               {stepLabels.map((label, i) => {
                 const isDone = step > i;
                 const isActive = step === i;
+                const isFuture = step < i;
                 return (
                   <div key={i} className="flex items-center">
                     <div className="flex flex-col items-center gap-1">
                       <div
-                        className={`w-8 h-8 flex items-center justify-center text-[10px] font-black transition-all ${
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
                           isDone
                             ? "bg-secondary text-secondary-foreground"
                             : isActive
-                            ? "border-2 border-secondary text-secondary"
-                            : "border border-border text-muted-foreground"
+                            ? "bg-transparent border-[3px] border-secondary text-secondary"
+                            : "bg-transparent border-2 border-muted-foreground/30 text-muted-foreground/50"
                         }`}
                       >
                         {isDone ? (
@@ -148,7 +149,7 @@ const Configuratore = () => {
                         )}
                       </div>
                       <span
-                        className={`text-[8px] font-bold uppercase tracking-[0.15em] whitespace-nowrap ${
+                        className={`text-[9px] font-bold uppercase tracking-wider whitespace-nowrap ${
                           isDone || isActive ? "text-secondary" : "text-muted-foreground/50"
                         }`}
                       >
@@ -157,8 +158,8 @@ const Configuratore = () => {
                     </div>
                     {i < stepLabels.length - 1 && (
                       <div
-                        className={`w-6 h-[1px] mx-1 mt-[-12px] ${
-                          step > i ? "bg-secondary" : "bg-border"
+                        className={`w-6 h-[2px] mx-1 mt-[-12px] ${
+                          step > i ? "bg-secondary" : "bg-muted-foreground/20"
                         }`}
                       />
                     )}
@@ -170,6 +171,7 @@ const Configuratore = () => {
 
           {/* Step content */}
           <div className="flex-1 px-6 py-8 overflow-y-auto">
+            {/* Step 0: Brand */}
             {step === 0 && (
               <StepContent title="Seleziona il Brand">
                 <div className="grid grid-cols-1 gap-3">
@@ -177,10 +179,10 @@ const Configuratore = () => {
                     <button
                       key={brand}
                       onClick={() => handleBrandSelect(brand)}
-                      className={`p-4 border text-left font-bold text-sm uppercase tracking-[0.15em] transition-all ${
+                      className={`p-4 border-2 rounded-[4px] text-left font-bold text-base uppercase tracking-wide transition-all ${
                         selectedBrand === brand
-                          ? "border-secondary text-secondary bg-secondary/5"
-                          : "border-border text-foreground/70 hover:border-foreground/30"
+                          ? "border-secondary bg-secondary/10 text-secondary"
+                          : "border-border text-foreground hover:border-secondary/40"
                       }`}
                     >
                       {brand}
@@ -190,6 +192,7 @@ const Configuratore = () => {
               </StepContent>
             )}
 
+            {/* Step 1: Modello */}
             {step === 1 && (
               <StepContent title="Seleziona il Modello">
                 <div className="grid grid-cols-1 gap-3">
@@ -197,25 +200,26 @@ const Configuratore = () => {
                     <button
                       key={t.id}
                       onClick={() => handleModelSelect(t.id)}
-                      className={`p-4 border text-left transition-all ${
+                      className={`p-4 border-2 rounded-[4px] text-left transition-all ${
                         model === t.id
-                          ? "border-secondary bg-secondary/5"
-                          : "border-border hover:border-foreground/30"
+                          ? "border-secondary bg-secondary/10"
+                          : "border-border hover:border-secondary/40"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-display font-black text-foreground uppercase text-sm">
+                        <span className="font-display font-black text-foreground uppercase">
                           {t.name}
                         </span>
                         <span className="text-secondary font-black text-lg">{t.hp} HP</span>
                       </div>
-                      <p className="text-muted-foreground text-xs mt-1">{t.shortDescription}</p>
+                      <p className="text-muted-foreground text-sm mt-1">{t.shortDescription}</p>
                     </button>
                   ))}
                 </div>
               </StepContent>
             )}
 
+            {/* Step 2: Motore (power) */}
             {step === 2 && selectedTractor && (
               <StepContent title="Seleziona la Potenza">
                 <div className="grid grid-cols-1 gap-3">
@@ -223,10 +227,10 @@ const Configuratore = () => {
                     <button
                       key={hp}
                       onClick={() => setPower(String(hp))}
-                      className={`p-4 border text-center font-black text-lg uppercase transition-all ${
+                      className={`p-4 border-2 rounded-[4px] text-center font-black text-lg uppercase transition-all ${
                         power === String(hp)
                           ? "bg-secondary text-secondary-foreground border-secondary"
-                          : "border-border text-foreground hover:border-foreground/30"
+                          : "border-border text-foreground hover:border-secondary/40"
                       }`}
                     >
                       {hp} HP
@@ -236,6 +240,7 @@ const Configuratore = () => {
               </StepContent>
             )}
 
+            {/* Step 3: Cambio */}
             {step === 3 && (
               <StepContent title="Tipo di Cambio">
                 <div className="grid grid-cols-1 gap-3">
@@ -243,10 +248,10 @@ const Configuratore = () => {
                     <button
                       key={t}
                       onClick={() => setTransmission(t)}
-                      className={`p-4 border text-left font-bold text-sm uppercase tracking-[0.15em] transition-all ${
+                      className={`p-4 border-2 rounded-[4px] text-left font-bold text-base uppercase tracking-wide transition-all ${
                         transmission === t
-                          ? "border-secondary text-secondary bg-secondary/5"
-                          : "border-border text-foreground/70 hover:border-foreground/30"
+                          ? "border-secondary bg-secondary/10 text-secondary"
+                          : "border-border text-foreground hover:border-secondary/40"
                       }`}
                     >
                       {t}
@@ -256,6 +261,7 @@ const Configuratore = () => {
               </StepContent>
             )}
 
+            {/* Step 4: Colore */}
             {step === 4 && (
               <StepContent title="Scegli il Colore">
                 <div className="grid grid-cols-2 gap-4">
@@ -266,15 +272,15 @@ const Configuratore = () => {
                       className="flex flex-col items-center gap-2 group"
                     >
                       <span
-                        className={`w-16 h-16 transition-all ${
+                        className={`w-16 h-16 rounded-full transition-all ${
                           color === c.name
-                            ? "ring-2 ring-secondary ring-offset-2 ring-offset-card scale-110"
-                            : "border border-border group-hover:border-foreground/30"
+                            ? "ring-4 ring-secondary ring-offset-2 ring-offset-card scale-110"
+                            : "border-2 border-border group-hover:border-secondary/50"
                         }`}
                         style={{ backgroundColor: c.value }}
                       />
                       <span
-                        className={`text-[9px] font-bold uppercase tracking-[0.15em] text-center ${
+                        className={`text-[10px] font-bold uppercase tracking-wider text-center ${
                           color === c.name ? "text-secondary" : "text-muted-foreground"
                         }`}
                       >
@@ -286,6 +292,7 @@ const Configuratore = () => {
               </StepContent>
             )}
 
+            {/* Step 5: Accessori */}
             {step === 5 && selectedTractor && (
               <StepContent title="Accessori Opzionali">
                 <div className="grid grid-cols-1 gap-3">
@@ -293,17 +300,17 @@ const Configuratore = () => {
                     <button
                       key={acc}
                       onClick={() => toggleAccessory(acc)}
-                      className={`p-4 border text-left font-medium text-sm flex items-center gap-3 transition-all ${
+                      className={`p-4 border-2 rounded-[4px] text-left font-medium text-sm flex items-center gap-3 transition-all ${
                         accessories.includes(acc)
-                          ? "border-secondary text-secondary bg-secondary/5"
-                          : "border-border text-foreground/70 hover:border-foreground/30"
+                          ? "border-secondary bg-secondary/10 text-secondary"
+                          : "border-border text-foreground hover:border-secondary/40"
                       }`}
                     >
                       <span
-                        className={`w-4 h-4 border flex items-center justify-center shrink-0 ${
+                        className={`w-5 h-5 rounded-[3px] border-2 flex items-center justify-center shrink-0 ${
                           accessories.includes(acc)
                             ? "bg-secondary border-secondary"
-                            : "border-border"
+                            : "border-muted-foreground/30"
                         }`}
                       >
                         {accessories.includes(acc) && (
@@ -322,9 +329,11 @@ const Configuratore = () => {
               </StepContent>
             )}
 
+            {/* Step 6: Riepilogo + Form */}
             {step === 6 && (
               <StepContent title="Riepilogo e Contatto">
-                <div className="bg-muted/30 border border-border/30 p-4 mb-6 space-y-2">
+                {/* Summary card */}
+                <div className="bg-muted/50 border border-border rounded-[4px] p-4 mb-6 space-y-2">
                   {[
                     { label: "Brand", value: selectedBrand },
                     { label: "Modello", value: selectedTractor?.name },
@@ -336,15 +345,16 @@ const Configuratore = () => {
                       value: accessories.length > 0 ? accessories.join(", ") : "Nessuno",
                     },
                   ].map((item) => (
-                    <div key={item.label} className="flex justify-between text-sm py-1 border-b border-border/20 last:border-0">
-                      <span className="font-bold text-foreground/80 uppercase tracking-[0.15em] text-[10px]">
+                    <div key={item.label} className="flex justify-between text-sm py-1 border-b border-border/50 last:border-0">
+                      <span className="font-bold text-foreground uppercase tracking-wide text-xs">
                         {item.label}
                       </span>
-                      <span className="text-muted-foreground text-right text-xs">{item.value}</span>
+                      <span className="text-muted-foreground text-right">{item.value}</span>
                     </div>
                   ))}
                 </div>
 
+                {/* Contact form */}
                 <div className="space-y-4">
                   {[
                     { label: "Nome *", value: name, setter: setName, placeholder: "Mario Rossi" },
@@ -352,7 +362,7 @@ const Configuratore = () => {
                     { label: "Telefono *", value: phone, setter: setPhone, placeholder: "+39 333 000 0000", type: "tel" },
                   ].map((field) => (
                     <div key={field.label}>
-                      <label className="block text-[9px] font-bold text-muted-foreground mb-1.5 uppercase tracking-[0.2em]">
+                      <label className="block text-[10px] font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">
                         {field.label}
                       </label>
                       <input
@@ -360,12 +370,12 @@ const Configuratore = () => {
                         value={field.value}
                         onChange={(e) => field.setter(e.target.value)}
                         placeholder={field.placeholder}
-                        className="w-full border border-border px-4 py-3 bg-background text-foreground text-sm focus:ring-1 focus:ring-secondary focus:outline-none"
+                        className="w-full border border-input px-4 py-3 bg-background text-foreground text-sm rounded-[4px] focus:ring-2 focus:ring-secondary focus:outline-none"
                       />
                     </div>
                   ))}
                   <div>
-                    <label className="block text-[9px] font-bold text-muted-foreground mb-1.5 uppercase tracking-[0.2em]">
+                    <label className="block text-[10px] font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">
                       Note
                     </label>
                     <textarea
@@ -373,7 +383,7 @@ const Configuratore = () => {
                       onChange={(e) => setNotes(e.target.value)}
                       rows={3}
                       placeholder="Richieste particolari..."
-                      className="w-full border border-border px-4 py-3 bg-background text-foreground text-sm focus:ring-1 focus:ring-secondary focus:outline-none resize-none"
+                      className="w-full border border-input px-4 py-3 bg-background text-foreground text-sm rounded-[4px] focus:ring-2 focus:ring-secondary focus:outline-none resize-none"
                     />
                   </div>
                 </div>
@@ -382,11 +392,11 @@ const Configuratore = () => {
           </div>
 
           {/* Navigation buttons */}
-          <div className="px-6 py-4 border-t border-border/30 flex items-center gap-3">
+          <div className="px-6 py-4 border-t border-border flex items-center gap-3">
             {step > 0 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="px-5 py-3 border border-border text-foreground/70 font-bold uppercase tracking-[0.15em] text-[10px] hover:border-foreground/30 transition-all inline-flex items-center gap-2"
+                className="px-5 py-3 border-2 border-border text-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:border-foreground transition-all inline-flex items-center gap-2"
               >
                 <ChevronLeft className="h-4 w-4" />
                 Indietro
@@ -397,7 +407,7 @@ const Configuratore = () => {
               <button
                 onClick={() => canGoNext() && setStep(step + 1)}
                 disabled={!canGoNext()}
-                className="px-6 py-3 bg-secondary text-secondary-foreground font-bold uppercase tracking-[0.15em] text-[10px] hover:opacity-90 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center gap-2"
               >
                 Avanti
                 <ChevronRight className="h-4 w-4" />
@@ -406,7 +416,7 @@ const Configuratore = () => {
               <button
                 onClick={() => canGoNext() && handleSubmit()}
                 disabled={!canGoNext()}
-                className="px-6 py-3 bg-secondary text-secondary-foreground font-bold uppercase tracking-[0.15em] text-[10px] hover:opacity-90 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center gap-2"
               >
                 <Send className="h-4 w-4" />
                 Invia Preventivo
@@ -415,7 +425,7 @@ const Configuratore = () => {
           </div>
         </div>
 
-        {/* RIGHT PANEL */}
+        {/* RIGHT PANEL — 60% preview */}
         <div className="hidden lg:flex w-[60%] bg-background flex-col items-center justify-center p-12 relative">
           {selectedTractor ? (
             <div className="w-full max-w-2xl">
@@ -426,7 +436,7 @@ const Configuratore = () => {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="grid grid-cols-3 gap-px bg-border/30">
+              <div className="grid grid-cols-3 gap-4">
                 <StatBox label="Potenza" value={power ? `${power} HP` : `${selectedTractor.hp} HP`} />
                 <StatBox label="Brand" value={selectedBrand || selectedTractor.brand} />
                 <StatBox
@@ -434,21 +444,22 @@ const Configuratore = () => {
                   value={accessories.length > 0 ? `${accessories.length} sel.` : "Nessuno"}
                 />
               </div>
+              {/* Color preview bar */}
               {color && (
                 <div className="mt-6 flex items-center justify-center gap-3">
                   <span
-                    className="w-6 h-6 border border-secondary"
+                    className="w-8 h-8 rounded-full border-2 border-secondary"
                     style={{
                       backgroundColor: globalColorOptions.find((c) => c.name === color)?.value,
                     }}
                   />
-                  <span className="text-xs font-bold text-foreground/80 uppercase tracking-[0.15em]">{color}</span>
+                  <span className="text-sm font-bold text-foreground">{color}</span>
                 </div>
               )}
             </div>
           ) : (
             <div className="text-center">
-              <div className="w-32 h-32 border border-border flex items-center justify-center mx-auto mb-6">
+              <div className="w-32 h-32 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl text-muted-foreground/30">🚜</span>
               </div>
               <h3 className="font-display text-xl font-black text-muted-foreground/50 uppercase tracking-tight">
@@ -473,7 +484,7 @@ const StepContent = ({
   children: React.ReactNode;
 }) => (
   <div>
-    <h2 className="font-display text-lg font-black text-foreground uppercase tracking-[0.1em] mb-6">
+    <h2 className="font-display text-xl font-black text-foreground uppercase tracking-tight mb-6">
       {title}
     </h2>
     {children}
@@ -481,8 +492,8 @@ const StepContent = ({
 );
 
 const StatBox = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-card p-4 text-center">
-    <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em] block mb-1">
+  <div className="bg-card border border-border p-4 text-center rounded-[4px]">
+    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-1">
       {label}
     </span>
     <span className="font-display text-lg font-black text-foreground">{value}</span>

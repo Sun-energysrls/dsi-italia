@@ -6,73 +6,73 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 100%;
+    --foreground: 150 15% 11%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 150 15% 11%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 15% 11%;
 
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 5%;
+    --primary: 156 32% 17%;
+    --primary-foreground: 40 100% 97%;
 
-    --secondary: 27 90% 52%;
+    --secondary: 27 82% 52%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 50%;
+    --muted: 120 8% 95%;
+    --muted-foreground: 150 8% 42%;
 
-    --accent: 27 90% 52%;
+    --accent: 27 82% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 27 90% 52%;
+    --border: 120 6% 90%;
+    --input: 120 6% 86%;
+    --ring: 156 32% 17%;
 
-    --radius: 0px;
+    --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 27 90% 52%;
+    --sidebar-background: 156 32% 12%;
+    --sidebar-foreground: 40 100% 97%;
+    --sidebar-primary: 27 82% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 27 90% 52%;
+    --sidebar-accent: 156 32% 20%;
+    --sidebar-accent-foreground: 40 100% 97%;
+    --sidebar-border: 156 32% 25%;
+    --sidebar-ring: 27 82% 52%;
 
     /* Custom DSI tokens */
-    --hero-overlay: linear-gradient(160deg, hsla(0, 0%, 0%, 0.92) 0%, hsla(0, 0%, 0%, 0.7) 50%, hsla(0, 0%, 0%, 0.5) 100%);
-    --gradient-primary: linear-gradient(135deg, hsl(0, 0%, 8%) 0%, hsl(0, 0%, 14%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(27, 90%, 48%) 0%, hsl(27, 90%, 56%) 100%);
-    --shadow-card: 0 2px 16px -2px hsla(0, 0%, 0%, 0.4);
-    --shadow-elevated: 0 8px 32px -6px hsla(0, 0%, 0%, 0.6);
+    --hero-overlay: linear-gradient(160deg, hsla(156, 32%, 8%, 0.92) 0%, hsla(156, 32%, 14%, 0.7) 50%, hsla(156, 32%, 20%, 0.5) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(156, 32%, 15%) 0%, hsl(156, 32%, 22%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(27, 82%, 50%) 0%, hsl(27, 82%, 58%) 100%);
+    --shadow-card: 0 2px 16px -2px hsla(156, 20%, 15%, 0.08);
+    --shadow-elevated: 0 8px 32px -6px hsla(156, 20%, 15%, 0.14);
   }
 
   .dark {
-    --background: 0 0% 3%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 3%;
-    --secondary: 27 90% 52%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 27 90% 52%;
+    --background: 156 32% 6%;
+    --foreground: 40 100% 97%;
+    --card: 156 32% 10%;
+    --card-foreground: 40 100% 97%;
+    --popover: 156 32% 10%;
+    --popover-foreground: 40 100% 97%;
+    --primary: 27 82% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 156 32% 20%;
+    --secondary-foreground: 40 100% 97%;
+    --muted: 156 20% 15%;
+    --muted-foreground: 120 10% 60%;
+    --accent: 27 82% 52%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 27 90% 52%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 156 20% 18%;
+    --input: 156 20% 18%;
+    --ring: 27 82% 52%;
   }
 }
 
@@ -120,17 +120,17 @@
     @apply border-t border-border/60;
   }
 
-  /* Industrial dark section — now uses slightly lighter black */
+  /* Industrial dark section */
   .section-dark {
-    background: hsl(0, 0%, 7%);
-    color: hsl(0, 0%, 95%);
+    background: hsl(156, 32%, 10%);
+    color: hsl(40, 100%, 97%);
   }
 
   .section-dark .text-foreground {
-    color: hsl(0, 0%, 95%);
+    color: hsl(40, 100%, 97%);
   }
 
   .section-dark .text-muted-foreground {
-    color: hsl(0, 0%, 50%);
+    color: hsl(120, 10%, 60%);
   }
 }
