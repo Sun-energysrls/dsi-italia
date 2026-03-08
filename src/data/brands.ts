@@ -28,11 +28,4 @@ export const brands: Brand[] = [
     country: "Germania",
     description: "Tecnologia tedesca di precisione, leader nei trattori ad alta potenza.",
   },
-  {
-    id: "case-ih",
-    name: "Case IH",
-    initials: "CI",
-    country: "USA",
-    description: "Storico marchio americano, specialista in trattori ad alta performance.",
-  },
 ];
