@@ -30,13 +30,13 @@ const accessoryCategories = [
 const Accessori = () => {
   return (
     <Layout>
-      <section className="section-dark py-20 lg:py-28">
+      <section className="bg-background pt-28 pb-16 lg:pt-36 lg:pb-20 border-b border-border/30">
         <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">
+          <AnimatedSection className="text-center">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight text-foreground">
               Accessori e Attrezzature
             </h1>
-            <p className="text-[hsl(120,10%,55%)] text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base max-w-2xl mx-auto">
               Una gamma completa di rimorchi, attrezzature e accessori per completare la vostra dotazione agricola.
             </p>
           </AnimatedSection>
@@ -45,12 +45,12 @@ const Accessori = () => {
 
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="space-y-24">
+          <div className="space-y-28">
             {accessoryCategories.map((cat, i) => (
               <AnimatedSection key={cat.title}>
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center`}>
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center`}>
                   <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                    <div className="overflow-hidden shadow-elevated group">
+                    <div className="overflow-hidden group">
                       <img src={cat.image} alt={cat.title} className="w-full h-80 object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out" loading="lazy" />
                     </div>
                   </div>
@@ -59,15 +59,15 @@ const Accessori = () => {
                     <p className="text-muted-foreground mb-6 leading-relaxed">{cat.description}</p>
                     <ul className="space-y-2 mb-6">
                       {cat.items.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-sm text-foreground">
-                          <span className="w-1.5 h-1.5 bg-secondary shrink-0" />
+                        <li key={item} className="flex items-center gap-2 text-sm text-foreground/80">
+                          <span className="w-1 h-1 bg-secondary shrink-0" />
                           {item}
                         </li>
                       ))}
                     </ul>
                     <Link
                       to="/contatti"
-                      className="inline-flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors"
+                      className="inline-flex items-center gap-2 text-secondary font-bold text-[10px] uppercase tracking-[0.2em] hover:opacity-80 transition-opacity"
                     >
                       Richiedi informazioni <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -80,14 +80,14 @@ const Accessori = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-dark py-20">
+      <section className="py-24 bg-card border-t border-border/30">
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection>
-            <h2 className="text-2xl md:text-3xl font-display font-black mb-4 uppercase tracking-tight">Hai bisogno di un accessorio specifico?</h2>
-            <p className="text-[hsl(120,10%,55%)] mb-10">Contattaci per ricevere una consulenza personalizzata</p>
+            <h2 className="text-2xl md:text-3xl font-display font-black mb-4 uppercase tracking-tight text-foreground">Hai bisogno di un accessorio specifico?</h2>
+            <p className="text-muted-foreground mb-10">Contattaci per ricevere una consulenza personalizzata</p>
             <Link
               to="/contatti"
-              className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm font-bold uppercase tracking-widest inline-block hover:opacity-90 transition-opacity shadow-elevated"
+              className="border border-secondary text-secondary px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] inline-block hover:bg-secondary hover:text-secondary-foreground transition-all"
             >
               Contattaci Ora
             </Link>
