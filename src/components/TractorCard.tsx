@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Tractor } from "@/data/tractors";
+import { getBrandById } from "@/data/brands";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
 import tractorSmall from "@/assets/tractor-small.jpg";
@@ -14,21 +15,31 @@ const imageMap: Record<string, string> = {
 };
 
 const TractorCard = ({ tractor }: { tractor: Tractor }) => {
+  const brand = getBrandById(tractor.brandId);
+
   return (
     <div className="group bg-card overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border">
-      <div className="aspect-[4/3] overflow-hidden bg-muted">
+      <div className="aspect-[4/3] overflow-hidden bg-muted relative">
         <img
           src={imageMap[tractor.image]}
           alt={tractor.name}
           className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-700 ease-out"
           loading="lazy"
         />
+        {brand && (
+          <span
+            className="absolute top-3 left-3 px-2 py-1 text-xs font-bold text-white uppercase tracking-wider"
+            style={{ backgroundColor: brand.color }}
+          >
+            {brand.code}
+          </span>
+        )}
       </div>
       <div className="p-6">
         <span className="text-secondary font-bold text-xs uppercase tracking-widest mb-1 block">{tractor.category}</span>
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-display text-xl font-bold text-foreground">{tractor.name}</h3>
-          <span className="text-secondary font-black text-lg">{tractor.hp} HP</span>
+          <span className="text-secondary font-black text-lg">{tractor.hp} CV</span>
         </div>
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{tractor.shortDescription}</p>
         <Link
