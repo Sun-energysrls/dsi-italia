@@ -8,17 +8,18 @@ const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
 
 const ConfiguratorPreview = () => {
   return (
-    <section className="py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: "#1B4332" }}>
+    <section className="section-dark py-24 lg:py-32 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left: text */}
           <AnimatedSection>
             <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
               CONFIGURA LA TUA MACCHINA
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-6 uppercase tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight">
               Configura il tuo trattore ideale
             </h2>
-            <p className="text-white/50 text-base leading-relaxed mb-8">
+            <p className="text-[hsl(120,10%,55%)] text-base leading-relaxed mb-8">
               Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
             </p>
 
@@ -26,8 +27,7 @@ const ConfiguratorPreview = () => {
               {previewFeatures.map((feat) => (
                 <span
                   key={feat}
-                  className="px-4 py-2 border text-white text-sm font-medium"
-                  style={{ backgroundColor: "hsl(154, 25%, 20%)", borderColor: "hsl(154, 25%, 28%)" }}
+                  className="px-4 py-2 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)] text-sm font-medium"
                 >
                   {feat}
                 </span>
@@ -43,10 +43,11 @@ const ConfiguratorPreview = () => {
             </Link>
           </AnimatedSection>
 
+          {/* Right: tractor image + stats */}
           <AnimatedSection delay={0.15}>
             <div className="relative">
               <div className="text-center">
-                <p className="text-white/40 text-xs uppercase tracking-[0.2em] mb-4 font-medium">
+                <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-[0.2em] mb-4 font-medium">
                   ANTEPRIMA CONFIGURAZIONE
                 </p>
                 <img
@@ -56,25 +57,26 @@ const ConfiguratorPreview = () => {
                 />
               </div>
 
+              {/* Mini stats */}
               <div className="grid grid-cols-3 gap-4 mt-8">
-                {[
-                  { label: "CV", endA: 150, endB: 620, separator: "–" },
-                  { label: "Brand", endA: 4, endB: 0 },
-                  { label: "Accessori", endA: 50, endB: 0, suffix: "+" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="text-center p-4 border"
-                    style={{ backgroundColor: "hsl(154, 25%, 20%)", borderColor: "hsl(154, 25%, 28%)" }}
-                  >
-                    <div className="text-2xl font-display font-black text-white">
-                      <AnimatedCounter end={stat.endA} />
-                      {stat.separator && <>{stat.separator}<AnimatedCounter end={stat.endB} /></>}
-                      {!stat.separator && stat.endB === 0 && (stat.suffix || "")}
-                    </div>
-                    <p className="text-white/40 text-xs uppercase tracking-wider mt-1">{stat.label}</p>
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={180} />-<AnimatedCounter end={620} />
                   </div>
-                ))}
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">CV</p>
+                </div>
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={4} />
+                  </div>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Brand</p>
+                </div>
+                <div className="text-center p-4 bg-[hsl(156,32%,14%)] border border-[hsl(156,20%,20%)]">
+                  <div className="text-2xl font-display font-black">
+                    <AnimatedCounter end={50} suffix="+" />
+                  </div>
+                  <p className="text-[hsl(120,10%,45%)] text-xs uppercase tracking-wider mt-1">Accessori</p>
+                </div>
               </div>
             </div>
           </AnimatedSection>

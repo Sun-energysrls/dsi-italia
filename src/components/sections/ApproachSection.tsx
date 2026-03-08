@@ -57,9 +57,11 @@ const ApproachSection = () => {
 
           <AnimatedSection delay={0.2}>
             <div className="relative bg-muted/30 border border-border p-10 lg:p-14">
+              {/* Watermark logo */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.04]">
                 <img src={logoDark} alt="" className="w-48 h-auto" />
               </div>
+
               <div className="relative grid grid-cols-2 gap-8">
                 {miniStats.map((stat) => (
                   <div key={stat.label} className="text-center">
@@ -72,6 +74,7 @@ const ApproachSection = () => {
                   </div>
                 ))}
               </div>
+
               <div className="mt-8 pt-6 border-t border-border text-center">
                 <span className="text-secondary font-bold text-xs uppercase tracking-[0.25em]">
                   100% IMPORT DIRETTO

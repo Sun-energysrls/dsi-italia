@@ -1,10 +1,26 @@
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
 const advantages = [
-  { number: "01", title: "Import Diretto", desc: "Importiamo direttamente dalla produzione, eliminando intermediari e garantendo il miglior rapporto qualità-prezzo." },
-  { number: "02", title: "Personalizzazione Totale", desc: "Ogni macchina viene configurata secondo le tue esigenze specifiche: colori, potenza, accessori e allestimenti." },
-  { number: "03", title: "Supporto Tecnico", desc: "Team di tecnici specializzati per assistenza, manutenzione e formazione sulle macchine consegnate." },
-  { number: "04", title: "Accessori e Rimorchi", desc: "Fornitura completa di accessori originali e rimorchi compatibili per ogni modello di trattore." },
+  {
+    number: "01",
+    title: "Import Diretto",
+    desc: "Importiamo direttamente dalla produzione, eliminando intermediari e garantendo il miglior rapporto qualità-prezzo.",
+  },
+  {
+    number: "02",
+    title: "Personalizzazione Totale",
+    desc: "Ogni macchina viene configurata secondo le tue esigenze specifiche: colori, potenza, accessori e allestimenti.",
+  },
+  {
+    number: "03",
+    title: "Supporto Tecnico",
+    desc: "Team di tecnici specializzati per assistenza, manutenzione e formazione sulle macchine consegnate.",
+  },
+  {
+    number: "04",
+    title: "Accessori e Rimorchi",
+    desc: "Fornitura completa di accessori originali e rimorchi compatibili per ogni modello di trattore.",
+  },
 ];
 
 const AdvantagesSection = () => {
@@ -20,17 +36,19 @@ const AdvantagesSection = () => {
           </h2>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {advantages.map((adv, i) => (
             <AnimatedSection key={adv.number} delay={i * 0.08}>
               <div className="p-8 bg-muted/30 border border-border hover:border-secondary/30 transition-all duration-300">
                 <span className="text-secondary font-display font-black text-3xl block mb-4">
                   {adv.number}
                 </span>
-                <h3 className="font-display text-lg font-bold text-foreground mb-3 uppercase tracking-wide">
+                <h3 className="font-display text-xl font-bold text-foreground mb-3 uppercase tracking-wide">
                   {adv.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{adv.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {adv.desc}
+                </p>
               </div>
             </AnimatedSection>
           ))}
