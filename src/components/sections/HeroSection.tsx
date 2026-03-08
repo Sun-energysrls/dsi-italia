@@ -18,21 +18,14 @@ const HeroSection = () => {
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Neutral gray overlay matching reference */}
-      <div className="absolute inset-0" style={{ background: 'rgba(80, 80, 80, 0.55)' }} />
+      {/* Warm overlay */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.35) 100%)' }} />
 
       {/* Bottom-right patch to cover Runway watermark */}
       <div
         className="absolute bottom-0 right-0 w-48 h-16 z-10"
-        style={{ background: 'linear-gradient(to left, rgba(60,60,60,0.85) 0%, transparent 100%)' }}
+        style={{ background: 'linear-gradient(to left, rgba(30,20,10,0.85) 0%, transparent 100%)' }}
       />
-
-      {/* Large watermark text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <span className="text-[28vw] font-display font-black text-white/[0.06] uppercase tracking-tight leading-none">
-          DSI
-        </span>
-      </div>
 
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-20">
         <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-6 animate-fade-in-up">
