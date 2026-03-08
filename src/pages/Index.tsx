@@ -5,7 +5,7 @@ import ApproachSection from "@/components/sections/ApproachSection";
 import BrandPartnersSection from "@/components/sections/BrandPartnersSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ConfiguratorPreview from "@/components/sections/ConfiguratorPreview";
-import CategorySection from "@/components/sections/CategorySection";
+
 import FeaturedModels from "@/components/sections/FeaturedModels";
 import CtaSection from "@/components/sections/CtaSection";
 
@@ -18,7 +18,7 @@ const Index = () => {
       <BrandPartnersSection />
       <AdvantagesSection />
       <ConfiguratorPreview />
-      <CategorySection />
+      
       <FeaturedModels />
       <CtaSection />
     </Layout>
