@@ -76,7 +76,7 @@ const Header = () => {
             </a>
             <Link
               to="/configuratore"
-              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90 inline-flex items-center gap-2"
+              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90 inline-flex items-center gap-2"
             >
               <Settings className="h-4 w-4" />
               Configura

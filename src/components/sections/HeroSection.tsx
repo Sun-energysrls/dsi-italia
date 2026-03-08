@@ -17,11 +17,12 @@ const HeroSection = () => {
       >
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 hero-overlay" />
+      {/* Warm semi-transparent overlay matching reference screenshot */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/50" />
 
       {/* Large watermark text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <span className="text-[20vw] font-display font-black text-primary-foreground/[0.04] uppercase tracking-tight leading-none">
+        <span className="text-[28vw] font-display font-black text-white/[0.06] uppercase tracking-tight leading-none">
           DSI
         </span>
       </div>
@@ -30,13 +31,17 @@ const HeroSection = () => {
         <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-6 animate-fade-in-up">
           DSI — FOR INDUSTRY & AGRICULTURE
         </p>
-        <h1 className="text-4xl md:text-6xl lg:text-[5.5rem] font-display font-black text-primary-foreground leading-[1.05] mb-8 uppercase tracking-tight animate-fade-in-up max-w-5xl mx-auto">
-          IMPORTAZIONE DIRETTA{" "}
-          <br className="hidden md:block" />
-          DI MACCHINE AGRICOLE
+        <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display font-black text-white leading-[1.0] mb-8 uppercase tracking-tight animate-fade-in-up max-w-5xl mx-auto">
+          IMPORTAZIONE
+          <br />
+          DIRETTA
+          <br />
+          DI MACCHINE
+          <br />
+          AGRICOLE
         </h1>
         <p
-          className="text-primary-foreground/50 text-sm md:text-base uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
+          className="text-white/60 text-sm md:text-base uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
           style={{ animationDelay: "0.15s" }}
         >
           POTENZA. AFFIDABILITÀ. CONTROLLO TOTALE.
@@ -47,14 +52,14 @@ const HeroSection = () => {
         >
           <Link
             to="/trattori"
-            className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
+            className="gradient-accent text-accent-foreground px-10 py-4 rounded-full text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
           >
             Scopri i modelli
             <ArrowRight className="h-5 w-5" />
           </Link>
           <Link
             to="/configuratore"
-            className="border-2 border-primary-foreground/25 text-primary-foreground px-10 py-4 rounded-sm text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-primary-foreground/10 transition-colors"
+            className="border-2 border-white/30 text-white px-10 py-4 rounded-full text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
           >
             Configura il tuo trattore
           </Link>
@@ -64,7 +69,7 @@ const HeroSection = () => {
       {/* Scroll indicator */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-primary-foreground/40 hover:text-primary-foreground/70 transition-colors animate-fade-in"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors animate-fade-in"
         style={{ animationDelay: "0.6s" }}
       >
         <span className="text-xs uppercase tracking-[0.3em] font-medium">Scorri</span>
