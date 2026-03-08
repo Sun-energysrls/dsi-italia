@@ -5,20 +5,23 @@ import logoLight from "@/assets/logo-light.png";
 const Footer = () => {
   return (
     <footer className="gradient-primary text-primary-foreground">
-      <div className="container mx-auto px-4 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div>
-            <img src={logoLight} alt="DSI Import" className="h-16 w-auto mb-4 brightness-0 invert" />
-            <p className="text-primary-foreground/60 text-sm leading-relaxed">
+      {/* Main content */}
+      <div className="px-8 lg:px-16 py-20 lg:py-28 max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          {/* Brand — wider */}
+          <div className="lg:col-span-4">
+            <img src={logoLight} alt="DSI Import" className="h-12 w-auto mb-6 brightness-0 invert" />
+            <p className="text-primary-foreground/50 text-sm leading-relaxed max-w-sm">
               Importazione diretta di trattori professionali e attrezzature agricole per l'agricoltura moderna.
             </p>
           </div>
 
           {/* Links */}
-          <div>
-            <h4 className="font-display text-lg font-semibold mb-5">Navigazione</h4>
-            <ul className="space-y-2.5">
+          <div className="lg:col-span-2">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-foreground/40 mb-6">
+              Navigazione
+            </h4>
+            <ul className="space-y-3">
               {[
                 { label: "Home", path: "/" },
                 { label: "Gamma Trattori", path: "/trattori" },
@@ -36,48 +39,55 @@ const Footer = () => {
           </div>
 
           {/* Products */}
-          <div>
-            <h4 className="font-display text-lg font-semibold mb-5">Prodotti</h4>
-            <ul className="space-y-2.5">
+          <div className="lg:col-span-3">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-foreground/40 mb-6">
+              Prodotti
+            </h4>
+            <ul className="space-y-3">
               {["Trattori oltre 200 HP", "Trattori 120–180 HP", "Trattori 60–100 HP", "Trattori 25–50 HP", "Rimorchi e Accessori"].map((item) => (
                 <li key={item}>
-                  <span className="text-primary-foreground/60 text-sm">{item}</span>
+                  <span className="text-primary-foreground/50 text-sm">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="font-display text-lg font-semibold mb-5">Contatti</h4>
-            <ul className="space-y-3">
+          <div className="lg:col-span-3">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-foreground/40 mb-6">
+              Contatti
+            </h4>
+            <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 text-secondary shrink-0" />
-                <span className="text-primary-foreground/60 text-sm">Via dell'Industria 42, 00100 Roma, Italia</span>
+                <span className="text-primary-foreground/50 text-sm">Via dell'Industria 42, 00100 Roma, Italia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-secondary shrink-0" />
-                <a href="tel:+390000000000" className="text-primary-foreground/60 hover:text-secondary transition-colors text-sm">
+                <a href="tel:+390000000000" className="text-primary-foreground/50 hover:text-secondary transition-colors text-sm">
                   +39 000 000 0000
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-secondary shrink-0" />
-                <a href="mailto:info@dsi-import.it" className="text-primary-foreground/60 hover:text-secondary transition-colors text-sm">
+                <a href="mailto:info@dsi-import.it" className="text-primary-foreground/50 hover:text-secondary transition-colors text-sm">
                   info@dsi-import.it
                 </a>
               </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-primary-foreground/10 mt-14 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-primary-foreground/40 text-sm">
-            © {new Date().getFullYear()} DSI Import — For Industry and Agriculture. Tutti i diritti riservati.
+      {/* Bottom bar */}
+      <div className="border-t border-primary-foreground/8 px-8 lg:px-16">
+        <div className="max-w-[1600px] mx-auto py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-primary-foreground/30 text-xs">
+            © {new Date().getFullYear()} DSI Import — For Industry and Agriculture
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-primary-foreground/40 hover:text-secondary text-sm transition-colors">Privacy Policy</a>
-            <a href="#" className="text-primary-foreground/40 hover:text-secondary text-sm transition-colors">Cookie Policy</a>
+          <div className="flex gap-8">
+            <a href="#" className="text-primary-foreground/30 hover:text-secondary text-xs transition-colors">Privacy Policy</a>
+            <a href="#" className="text-primary-foreground/30 hover:text-secondary text-xs transition-colors">Cookie Policy</a>
           </div>
         </div>
       </div>
