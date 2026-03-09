@@ -52,8 +52,8 @@ export function useScrollColorMorph() {
 
         // Blend zone: 30% viewport around the boundary
         const boundary = rect.bottom;
-        const blendStart = boundary - vh * 0.3;
-        const blendEnd = boundary + vh * 0.3;
+        const blendStart = boundary - vh * 0.15;
+        const blendEnd = boundary + vh * 0.15;
 
         if (blendStart < vh && blendEnd > 0) {
           // How far through the blend zone is the viewport center?
