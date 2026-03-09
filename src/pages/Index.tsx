@@ -14,17 +14,19 @@ import CtaSection from "@/components/sections/CtaSection";
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";
   const [showSplash, setShowSplash] = useState(!alreadyPlayed);
+  const [splashDone, setSplashDone] = useState(alreadyPlayed);
 
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("dsi-splash-played", "1");
     setShowSplash(false);
+    setSplashDone(true);
   }, []);
 
   return (
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
       <Layout>
-        <HeroSection />
+        <HeroSection videoReady={splashDone} />
         <StatsBar />
         <ApproachSection />
         <BrandPartnersSection />

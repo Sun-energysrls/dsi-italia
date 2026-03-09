@@ -6,11 +6,11 @@ const IntroSplash = ({ onComplete }: { onComplete: () => void }) => {
 
   useEffect(() => {
     const t0 = setTimeout(() => setPhase("visible"), 50);
-    const t1 = setTimeout(() => setPhase("fade-out"), 4000);
+    const t1 = setTimeout(() => setPhase("fade-out"), 3200);
     const t2 = setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 5500);
+    }, 4500);
     return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); };
   }, [onComplete]);
 
