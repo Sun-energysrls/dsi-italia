@@ -176,7 +176,7 @@ const ComingSoonSection = () => {
     <section
       className="relative"
       style={{
-        background: "linear-gradient(160deg, #F5F2EE 0%, #EDE8E0 100%)",
+        background: "transparent",
         padding: "100px 0",
       }}
     >

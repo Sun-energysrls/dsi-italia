@@ -12,7 +12,7 @@ const StatsBar = () => {
   return (
     <section
       className="relative py-20 noise-overlay"
-      style={{ background: "var(--dsi-green-gradient)" }}
+      style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       {/* Orange accent line at top */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#F97316]" />

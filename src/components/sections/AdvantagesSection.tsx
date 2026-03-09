@@ -25,7 +25,7 @@ const advantages = [
 
 const AdvantagesSection = () => {
   return (
-    <section className="bg-background" style={{ padding: "100px 0" }}>
+    <section style={{ padding: "100px 0", background: "transparent" }}>
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           {/* Orange line above title */}

@@ -6,8 +6,8 @@ import { brands } from "@/data/brands";
 const BrandPartnersSection = () => {
   return (
     <section
-      className="relative py-24 lg:py-32 section-fade-top section-fade-bottom"
-      style={{ background: "var(--dsi-green-gradient)", color: "hsl(40,100%,97%)" }}
+      className="relative py-24 lg:py-32"
+      style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
         <AnimatedSection className="text-center mb-16">

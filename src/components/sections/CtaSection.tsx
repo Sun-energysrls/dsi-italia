@@ -5,8 +5,8 @@ import { AnimatedSection } from "@/hooks/useScrollAnimation";
 const CtaSection = () => {
   return (
     <section
-      className="relative py-24 lg:py-32 section-fade-top-warm"
-      style={{ background: "var(--dsi-green-gradient)" }}
+      className="relative py-24 lg:py-32"
+      style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 text-center relative z-[2]">
         <AnimatedSection>
