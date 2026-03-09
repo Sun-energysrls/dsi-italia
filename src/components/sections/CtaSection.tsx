@@ -4,27 +4,29 @@ import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
 const CtaSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 lg:px-8 text-center">
+    <section
+      className="relative py-24 lg:py-32 section-fade-top-warm"
+      style={{ background: "var(--dsi-green-gradient)" }}
+    >
+      <div className="container mx-auto px-4 lg:px-8 text-center relative z-[2]">
         <AnimatedSection>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-foreground mb-6 uppercase tracking-tight">
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight text-white"
+          >
             Pronto a Trovare il Trattore Perfetto?
           </h2>
-          <p className="text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
+          <p
+            className="text-lg mb-12 max-w-2xl mx-auto"
+            style={{ color: "rgba(255,255,255,0.65)" }}
+          >
             Configura il tuo trattore ideale e ricevi un preventivo personalizzato senza impegno.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/configuratore"
-              className="gradient-accent text-accent-foreground px-10 py-4 rounded-sm text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
-            >
+            <Link to="/configuratore" className="btn-orange">
               Configura il tuo Trattore
               <Settings className="h-5 w-5" />
             </Link>
-            <Link
-              to="/contatti"
-              className="border-2 border-border text-foreground px-10 py-4 rounded-sm text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-muted transition-colors"
-            >
+            <Link to="/contatti" className="btn-outline-light">
               Contattaci
             </Link>
           </div>

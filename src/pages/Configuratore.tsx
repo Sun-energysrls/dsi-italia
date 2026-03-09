@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Send, CheckCircle, ChevronRight, ChevronLeft } from "lucide-react";
+import { useSearchParams, Link } from "react-router-dom";
+import { Send, CheckCircle, ChevronRight, ChevronLeft, Check, Tractor as TractorIcon } from "lucide-react";
 import Layout from "@/components/Layout";
 import { tractors, globalColorOptions, brands } from "@/data/tractors";
+import { brands as brandData } from "@/data/brands";
 import { toast } from "sonner";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -16,16 +17,7 @@ const imageMap: Record<string, string> = {
   "tractor-compact": tractorCompact,
 };
 
-const stepLabels = [
-  "Brand",
-  "Modello",
-  "Motore",
-  "Cambio",
-  "Colore",
-  "Accessori",
-  "Riepilogo",
-];
-
+const stepLabels = ["Brand", "Modello", "Motore", "Cambio", "Colore", "Accessori", "Riepilogo"];
 const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];
 
 const Configuratore = () => {
@@ -33,6 +25,7 @@ const Configuratore = () => {
   const preselectedModel = searchParams.get("modello") || "";
 
   const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [model, setModel] = useState(preselectedModel);
   const [power, setPower] = useState("");
@@ -44,460 +37,636 @@ const Configuratore = () => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
 
   const selectedTractor = tractors.find((t) => t.id === model);
   const brandTractors = tractors.filter((t) => t.brand === selectedBrand);
   const accessoryOptions = selectedTractor?.accessories ?? [];
-
   const powerOptions = selectedTractor
     ? [selectedTractor.hp - 10, selectedTractor.hp, selectedTractor.hp + 10].filter((v) => v > 0)
     : [];
 
   const handleBrandSelect = (brand: string) => {
     setSelectedBrand(brand);
-    setModel("");
-    setPower("");
-    setTransmission("");
-    setColor("");
-    setAccessories([]);
+    setModel(""); setPower(""); setTransmission(""); setColor(""); setAccessories([]);
   };
-
   const handleModelSelect = (id: string) => {
-    setModel(id);
-    setPower("");
-    setTransmission("");
-    setColor("");
-    setAccessories([]);
+    setModel(id); setPower(""); setTransmission(""); setColor(""); setAccessories([]);
   };
-
   const toggleAccessory = (acc: string) => {
-    setAccessories((prev) =>
-      prev.includes(acc) ? prev.filter((a) => a !== acc) : [...prev, acc]
-    );
+    setAccessories((prev) => prev.includes(acc) ? prev.filter((a) => a !== acc) : [...prev, acc]);
   };
-
   const canGoNext = () => {
     if (step === 0) return !!selectedBrand;
     if (step === 1) return !!model;
     if (step === 2) return !!power;
     if (step === 3) return !!transmission;
     if (step === 4) return !!color;
-    if (step === 5) return true; // accessories optional
+    if (step === 5) return true;
     if (step === 6) return !!name && !!email && !!phone;
     return false;
   };
-
+  const goNext = () => {
+    if (!canGoNext()) return;
+    setDirection("next");
+    setAnimKey((k) => k + 1);
+    setStep((s) => s + 1);
+  };
+  const goBack = () => {
+    setDirection("prev");
+    setAnimKey((k) => k + 1);
+    setStep((s) => s - 1);
+  };
   const handleSubmit = () => {
-    toast.success("Richiesta inviata con successo! Vi contatteremo al più presto.");
+    toast.success("Richiesta inviata con successo!");
     setSubmitted(true);
   };
 
   if (submitted) {
     return (
       <Layout>
-        <section className="min-h-[80vh] flex items-center justify-center bg-background">
+        <section className="min-h-[80vh] flex items-center justify-center" style={{ background: "#F5F2EE" }}>
           <div className="text-center max-w-md px-4">
-            <div className="w-20 h-20 bg-secondary flex items-center justify-center mx-auto mb-6 rounded-full">
-              <CheckCircle className="h-10 w-10 text-secondary-foreground" />
+            <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 rounded-full" style={{ background: "#F97316" }}>
+              <CheckCircle className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-3xl font-display font-black text-foreground mb-4 uppercase">
+            <h1 className="text-3xl font-display font-black uppercase mb-4" style={{ color: "#1a1a1a" }}>
               Richiesta Inviata!
             </h1>
-            <p className="text-muted-foreground text-lg mb-8">
+            <p style={{ color: "#666", fontSize: "1.1rem" }} className="mb-8">
               Il nostro team vi risponderà entro 24 ore con un preventivo personalizzato.
             </p>
-            <a
-              href="/"
-              className="bg-secondary text-secondary-foreground px-8 py-3 rounded-[4px] font-bold uppercase tracking-widest inline-block hover:opacity-90 transition-opacity"
-            >
-              Torna alla Home
-            </a>
+            <Link to="/" className="btn-orange">Torna alla Home</Link>
           </div>
         </section>
       </Layout>
     );
   }
 
+  const progressWidth = ((step + 1) / 7) * 100;
+
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col lg:flex-row">
-        {/* LEFT PANEL — 40% */}
-        <div className="w-full lg:w-[40%] bg-card border-r border-border flex flex-col">
-          {/* Step progress */}
-          <div className="px-6 pt-8 pb-4 border-b border-border overflow-x-auto">
-            <div className="flex items-center min-w-max">
+      <div className="min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row">
+        {/* LEFT PANEL */}
+        <div
+          className="w-full lg:w-[42%] flex flex-col relative"
+          style={{ background: "var(--dsi-green-gradient)" }}
+        >
+          {/* Stepper */}
+          <div className="px-6 lg:px-10 pt-8 pb-6" style={{ marginBottom: 0 }}>
+            <div className="flex items-start justify-between">
               {stepLabels.map((label, i) => {
                 const isDone = step > i;
                 const isActive = step === i;
-                const isFuture = step < i;
                 return (
-                  <div key={i} className="flex items-center">
-                    <div className="flex flex-col items-center gap-1">
+                  <div key={i} className="flex flex-col items-center flex-1">
+                    <div className="flex items-center w-full">
+                      {i > 0 && (
+                        <div
+                          className="flex-1 h-px"
+                          style={{ background: step > i - 1 ? "#F97316" : "rgba(255,255,255,0.15)" }}
+                        />
+                      )}
                       <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
-                          isDone
-                            ? "bg-secondary text-secondary-foreground"
+                        className="shrink-0 flex items-center justify-center"
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: "50%",
+                          ...(isDone
+                            ? { background: "#F97316", border: "none" }
                             : isActive
-                            ? "bg-transparent border-[3px] border-secondary text-secondary"
-                            : "bg-transparent border-2 border-muted-foreground/30 text-muted-foreground/50"
-                        }`}
+                            ? { background: "transparent", border: "2px solid #F97316" }
+                            : { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)" }),
+                        }}
                       >
                         {isDone ? (
-                          <CheckCircle className="h-4 w-4" />
+                          <Check className="h-4 w-4 text-white" />
                         ) : (
-                          i + 1
+                          <span
+                            style={{
+                              fontSize: "0.7rem",
+                              fontWeight: 700,
+                              color: isActive ? "#F97316" : "rgba(255,255,255,0.35)",
+                            }}
+                          >
+                            {i + 1}
+                          </span>
                         )}
                       </div>
-                      <span
-                        className={`text-[9px] font-bold uppercase tracking-wider whitespace-nowrap ${
-                          isDone || isActive ? "text-secondary" : "text-muted-foreground/50"
-                        }`}
-                      >
-                        {label}
-                      </span>
+                      {i < stepLabels.length - 1 && (
+                        <div
+                          className="flex-1 h-px"
+                          style={{ background: step > i ? "#F97316" : "rgba(255,255,255,0.15)" }}
+                        />
+                      )}
                     </div>
-                    {i < stepLabels.length - 1 && (
-                      <div
-                        className={`w-6 h-[2px] mx-1 mt-[-12px] ${
-                          step > i ? "bg-secondary" : "bg-muted-foreground/20"
-                        }`}
-                      />
-                    )}
+                    <span
+                      className="mt-1.5 whitespace-nowrap"
+                      style={{
+                        fontSize: "0.55rem",
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: isActive ? "#F97316" : "rgba(255,255,255,0.4)",
+                      }}
+                    >
+                      {label}
+                    </span>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Step content */}
-          <div className="flex-1 px-6 py-8 overflow-y-auto">
-            {/* Step 0: Brand */}
-            {step === 0 && (
-              <StepContent title="Seleziona il Brand">
-                <div className="grid grid-cols-1 gap-3">
-                  {brands.map((brand) => (
-                    <button
-                      key={brand}
-                      onClick={() => handleBrandSelect(brand)}
-                      className={`p-4 border-2 rounded-[4px] text-left font-bold text-base uppercase tracking-wide transition-all ${
-                        selectedBrand === brand
-                          ? "border-secondary bg-secondary/10 text-secondary"
-                          : "border-border text-foreground hover:border-secondary/40"
-                      }`}
-                    >
-                      {brand}
-                    </button>
-                  ))}
-                </div>
-              </StepContent>
-            )}
+          {/* Step content - scrollable */}
+          <div className="flex-1 overflow-y-auto px-6 lg:px-10 pb-4">
+            <div
+              key={animKey}
+              style={{
+                animation: `slideIn${direction === "next" ? "Right" : "Left"} 0.35s ease forwards`,
+              }}
+            >
+              {/* Step title */}
+              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 8 }}>
+                PASSO {step + 1} DI 7
+              </p>
 
-            {/* Step 1: Modello */}
-            {step === 1 && (
-              <StepContent title="Seleziona il Modello">
-                <div className="grid grid-cols-1 gap-3">
-                  {brandTractors.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => handleModelSelect(t.id)}
-                      className={`p-4 border-2 rounded-[4px] text-left transition-all ${
-                        model === t.id
-                          ? "border-secondary bg-secondary/10"
-                          : "border-border hover:border-secondary/40"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-display font-black text-foreground uppercase">
-                          {t.name}
-                        </span>
-                        <span className="text-secondary font-black text-lg">{t.hp} HP</span>
-                      </div>
-                      <p className="text-muted-foreground text-sm mt-1">{t.shortDescription}</p>
-                    </button>
-                  ))}
-                </div>
-              </StepContent>
-            )}
-
-            {/* Step 2: Motore (power) */}
-            {step === 2 && selectedTractor && (
-              <StepContent title="Seleziona la Potenza">
-                <div className="grid grid-cols-1 gap-3">
-                  {powerOptions.map((hp) => (
-                    <button
-                      key={hp}
-                      onClick={() => setPower(String(hp))}
-                      className={`p-4 border-2 rounded-[4px] text-center font-black text-lg uppercase transition-all ${
-                        power === String(hp)
-                          ? "bg-secondary text-secondary-foreground border-secondary"
-                          : "border-border text-foreground hover:border-secondary/40"
-                      }`}
-                    >
-                      {hp} HP
-                    </button>
-                  ))}
-                </div>
-              </StepContent>
-            )}
-
-            {/* Step 3: Cambio */}
-            {step === 3 && (
-              <StepContent title="Tipo di Cambio">
-                <div className="grid grid-cols-1 gap-3">
-                  {transmissionAllOptions.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setTransmission(t)}
-                      className={`p-4 border-2 rounded-[4px] text-left font-bold text-base uppercase tracking-wide transition-all ${
-                        transmission === t
-                          ? "border-secondary bg-secondary/10 text-secondary"
-                          : "border-border text-foreground hover:border-secondary/40"
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </StepContent>
-            )}
-
-            {/* Step 4: Colore */}
-            {step === 4 && (
-              <StepContent title="Scegli il Colore">
-                <div className="grid grid-cols-2 gap-4">
-                  {globalColorOptions.map((c) => (
-                    <button
-                      key={c.name}
-                      onClick={() => setColor(c.name)}
-                      className="flex flex-col items-center gap-2 group"
-                    >
-                      <span
-                        className={`w-16 h-16 rounded-full transition-all ${
-                          color === c.name
-                            ? "ring-4 ring-secondary ring-offset-2 ring-offset-card scale-110"
-                            : "border-2 border-border group-hover:border-secondary/50"
-                        }`}
-                        style={{ backgroundColor: c.value }}
-                      />
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-wider text-center ${
-                          color === c.name ? "text-secondary" : "text-muted-foreground"
-                        }`}
+              {step === 0 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Seleziona il Brand
+                  </h2>
+                  <div className="space-y-3">
+                    {brandData.map((b) => (
+                      <button
+                        key={b.id}
+                        onClick={() => handleBrandSelect(b.name)}
+                        className="w-full flex items-center gap-4 transition-all duration-200"
+                        style={{
+                          background: selectedBrand === b.name ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
+                          border: selectedBrand === b.name ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
+                          borderRadius: 6,
+                          padding: "20px 24px",
+                          ...(selectedBrand === b.name ? { boxShadow: "0 0 0 1px #F97316, 0 8px 24px rgba(249,115,22,0.15)" } : {}),
+                        }}
                       >
-                        {c.name}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </StepContent>
-            )}
-
-            {/* Step 5: Accessori */}
-            {step === 5 && selectedTractor && (
-              <StepContent title="Accessori Opzionali">
-                <div className="grid grid-cols-1 gap-3">
-                  {accessoryOptions.map((acc) => (
-                    <button
-                      key={acc}
-                      onClick={() => toggleAccessory(acc)}
-                      className={`p-4 border-2 rounded-[4px] text-left font-medium text-sm flex items-center gap-3 transition-all ${
-                        accessories.includes(acc)
-                          ? "border-secondary bg-secondary/10 text-secondary"
-                          : "border-border text-foreground hover:border-secondary/40"
-                      }`}
-                    >
-                      <span
-                        className={`w-5 h-5 rounded-[3px] border-2 flex items-center justify-center shrink-0 ${
-                          accessories.includes(acc)
-                            ? "bg-secondary border-secondary"
-                            : "border-muted-foreground/30"
-                        }`}
-                      >
-                        {accessories.includes(acc) && (
-                          <CheckCircle className="h-3 w-3 text-secondary-foreground" />
-                        )}
-                      </span>
-                      {acc}
-                    </button>
-                  ))}
-                  {accessoryOptions.length === 0 && (
-                    <p className="text-muted-foreground text-sm">
-                      Nessun accessorio disponibile per questo modello.
-                    </p>
-                  )}
-                </div>
-              </StepContent>
-            )}
-
-            {/* Step 6: Riepilogo + Form */}
-            {step === 6 && (
-              <StepContent title="Riepilogo e Contatto">
-                {/* Summary card */}
-                <div className="bg-muted/50 border border-border rounded-[4px] p-4 mb-6 space-y-2">
-                  {[
-                    { label: "Brand", value: selectedBrand },
-                    { label: "Modello", value: selectedTractor?.name },
-                    { label: "Potenza", value: `${power} HP` },
-                    { label: "Cambio", value: transmission },
-                    { label: "Colore", value: color },
-                    {
-                      label: "Accessori",
-                      value: accessories.length > 0 ? accessories.join(", ") : "Nessuno",
-                    },
-                  ].map((item) => (
-                    <div key={item.label} className="flex justify-between text-sm py-1 border-b border-border/50 last:border-0">
-                      <span className="font-bold text-foreground uppercase tracking-wide text-xs">
-                        {item.label}
-                      </span>
-                      <span className="text-muted-foreground text-right">{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Contact form */}
-                <div className="space-y-4">
-                  {[
-                    { label: "Nome *", value: name, setter: setName, placeholder: "Mario Rossi" },
-                    { label: "Email *", value: email, setter: setEmail, placeholder: "email@esempio.it", type: "email" },
-                    { label: "Telefono *", value: phone, setter: setPhone, placeholder: "+39 333 000 0000", type: "tel" },
-                  ].map((field) => (
-                    <div key={field.label}>
-                      <label className="block text-[10px] font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">
-                        {field.label}
-                      </label>
-                      <input
-                        type={field.type || "text"}
-                        value={field.value}
-                        onChange={(e) => field.setter(e.target.value)}
-                        placeholder={field.placeholder}
-                        className="w-full border border-input px-4 py-3 bg-background text-foreground text-sm rounded-[4px] focus:ring-2 focus:ring-secondary focus:outline-none"
-                      />
-                    </div>
-                  ))}
-                  <div>
-                    <label className="block text-[10px] font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">
-                      Note
-                    </label>
-                    <textarea
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      rows={3}
-                      placeholder="Richieste particolari..."
-                      className="w-full border border-input px-4 py-3 bg-background text-foreground text-sm rounded-[4px] focus:ring-2 focus:ring-secondary focus:outline-none resize-none"
-                    />
+                        <div
+                          className="shrink-0 flex items-center justify-center"
+                          style={{ width: 36, height: 36, borderRadius: 4, background: "white", color: "#1a1a1a", fontWeight: 700, fontSize: "0.85rem" }}
+                        >
+                          {b.initials}
+                        </div>
+                        <div className="text-left flex-1">
+                          <span className="text-white font-semibold block" style={{ fontSize: "1rem" }}>{b.name}</span>
+                          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>{b.country}</span>
+                        </div>
+                        <div
+                          className="shrink-0"
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: "50%",
+                            border: selectedBrand === b.name ? "none" : "2px solid rgba(255,255,255,0.3)",
+                            background: selectedBrand === b.name ? "#F97316" : "transparent",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {selectedBrand === b.name && <Check className="h-3 w-3 text-white" />}
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
-              </StepContent>
-            )}
+              )}
+
+              {step === 1 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Seleziona il Modello
+                  </h2>
+                  <div className="space-y-3">
+                    {brandTractors.map((t) => (
+                      <button
+                        key={t.id}
+                        onClick={() => handleModelSelect(t.id)}
+                        className="w-full flex items-center gap-4 transition-all duration-200"
+                        style={{
+                          background: model === t.id ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
+                          border: model === t.id ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
+                          borderRadius: 6,
+                          padding: "20px 24px",
+                          ...(model === t.id ? { boxShadow: "0 0 0 1px #F97316, 0 8px 24px rgba(249,115,22,0.15)" } : {}),
+                        }}
+                      >
+                        <div className="shrink-0 w-12 h-12 overflow-hidden rounded" style={{ background: "rgba(255,255,255,0.1)" }}>
+                          <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="text-left flex-1">
+                          <span className="text-white font-semibold block">{t.name}</span>
+                          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem" }}>{t.shortDescription}</span>
+                        </div>
+                        <span style={{ color: "#F97316", fontWeight: 700, fontSize: "1.1rem" }}>{t.hp} HP</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Seleziona la Potenza
+                  </h2>
+                  <div className="flex flex-wrap gap-3">
+                    {powerOptions.map((hp) => (
+                      <button
+                        key={hp}
+                        onClick={() => setPower(String(hp))}
+                        className="transition-all duration-200"
+                        style={{
+                          border: power === String(hp) ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.2)",
+                          background: power === String(hp) ? "#F97316" : "transparent",
+                          color: power === String(hp) ? "white" : "rgba(255,255,255,0.7)",
+                          borderRadius: 4,
+                          padding: "10px 20px",
+                          fontWeight: 700,
+                          fontSize: "1rem",
+                        }}
+                      >
+                        {hp} HP
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Tipo di Cambio
+                  </h2>
+                  <div className="flex flex-wrap gap-3">
+                    {transmissionAllOptions.map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => setTransmission(t)}
+                        className="transition-all duration-200"
+                        style={{
+                          border: transmission === t ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.2)",
+                          background: transmission === t ? "#F97316" : "transparent",
+                          color: transmission === t ? "white" : "rgba(255,255,255,0.7)",
+                          borderRadius: 4,
+                          padding: "10px 20px",
+                          fontWeight: 600,
+                          fontSize: "0.9rem",
+                        }}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Scegli il Colore
+                  </h2>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {globalColorOptions.map((c) => (
+                      <button
+                        key={c.name}
+                        onClick={() => setColor(c.name)}
+                        className="flex flex-col items-center gap-2"
+                      >
+                        <span
+                          className="transition-all duration-200"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: "50%",
+                            backgroundColor: c.value,
+                            display: "block",
+                            border: color === c.name ? "2px solid #F97316" : "2px solid transparent",
+                            boxShadow: color === c.name ? "0 0 0 3px rgba(249,115,22,0.3)" : "none",
+                            transform: color === c.name ? "scale(1.15)" : "scale(1)",
+                          }}
+                        />
+                        <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.6rem", textAlign: "center", maxWidth: 60 }}>
+                          {c.name}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 5 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Accessori Opzionali
+                  </h2>
+                  <div>
+                    {accessoryOptions.map((acc) => (
+                      <button
+                        key={acc}
+                        onClick={() => toggleAccessory(acc)}
+                        className="w-full flex items-center gap-3 transition-all duration-200"
+                        style={{
+                          padding: "14px 0",
+                          borderBottom: "1px solid rgba(255,255,255,0.08)",
+                        }}
+                      >
+                        <span
+                          className="shrink-0 flex items-center justify-center"
+                          style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: 3,
+                            border: accessories.includes(acc) ? "none" : "1.5px solid rgba(255,255,255,0.3)",
+                            background: accessories.includes(acc) ? "#F97316" : "transparent",
+                          }}
+                        >
+                          {accessories.includes(acc) && <Check className="h-3 w-3 text-white" />}
+                        </span>
+                        <span className="text-white text-left" style={{ fontSize: "0.9rem" }}>{acc}</span>
+                      </button>
+                    ))}
+                    {accessoryOptions.length === 0 && (
+                      <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem" }}>
+                        Nessun accessorio disponibile per questo modello.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {step === 6 && (
+                <div>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                    Riepilogo e Contatto
+                  </h2>
+                  {/* Summary */}
+                  <div
+                    className="mb-6"
+                    style={{
+                      background: "rgba(255,255,255,0.06)",
+                      borderRadius: 8,
+                      padding: 24,
+                      border: "1px solid rgba(255,255,255,0.12)",
+                    }}
+                  >
+                    {[
+                      { label: "Brand", value: selectedBrand },
+                      { label: "Modello", value: selectedTractor?.name },
+                      { label: "Potenza", value: `${power} HP` },
+                      { label: "Cambio", value: transmission },
+                      { label: "Colore", value: color },
+                      { label: "Accessori", value: accessories.length > 0 ? accessories.join(", ") : "Nessuno" },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex justify-between py-2"
+                        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+                      >
+                        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                          {item.label}
+                        </span>
+                        <span className="text-white text-right" style={{ fontSize: "0.85rem" }}>{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Form */}
+                  <div className="space-y-4">
+                    {[
+                      { label: "Nome *", value: name, setter: setName, ph: "Mario Rossi" },
+                      { label: "Email *", value: email, setter: setEmail, ph: "email@esempio.it", type: "email" },
+                      { label: "Telefono *", value: phone, setter: setPhone, ph: "+39 333 000 0000", type: "tel" },
+                    ].map((f) => (
+                      <div key={f.label}>
+                        <label
+                          className="block mb-1.5"
+                          style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}
+                        >
+                          {f.label}
+                        </label>
+                        <input
+                          type={f.type || "text"}
+                          value={f.value}
+                          onChange={(e) => f.setter(e.target.value)}
+                          placeholder={f.ph}
+                          className="w-full"
+                          style={{
+                            background: "rgba(255,255,255,0.08)",
+                            border: "1px solid rgba(255,255,255,0.15)",
+                            borderRadius: 4,
+                            color: "white",
+                            padding: "12px 16px",
+                            fontSize: "0.9rem",
+                            outline: "none",
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = "#F97316";
+                            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(249,115,22,0.15)";
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
+                        />
+                      </div>
+                    ))}
+                    <div>
+                      <label
+                        className="block mb-1.5"
+                        style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}
+                      >
+                        Note
+                      </label>
+                      <textarea
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        rows={3}
+                        placeholder="Richieste particolari..."
+                        className="w-full resize-none"
+                        style={{
+                          background: "rgba(255,255,255,0.08)",
+                          border: "1px solid rgba(255,255,255,0.15)",
+                          borderRadius: 4,
+                          color: "white",
+                          padding: "12px 16px",
+                          fontSize: "0.9rem",
+                          outline: "none",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Navigation buttons */}
-          <div className="px-6 py-4 border-t border-border flex items-center gap-3">
-            {step > 0 && (
+          {/* Navigation bar */}
+          <div
+            className="px-6 lg:px-10 py-5 flex items-center justify-between"
+            style={{
+              background: "rgba(0,0,0,0.2)",
+              backdropFilter: "blur(10px)",
+              borderTop: "1px solid rgba(255,255,255,0.1)",
+            }}
+          >
+            {step > 0 ? (
               <button
-                onClick={() => setStep(step - 1)}
-                className="px-5 py-3 border-2 border-border text-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:border-foreground transition-all inline-flex items-center gap-2"
+                onClick={goBack}
+                className="transition-colors duration-200"
+                style={{ color: "rgba(255,255,255,0.5)", background: "none", border: "none", fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
               >
-                <ChevronLeft className="h-4 w-4" />
-                Indietro
+                <ChevronLeft className="h-4 w-4" /> Indietro
               </button>
+            ) : (
+              <div />
             )}
-            <div className="flex-1" />
+
             {step < 6 ? (
               <button
-                onClick={() => canGoNext() && setStep(step + 1)}
+                onClick={goNext}
                 disabled={!canGoNext()}
-                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                className="btn-orange !py-3 !px-8 !text-xs"
+                style={!canGoNext() ? { opacity: 0.4, cursor: "not-allowed" } : {}}
               >
-                Avanti
-                <ChevronRight className="h-4 w-4" />
+                Avanti <ChevronRight className="h-4 w-4" />
               </button>
             ) : (
               <button
                 onClick={() => canGoNext() && handleSubmit()}
                 disabled={!canGoNext()}
-                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-[4px] font-bold uppercase tracking-widest text-xs hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                className="btn-orange !py-3 !px-8 !text-xs w-full lg:w-auto"
+                style={!canGoNext() ? { opacity: 0.4, cursor: "not-allowed" } : {}}
               >
-                <Send className="h-4 w-4" />
-                Invia Preventivo
+                <Send className="h-4 w-4" /> Invia Preventivo
               </button>
             )}
           </div>
         </div>
 
-        {/* RIGHT PANEL — 60% preview */}
-        <div className="hidden lg:flex w-[60%] bg-background flex-col items-center justify-center p-12 relative">
+        {/* RIGHT PANEL */}
+        <div
+          className="hidden lg:flex w-[58%] flex-col items-center justify-center relative"
+          style={{ background: "#F5F2EE", padding: "60px 40px" }}
+        >
+          <p
+            className="uppercase mb-10"
+            style={{ color: "#999", fontSize: "0.65rem", letterSpacing: "0.2em" }}
+          >
+            ANTEPRIMA CONFIGURAZIONE
+          </p>
+
           {selectedTractor ? (
-            <div className="w-full max-w-2xl">
-              <div className="aspect-[16/10] mb-8">
-                <img
-                  src={imageMap[selectedTractor.image]}
-                  alt={selectedTractor.name}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="grid grid-cols-3 gap-4">
-                <StatBox label="Potenza" value={power ? `${power} HP` : `${selectedTractor.hp} HP`} />
-                <StatBox label="Brand" value={selectedBrand || selectedTractor.brand} />
-                <StatBox
-                  label="Accessori"
-                  value={accessories.length > 0 ? `${accessories.length} sel.` : "Nessuno"}
-                />
-              </div>
-              {/* Color preview bar */}
+            <div className="w-full max-w-[500px]">
+              <img
+                key={selectedTractor.id}
+                src={imageMap[selectedTractor.image]}
+                alt={selectedTractor.name}
+                className="w-full h-auto object-contain"
+                style={{
+                  maxHeight: 340,
+                  filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.12))",
+                  animation: "fadeSlideIn 0.4s ease forwards",
+                }}
+              />
+
+              {/* Color preview */}
               {color && (
-                <div className="mt-6 flex items-center justify-center gap-3">
+                <div className="flex items-center justify-center gap-3 mt-4">
                   <span
-                    className="w-8 h-8 rounded-full border-2 border-secondary"
                     style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                      border: "2px solid #F97316",
                       backgroundColor: globalColorOptions.find((c) => c.name === color)?.value,
+                      display: "inline-block",
                     }}
                   />
-                  <span className="text-sm font-bold text-foreground">{color}</span>
+                  <span style={{ color: "#666", fontSize: "0.85rem", fontWeight: 600 }}>{color}</span>
                 </div>
               )}
+
+              {/* Stat boxes */}
+              <div className="grid grid-cols-3 gap-4 mt-10">
+                {[
+                  { label: "Potenza", value: power ? `${power} HP` : `${selectedTractor.hp} HP` },
+                  { label: "Brand", value: selectedBrand || selectedTractor.brand },
+                  { label: "Accessori", value: accessories.length > 0 ? `${accessories.length} sel.` : "—" },
+                ].map((s) => (
+                  <div
+                    key={s.label}
+                    className="text-center"
+                    style={{
+                      background: "white",
+                      borderRadius: 6,
+                      border: "1px solid #EDE9E3",
+                      padding: "16px 20px",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                    }}
+                  >
+                    <span style={{ color: "#1a1a1a", fontSize: "1.1rem", fontWeight: 600, display: "block" }}>
+                      {s.value}
+                    </span>
+                    <span style={{ color: "#999", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                      {s.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
             <div className="text-center">
-              <div className="w-32 h-32 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl text-muted-foreground/30">🚜</span>
-              </div>
-              <h3 className="font-display text-xl font-black text-muted-foreground/50 uppercase tracking-tight">
-                Seleziona un modello
-              </h3>
-              <p className="text-muted-foreground/40 text-sm mt-2">
+              <TractorIcon style={{ width: 80, height: 80, color: "#D0CBC3" }} className="mx-auto mb-4" />
+              <p className="uppercase" style={{ color: "#C0BAB2", fontSize: "0.75rem", letterSpacing: "0.15em", marginBottom: 8 }}>
+                SELEZIONA UN MODELLO
+              </p>
+              <p style={{ color: "#D0CBC3", fontSize: "0.8rem" }}>
                 L'anteprima apparirà qui
               </p>
             </div>
           )}
+
+          {/* Progress bar at bottom */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <div style={{ width: 200, height: 2, background: "#EDE9E3", borderRadius: 1, overflow: "hidden" }}>
+              <div style={{ width: `${progressWidth}%`, height: "100%", background: "#F97316", transition: "width 0.4s ease" }} />
+            </div>
+            <span style={{ color: "#999", fontSize: "0.65rem" }}>
+              Step {step + 1} di 7
+            </span>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        input::placeholder, textarea::placeholder {
+          color: rgba(255,255,255,0.35) !important;
+        }
+      `}</style>
     </Layout>
   );
 };
-
-const StepContent = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
-  <div>
-    <h2 className="font-display text-xl font-black text-foreground uppercase tracking-tight mb-6">
-      {title}
-    </h2>
-    {children}
-  </div>
-);
-
-const StatBox = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-card border border-border p-4 text-center rounded-[4px]">
-    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-1">
-      {label}
-    </span>
-    <span className="font-display text-lg font-black text-foreground">{value}</span>
-  </div>
-);
 
 export default Configuratore;
