@@ -27,7 +27,6 @@ const HeroSection = () => {
         }}
       />
 
-
       {/* Content */}
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
         <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-8 animate-fade-in-up">
@@ -76,14 +75,14 @@ const HeroSection = () => {
         >
           <Link
             to="/trattori"
-            className="gradient-accent text-accent-foreground px-10 py-4 rounded-[6px] text-base font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated"
+            className="btn-orange"
           >
             Scopri i modelli
             <ArrowRight className="h-5 w-5" />
           </Link>
           <Link
             to="/configuratore"
-            className="border-2 border-white/30 text-white px-10 py-4 rounded-[6px] text-base font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+            className="btn-outline-light"
           >
             Configura il tuo trattore
           </Link>

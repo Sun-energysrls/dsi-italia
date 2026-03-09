@@ -46,11 +46,13 @@
     --sidebar-ring: 27 82% 52%;
 
     /* Custom DSI tokens */
+    --dsi-green-gradient: linear-gradient(160deg, #1a3a2e 0%, #1B4332 35%, #24533f 65%, #1a3a2e 100%);
     --hero-overlay: linear-gradient(160deg, hsla(156, 32%, 8%, 0.92) 0%, hsla(156, 32%, 14%, 0.7) 50%, hsla(156, 32%, 20%, 0.5) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(156, 32%, 15%) 0%, hsl(156, 32%, 22%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(27, 82%, 50%) 0%, hsl(27, 82%, 58%) 100%);
     --shadow-card: 0 2px 16px -2px hsla(156, 20%, 15%, 0.08);
     --shadow-elevated: 0 8px 32px -6px hsla(156, 20%, 15%, 0.14);
+    --dsi-warm-bg: 30 20% 95%;
   }
 
   .dark {
@@ -103,6 +105,10 @@
     background: var(--gradient-accent);
   }
 
+  .dsi-green-gradient {
+    background: var(--dsi-green-gradient);
+  }
+
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
@@ -120,10 +126,11 @@
     @apply border-t border-border/60;
   }
 
-  /* Industrial dark section */
+  /* Industrial dark section with premium gradient */
   .section-dark {
-    background: hsl(156, 32%, 10%);
+    background: var(--dsi-green-gradient);
     color: hsl(40, 100%, 97%);
+    position: relative;
   }
 
   .section-dark .text-foreground {
@@ -132,5 +139,140 @@
 
   .section-dark .text-muted-foreground {
     color: hsl(120, 10%, 60%);
+  }
+
+  /* Section fade transitions */
+  .section-fade-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, hsl(0, 0%, 100%) 0%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .section-fade-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent 0%, hsl(0, 0%, 100%) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .section-fade-top-warm::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, #F5F2EE 0%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .section-fade-bottom-warm::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent 0%, #F5F2EE 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .section-fade-bottom-green::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent 0%, #1a3a2e 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+    background-size: 4px 4px;
+  }
+
+  /* Orange CTA button standard */
+  .btn-orange {
+    background-color: #F97316;
+    color: white;
+    border-radius: 4px;
+    padding: 14px 32px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    will-change: transform;
+  }
+
+  .btn-orange:hover {
+    background-color: #e06010;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
+  }
+
+  .btn-outline-light {
+    border: 1.5px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    border-radius: 4px;
+    padding: 14px 32px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+  }
+
+  .btn-outline-light:hover {
+    border-color: white;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .btn-outline-dark {
+    border: 1.5px solid hsl(var(--border));
+    background: transparent;
+    color: hsl(var(--foreground));
+    border-radius: 4px;
+    padding: 14px 32px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+  }
+
+  .btn-outline-dark:hover {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
   }
 }

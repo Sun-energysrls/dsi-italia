@@ -25,9 +25,14 @@ const advantages = [
 
 const AdvantagesSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="bg-background" style={{ padding: "100px 0" }}>
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="text-center mb-16">
+          {/* Orange line above title */}
+          <div
+            className="mx-auto mb-6"
+            style={{ width: 40, height: 2, backgroundColor: "#F97316" }}
+          />
           <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
             I NOSTRI VANTAGGI
           </p>
@@ -38,15 +43,43 @@ const AdvantagesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {advantages.map((adv, i) => (
-            <AnimatedSection key={adv.number} delay={i * 0.08}>
-              <div className="p-8 bg-muted/30 border border-border hover:border-secondary/30 transition-all duration-300">
-                <span className="text-secondary font-display font-black text-3xl block mb-4">
+            <AnimatedSection key={adv.number} delay={i * 0.1}>
+              <div
+                className="transition-all duration-300 flex flex-col"
+                style={{
+                  background: "#FAFAF8",
+                  border: "1px solid #E8E4DF",
+                  borderRadius: 8,
+                  padding: 40,
+                  minHeight: 220,
+                  willChange: "transform",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "#F97316";
+                  el.style.boxShadow = "0 12px 32px rgba(0,0,0,0.08)";
+                  el.style.transform = "translateY(-4px)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "#E8E4DF";
+                  el.style.boxShadow = "none";
+                  el.style.transform = "translateY(0)";
+                }}
+              >
+                <span
+                  className="font-display block mb-4"
+                  style={{ color: "#F97316", fontSize: "2.5rem", fontWeight: 300 }}
+                >
                   {adv.number}
                 </span>
-                <h3 className="font-display text-xl font-bold text-foreground mb-3 uppercase tracking-wide">
+                <h3
+                  className="font-display font-bold uppercase mb-3"
+                  style={{ color: "#1a1a1a", fontSize: "1rem", letterSpacing: "0.06em" }}
+                >
                   {adv.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p style={{ color: "#666", lineHeight: 1.75, fontSize: "0.9rem" }}>
                   {adv.desc}
                 </p>
               </div>

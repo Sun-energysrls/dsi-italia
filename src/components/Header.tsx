@@ -19,7 +19,7 @@ const Header = () => {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,17 +29,22 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={
         transparent
-          ? "bg-transparent border-b border-transparent"
-          : "bg-background/95 backdrop-blur-md border-b border-border"
-      }`}
+          ? { background: "transparent", borderBottom: "1px solid transparent" }
+          : {
+              background: "rgba(27,67,50,0.95)",
+              backdropFilter: "blur(12px)",
+              boxShadow: "0 1px 0 rgba(255,255,255,0.08)",
+            }
+      }
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
             <img
-              src={transparent ? logoLight : logoDark}
+              src={transparent ? logoLight : logoLight}
               alt="DSI Import"
               className="h-14 w-auto"
             />
@@ -54,9 +59,7 @@ const Header = () => {
                 className={`font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-secondary ${
                   location.pathname === item.path
                     ? "text-secondary"
-                    : transparent
-                    ? "text-primary-foreground"
-                    : "text-foreground"
+                    : "text-white/80"
                 }`}
               >
                 {item.label}
@@ -67,16 +70,14 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:+390000000000"
-              className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-secondary ${
-                transparent ? "text-primary-foreground" : "text-foreground"
-              }`}
+              className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-secondary text-white/80"
             >
               <Phone className="h-4 w-4" />
               Chiamaci
             </a>
             <Link
               to="/configuratore"
-              className="gradient-accent text-accent-foreground px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide uppercase transition-opacity hover:opacity-90 inline-flex items-center gap-2"
+              className="btn-orange !py-2.5 !px-5 !text-xs"
             >
               <Settings className="h-4 w-4" />
               Configura
@@ -86,7 +87,7 @@ const Header = () => {
           {/* Mobile toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-2 ${transparent ? "text-primary-foreground" : "text-foreground"}`}
+            className="lg:hidden p-2 text-white"
             aria-label="Menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -103,7 +104,7 @@ const Header = () => {
                   to={item.path}
                   onClick={() => setIsOpen(false)}
                   className={`font-body text-base font-medium py-2 transition-colors ${
-                    location.pathname === item.path ? "text-secondary" : "text-foreground"
+                    location.pathname === item.path ? "text-secondary" : "text-white/80"
                   }`}
                 >
                   {item.label}
@@ -112,7 +113,7 @@ const Header = () => {
               <Link
                 to="/configuratore"
                 onClick={() => setIsOpen(false)}
-                className="gradient-accent text-accent-foreground px-5 py-3 rounded-md text-sm font-semibold text-center uppercase mt-2 inline-flex items-center justify-center gap-2"
+                className="btn-orange !text-sm text-center mt-2"
               >
                 <Settings className="h-4 w-4" />
                 Configura il tuo Trattore
