@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowDown } from "lucide-react";
+import { useEffect, useRef } from "react";
 
-const HeroSection = () => {
+const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoReady && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [videoReady]);
+
   const scrollToContent = () => {
     window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
   };
@@ -9,7 +19,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
-        autoPlay
+        ref={videoRef}
         muted
         loop
         playsInline
