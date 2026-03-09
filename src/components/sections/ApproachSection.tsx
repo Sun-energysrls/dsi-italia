@@ -20,7 +20,7 @@ const miniStats = [
 
 const ApproachSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background overflow-hidden">
+    <section className="py-24 lg:py-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="mb-6">
           <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">

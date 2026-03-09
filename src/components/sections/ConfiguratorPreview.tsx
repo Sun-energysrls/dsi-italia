@@ -9,8 +9,8 @@ const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
 const ConfiguratorPreview = () => {
   return (
     <section
-      className="relative py-24 lg:py-32 overflow-hidden section-fade-top section-fade-bottom-warm"
-      style={{ background: "var(--dsi-green-gradient)" }}
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

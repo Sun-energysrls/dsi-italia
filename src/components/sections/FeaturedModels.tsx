@@ -23,7 +23,7 @@ const FeaturedModels = () => {
   ].filter(Boolean) as typeof tractors;
 
   return (
-    <section style={{ background: "#F5F2EE", padding: "100px 0" }}>
+    <section style={{ background: "transparent", padding: "100px 0" }}>
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <h2
