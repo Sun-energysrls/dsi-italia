@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Settings } from "lucide-react";
-import logoDark from "@/assets/logo-dark.png";
-import logoLight from "@/assets/logo-light.png";
+import dsiLogo from "@/assets/dsi-logo.png";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -46,7 +45,7 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
   const textColor = transparent || dark ? "text-white/80" : "text-foreground/70";
   const textActive = transparent || dark ? "text-secondary" : "text-secondary";
   const hoverColor = "hover:text-secondary";
-  const logo = transparent || dark ? logoLight : logoDark;
+  const logo = dsiLogo;
 
   return (
     <header
@@ -59,7 +58,7 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
             <img
               src={logo}
               alt="DSI Import"
-              className="h-14 w-auto"
+              className="h-[60px] w-auto"
             />
           </Link>
 
