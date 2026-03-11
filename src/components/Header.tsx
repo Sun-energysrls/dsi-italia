@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Settings } from "lucide-react";
-import logoDark from "@/assets/logo-dark.png";
-import logoLight from "@/assets/logo-light.png";
+import dsiLogo from "@/assets/dsi-logo.png";
 
 const navItems = [
   { label: "Home", path: "/" },
