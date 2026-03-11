@@ -58,7 +58,7 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
             <img
               src={logo}
               alt="DSI Import"
-              className="h-14 w-auto"
+              className="h-[60px] w-auto"
             />
           </Link>
 
