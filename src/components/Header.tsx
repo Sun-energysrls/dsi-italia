@@ -45,7 +45,7 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
   const textColor = transparent || dark ? "text-white/80" : "text-foreground/70";
   const textActive = transparent || dark ? "text-secondary" : "text-secondary";
   const hoverColor = "hover:text-secondary";
-  const logo = transparent || dark ? logoLight : logoDark;
+  const logo = dsiLogo;
 
   return (
     <header
