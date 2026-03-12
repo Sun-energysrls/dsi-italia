@@ -127,6 +127,23 @@
     background-size: 4px 4px;
   }
 
+  /* Subtle green gradient overlay for dark sections */
+  [data-section-color="#1B4332"] {
+    position: relative;
+  }
+  [data-section-color="#1B4332"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(26,58,46,0.15) 0%, transparent 40%, rgba(36,83,63,0.12) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  [data-section-color="#1B4332"] > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /* Orange CTA button standard */
   .btn-orange {
     background-color: #F97316;
