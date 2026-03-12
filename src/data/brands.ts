@@ -4,9 +4,17 @@ export interface Brand {
   initials: string;
   country: string;
   description: string;
+  logoUrl?: string;
 }
 
 export const brands: Brand[] = [
+  {
+    id: "tavol",
+    name: "Tavol",
+    initials: "TV",
+    country: "Cina",
+    description: "Produttore cinese di trattori agricoli professionali con gamma da 55hp a 280hp. Qualità comprovata, tecnologia avanzata e ottimo rapporto qualità-prezzo per ogni esigenza agricola.",
+  },
   {
     id: "john-deere",
     name: "John Deere",

@@ -22,11 +22,11 @@ const BrandPartnersSection = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {brands.map((brand, i) => (
-            <AnimatedSection key={brand.id} delay={i * 0.15}>
+            <AnimatedSection key={brand.id} delay={i * 0.15} className="h-full">
               <div
-                className="group flex flex-col justify-between transition-all duration-350"
+                className="group flex flex-col justify-between transition-all duration-350 h-full"
                 style={{
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid rgba(255,255,255,0.12)",
