@@ -152,7 +152,7 @@ const SchedaProdotto = () => {
 
                 {/* CTA */}
                 <Link
-                  to={`/configuratore?modello=${tractor.id}`}
+                  to={`/configuratore?brand=${tractor.brand}&model=${tractor.id}`}
                   className="inline-flex items-center gap-2 font-bold uppercase tracking-widest transition-opacity hover:opacity-90"
                   style={{
                     background: "#F97316",
