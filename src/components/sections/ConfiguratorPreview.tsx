@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
+import tractorLarge from "@/assets/tractor-large.jpg";
 
 const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
+const pills = ["16 Modelli", "7 Step guidati", "Preventivo Gratuito", "Consegna in Italia"];
 
 const ConfiguratorPreview = () => {
   return (
@@ -20,17 +22,38 @@ const ConfiguratorPreview = () => {
             >
               CONFIGURA LA TUA MACCHINA
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
               Configura il tuo trattore ideale
             </h2>
+
+            {/* Pills */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {pills.map((pill) => (
+                <span
+                  key={pill}
+                  style={{
+                    border: "1px solid rgba(249,115,22,0.5)",
+                    borderRadius: 20,
+                    padding: "4px 14px",
+                    fontSize: "0.65rem",
+                    color: "#F97316",
+                    letterSpacing: "0.05em",
+                    fontWeight: 600,
+                  }}
+                >
+                  {pill}
+                </span>
+              ))}
+            </div>
+
             <p
-              className="text-base leading-relaxed mb-8"
+              className="text-base leading-relaxed mb-6"
               style={{ color: "rgba(255,255,255,0.55)" }}
             >
               Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="flex flex-wrap gap-3 mb-4">
               {previewFeatures.map((feat) => (
                 <span
                   key={feat}
@@ -59,13 +82,17 @@ const ConfiguratorPreview = () => {
               ))}
             </div>
 
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 24 }}>
+              Ricevi il tuo preventivo personalizzato in 24 ore
+            </p>
+
             <Link to="/configuratore" className="btn-orange">
               Configura il tuo trattore
               <ArrowRight className="h-5 w-5" />
             </Link>
           </AnimatedSection>
 
-          {/* Right: Animated configurator visualization */}
+          {/* Right: Image + animated cards */}
           <AnimatedSection delay={0.15}>
             <div className="relative" style={{ minHeight: 420 }}>
               {/* Main card */}
@@ -74,13 +101,13 @@ const ConfiguratorPreview = () => {
                   background: "rgba(255,255,255,0.05)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   borderRadius: 12,
-                  padding: "40px 32px",
+                  padding: "32px 24px 24px",
                   backdropFilter: "blur(10px)",
                   boxShadow: "0 32px 64px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
                 }}
               >
                 <p
-                  className="text-center uppercase font-medium mb-6"
+                  className="text-center uppercase font-medium mb-4"
                   style={{
                     color: "rgba(255,255,255,0.45)",
                     fontSize: "0.65rem",
@@ -90,37 +117,20 @@ const ConfiguratorPreview = () => {
                   ANTEPRIMA CONFIGURAZIONE
                 </p>
 
-                {/* Tractor SVG */}
-                <div className="flex justify-center mb-8">
-                  <svg
-                    viewBox="0 0 320 180"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full max-w-xs"
-                    style={{ filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.3))" }}
-                  >
-                    {/* Body */}
-                    <rect x="60" y="60" width="180" height="70" rx="8" fill="#1a3a2a" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    {/* Cabin */}
-                    <rect x="160" y="25" width="70" height="55" rx="6" fill="#1a3a2a" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <rect x="165" y="30" width="40" height="35" rx="4" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" strokeWidth="0.5" />
-                    {/* Hood */}
-                    <rect x="60" y="55" width="100" height="25" rx="4" fill="#1B4332" />
-                    {/* Exhaust */}
-                    <rect x="75" y="42" width="6" height="18" rx="3" fill="rgba(255,255,255,0.15)" />
-                    {/* Rear wheel */}
-                    <circle cx="200" cy="135" r="38" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <circle cx="200" cy="135" r="28" fill="#333" />
-                    <circle cx="200" cy="135" r="12" fill="#555" />
-                    <circle cx="200" cy="135" r="5" fill="#F97316" className="configurator-pulse" />
-                    {/* Front wheel */}
-                    <circle cx="90" cy="140" r="25" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <circle cx="90" cy="140" r="18" fill="#333" />
-                    <circle cx="90" cy="140" r="8" fill="#555" />
-                    <circle cx="90" cy="140" r="3" fill="#F97316" className="configurator-pulse" />
-                    {/* Orange accent stripe */}
-                    <rect x="60" y="75" width="180" height="3" rx="1.5" fill="#F97316" opacity="0.8" />
-                  </svg>
+                {/* Tractor image */}
+                <div className="flex justify-center mb-6">
+                  <img
+                    src={tractorLarge}
+                    alt="Trattore TAVOL configurabile"
+                    style={{
+                      width: "100%",
+                      maxWidth: 340,
+                      height: "auto",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.4)) brightness(1.1)",
+                      mixBlendMode: "luminosity",
+                    }}
+                  />
                 </div>
 
                 {/* Floating config cards */}
@@ -168,6 +178,33 @@ const ConfiguratorPreview = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Mini stepper */}
+                <div className="flex items-center justify-center gap-0 mt-5">
+                  {["Scegli", "Configura", "Ricevi"].map((label, i) => (
+                    <div key={label} className="flex items-center">
+                      <div className="flex flex-col items-center">
+                        <div
+                          style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: "50%",
+                            background: i <= 1 ? "#F97316" : "rgba(255,255,255,0.15)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <span style={{ color: "white", fontSize: "0.5rem", fontWeight: 700 }}>{i + 1}</span>
+                        </div>
+                        <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.5rem", marginTop: 2 }}>{label}</span>
+                      </div>
+                      {i < 2 && (
+                        <div style={{ width: 40, height: 1, background: i === 0 ? "#F97316" : "rgba(255,255,255,0.15)", margin: "0 4px", marginBottom: 14 }} />
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </AnimatedSection>
@@ -179,16 +216,9 @@ const ConfiguratorPreview = () => {
           animation: floatIn 4s ease-in-out infinite;
           opacity: 0;
         }
-        .configurator-pulse {
-          animation: pulse2 2s ease-in-out infinite;
-        }
         @keyframes floatIn {
           0%, 100% { opacity: 0; transform: translateY(8px); }
           15%, 85% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse2 {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
         }
         @keyframes colorCycle {
           0% { background-color: #1B4332; }

@@ -13,11 +13,11 @@ const comingSoonBrands = [
     color: "#1a5fa8",
   },
   {
-    name: "YTO",
-    initials: "YT",
+    name: "Nuovi Modelli in Arrivo",
+    initials: "+",
     country: "Cina",
-    tagline: "Heritage & Innovation",
-    description: "Fondato nel 1955 a Luoyang, uno dei più grandi produttori mondiali con oltre 60 anni di esperienza.",
+    tagline: "Direttamente dalla Produzione",
+    description: "DSI amplia continuamente il proprio portfolio selezionando i migliori produttori cinesi. Nuovi trattori ad alta efficienza saranno disponibili nei prossimi mesi.",
     color: "#556b5a",
   },
 ];
