@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
-import { ArrowRight, Tractor, Settings } from "lucide-react";
+import { ArrowRight, Tractor } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -291,22 +291,13 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
       <p className="flex-grow" style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.6 }}>
         {tractor.shortDescription}
       </p>
-      <div className="mt-auto flex items-center gap-4">
-        <Link
+      <Link
           to={`/trattori/${tractor.id}`}
-          className="inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
+          className="mt-auto inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
           style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.1em" }}
         >
-          Scopri <ArrowRight className="h-3.5 w-3.5" />
+          Scopri di più <ArrowRight className="h-3.5 w-3.5" />
         </Link>
-        <Link
-          to={`/configuratore?brand=${tractor.brand}&model=${tractor.id}`}
-          className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300 hover:opacity-80"
-          style={{ color: "#1a3a2a", fontSize: "0.7rem", letterSpacing: "0.1em" }}
-        >
-          <Settings className="h-3.5 w-3.5" /> Configura
-        </Link>
-      </div>
     </div>
   </div>
 );
