@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Settings } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
