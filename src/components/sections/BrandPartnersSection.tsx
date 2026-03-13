@@ -12,19 +12,19 @@ const BrandPartnersSection = () => {
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
         <AnimatedSection className="text-center mb-16">
           <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
-            I NOSTRI PARTNER
+            IL NOSTRO PARTNER
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
             Brand di Eccellenza
           </h2>
           <p style={{ color: "rgba(255,255,255,0.55)" }} className="text-lg max-w-2xl mx-auto">
-            Selezioniamo solo i migliori produttori mondiali di macchine agricole.
+            Il nostro partner esclusivo selezionato tra i migliori produttori mondiali.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+        <div className="flex justify-center">
           {brands.map((brand, i) => (
-            <AnimatedSection key={brand.id} delay={i * 0.15} className="h-full">
+            <AnimatedSection key={brand.id} delay={i * 0.15} className="w-full max-w-[480px]">
               <div
                 className="group flex flex-col justify-between transition-all duration-350 h-full"
                 style={{
@@ -51,7 +51,6 @@ const BrandPartnersSection = () => {
                 }}
               >
                 <div>
-                  {/* Initials badge */}
                   <div
                     className="flex items-center justify-center mb-5"
                     style={{

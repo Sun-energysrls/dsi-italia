@@ -17,12 +17,11 @@ const imageMap: Record<string, string> = {
   "tractor-compact": tractorCompact,
 };
 
-// Power range groupings for display
+// Power range groupings — xl merged into large
 const powerRanges = [
-  { slug: "xl", label: "GAMMA GRANDISSIMA POTENZA (260+ HP)" },
-  { slug: "large", label: "GAMMA ALTA POTENZA (150–260 HP)" },
-  { slug: "medium", label: "GAMMA MEDIA POTENZA (90–140 HP)" },
-  { slug: "compact", label: "GAMMA COMPATTA (55–90 HP)" },
+  { slugs: ["xl", "large"], label: "GAMMA ALTA POTENZA (150–260 HP)" },
+  { slugs: ["medium"], label: "GAMMA MEDIA POTENZA (90–140 HP)" },
+  { slugs: ["compact"], label: "GAMMA COMPATTA (55–90 HP)" },
 ];
 
 const GammaTrattori = () => {
@@ -33,7 +32,11 @@ const GammaTrattori = () => {
 
   const filteredTractors = tractors.filter((t) => {
     const brandMatch = activeBrand === "all" || t.brand === activeBrand;
-    const catMatch = activeCategory === "all" || t.categorySlug === activeCategory;
+    // When filtering by "large", also include "xl"
+    const catMatch =
+      activeCategory === "all" ||
+      t.categorySlug === activeCategory ||
+      (activeCategory === "large" && t.categorySlug === "xl");
     return brandMatch && catMatch;
   });
 
@@ -46,7 +49,6 @@ const GammaTrattori = () => {
     setTimeout(() => setAnimating(false), 50);
   };
 
-  // Group by power range when showing all categories
   const showGrouped = activeCategory === "all" && filteredTractors.length > 0;
 
   return (
@@ -64,7 +66,6 @@ const GammaTrattori = () => {
           <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[80px]" style={{ background: "rgba(249,115,22,0.2)" }} />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 px-4 md:px-10 lg:px-20" style={{ paddingTop: 60, paddingBottom: 32 }}>
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-4">
@@ -77,7 +78,7 @@ const GammaTrattori = () => {
               Gamma Trattori DSI
             </h1>
             <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem" }}>
-              {tractors.length} modelli professionali di {brands.length} brand partner.
+              15 modelli professionali di 1 brand partner.
             </p>
           </AnimatedSection>
         </div>
@@ -127,12 +128,11 @@ const GammaTrattori = () => {
           </p>
 
           {showGrouped ? (
-            // Grouped by power range
             powerRanges.map((range) => {
-              const groupTractors = filteredTractors.filter((t) => t.categorySlug === range.slug);
+              const groupTractors = filteredTractors.filter((t) => range.slugs.includes(t.categorySlug));
               if (groupTractors.length === 0) return null;
               return (
-                <div key={range.slug} className="mb-14">
+                <div key={range.label} className="mb-14">
                   <div className="flex items-center gap-4 mb-6">
                     <div style={{ width: 4, height: 28, backgroundColor: "#F97316", borderRadius: 2 }} />
                     <h2
@@ -164,7 +164,6 @@ const GammaTrattori = () => {
               );
             })
           ) : (
-            // Flat grid when filtered by category
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
               {filteredTractors.map((tractor, i) => (
                 <div
@@ -246,7 +245,7 @@ const FilterBtn = ({
 const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
   <Link
     to={`/trattori/${tractor.id}`}
-    className="group flex flex-col transition-all duration-350"
+    className="group flex flex-col transition-all duration-300"
     style={{
       height: 480,
       background: "white",
@@ -258,9 +257,9 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
     }}
     onMouseEnter={(e) => {
       const el = e.currentTarget;
-      el.style.transform = "translateY(-8px)";
-      el.style.boxShadow = "0 24px 48px rgba(0,0,0,0.14)";
-      el.style.borderColor = "#F97316";
+      el.style.transform = "translateY(-4px)";
+      el.style.boxShadow = "0 20px 40px rgba(0,0,0,0.12)";
+      el.style.borderColor = "rgba(249,115,22,0.4)";
     }}
     onMouseLeave={(e) => {
       const el = e.currentTarget;
@@ -269,25 +268,32 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
       el.style.borderColor = "#EDE9E3";
     }}
   >
-    <div className="overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
+    <div className="relative overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
       <img
         src={imageMap[tractor.image]}
         alt={tractor.name}
         className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
         loading="lazy"
       />
+      {/* HP Badge */}
+      <div
+        className="absolute top-3 right-3 font-display font-bold text-white"
+        style={{
+          background: "#F97316",
+          borderRadius: 4,
+          padding: "4px 10px",
+          fontSize: "0.8rem",
+        }}
+      >
+        {tractor.hp} HP
+      </div>
     </div>
     <div className="flex flex-col flex-grow" style={{ padding: 24 }}>
       <span className="uppercase font-semibold" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "#F97316" }}>
         {tractor.category}
       </span>
-      <div className="flex items-center justify-between mt-1 mb-1">
-        <h3 className="font-display text-lg font-bold" style={{ color: "#1a1a1a" }}>{tractor.name}</h3>
-        <span className="font-display" style={{ fontSize: "1.8rem", color: "#F97316", fontWeight: 300, lineHeight: 1 }}>
-          {tractor.hp}
-        </span>
-      </div>
-      <p className="flex-grow" style={{ color: "#777", fontSize: "0.85rem", lineHeight: 1.6 }}>
+      <h3 className="font-display text-lg font-bold mt-1 mb-1" style={{ color: "#1a1a1a" }}>{tractor.name}</h3>
+      <p className="flex-grow" style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.6 }}>
         {tractor.shortDescription}
       </p>
       <span
