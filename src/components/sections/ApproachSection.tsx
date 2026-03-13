@@ -14,7 +14,7 @@ const checkpoints = [
 const miniStats = [
   { value: 15, suffix: "+", label: "ANNI DI ESPERIENZA" },
   { value: 500, suffix: "+", label: "MACCHINE CONSEGNATE" },
-  { value: 3, suffix: "", label: "BRAND NEL PORTFOLIO" },
+  { value: 2, suffix: "", label: "BRAND NEL PORTFOLIO" },
   { value: 100, suffix: "%", label: "IMPORT DIRETTO" },
 ];
 
