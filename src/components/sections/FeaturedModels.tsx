@@ -105,7 +105,7 @@ const FeaturedModels = () => {
                       Scopri <ArrowRight className="h-3 w-3" />
                     </Link>
                     <Link
-                      to={`/configuratore?modello=${t.id}`}
+                      to={`/configuratore?brand=Tavol&model=${t.id}`}
                       className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300"
                       style={{ color: "#1a3a2a", fontSize: "0.7rem", letterSpacing: "0.1em" }}
                     >

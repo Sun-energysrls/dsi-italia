@@ -22,12 +22,20 @@ const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];
 
 const Configuratore = () => {
   const [searchParams] = useSearchParams();
-  const preselectedModel = searchParams.get("modello") || "";
 
-  const [step, setStep] = useState(0);
+  // Preselect from query params
+  const paramBrand = searchParams.get("brand") || "";
+  const paramModel = searchParams.get("model") || "";
+  const preselectedTractor = paramModel ? tractors.find((t) => t.id === paramModel) : null;
+
+  const initialStep = preselectedTractor ? 2 : paramBrand ? 1 : 0;
+  const initialBrand = preselectedTractor ? preselectedTractor.brand : paramBrand || "";
+  const initialModel = preselectedTractor ? preselectedTractor.id : "";
+
+  const [step, setStep] = useState(initialStep);
   const [direction, setDirection] = useState<"next" | "prev">("next");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [model, setModel] = useState(preselectedModel);
+  const [selectedBrand, setSelectedBrand] = useState(initialBrand);
+  const [model, setModel] = useState(initialModel);
   const [power, setPower] = useState("");
   const [transmission, setTransmission] = useState("");
   const [color, setColor] = useState("");
@@ -250,31 +258,56 @@ const Configuratore = () => {
                   <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 16 }}>
                     {brandTractors.length} modelli Tavol disponibili
                   </p>
-                  {/* Horizontal scroll container */}
+                  {/* Vertical scroll container */}
                   <div
-                    className="overflow-x-auto pb-4 -mx-2"
-                    style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(249,115,22,0.4) transparent" }}
+                    className="overflow-y-auto pr-1"
+                    style={{ maxHeight: "calc(100vh - 360px)", scrollbarWidth: "thin", scrollbarColor: "rgba(249,115,22,0.4) transparent" }}
                   >
-                    <div className="flex gap-3 px-2" style={{ minWidth: "max-content" }}>
+                    <div className="flex flex-col gap-3">
                       {brandTractors.map((t) => (
                         <button
                           key={t.id}
                           onClick={() => handleModelSelect(t.id)}
-                          className="shrink-0 flex flex-col items-center transition-all duration-200"
+                          className="w-full flex items-center gap-3 transition-all duration-200"
                           style={{
-                            width: 192,
                             background: model === t.id ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
                             border: model === t.id ? "2px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
                             borderRadius: 8,
-                            padding: "16px 12px",
+                            padding: "10px 14px",
+                            height: 80,
                             ...(model === t.id ? { boxShadow: "0 0 0 1px #F97316, 0 8px 24px rgba(249,115,22,0.15)" } : {}),
                           }}
                         >
-                          <div className="w-full h-20 overflow-hidden rounded mb-3" style={{ background: "rgba(255,255,255,0.08)" }}>
+                          <div className="shrink-0 w-[72px] h-[72px] overflow-hidden rounded" style={{ background: "rgba(255,255,255,0.08)" }}>
                             <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-contain p-1" />
                           </div>
-                          <span className="text-white font-semibold text-sm text-center block">{t.name}</span>
-                          <span style={{ color: "#F97316", fontWeight: 700, fontSize: "0.85rem", marginTop: 4 }}>{t.hp} HP</span>
+                          <div className="flex-1 text-left min-w-0">
+                            <span className="text-white font-semibold text-sm block truncate">{t.name}</span>
+                            <span
+                              className="inline-block mt-1 font-bold text-white"
+                              style={{ background: "#F97316", borderRadius: 3, padding: "2px 8px", fontSize: "0.7rem" }}
+                            >
+                              {t.hp} HP
+                            </span>
+                            <span className="block mt-0.5 truncate" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.65rem" }}>
+                              {t.category}
+                            </span>
+                          </div>
+                          <div
+                            className="shrink-0"
+                            style={{
+                              width: 22,
+                              height: 22,
+                              borderRadius: "50%",
+                              border: model === t.id ? "none" : "2px solid rgba(255,255,255,0.3)",
+                              background: model === t.id ? "#F97316" : "transparent",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {model === t.id && <Check className="h-3 w-3 text-white" />}
+                          </div>
                         </button>
                       ))}
                     </div>

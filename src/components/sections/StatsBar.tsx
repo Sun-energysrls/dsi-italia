@@ -3,7 +3,7 @@ import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
 const stats = [
   { value: 3, suffix: "", label: "Brand Partner", sublabel: "selezionati a livello mondiale" },
-  { value: 18, suffix: "+", label: "Modelli Disponibili", sublabel: "in catalogo e configurabili" },
+  { value: 16, suffix: "+", label: "Modelli Disponibili", sublabel: "in catalogo e configurabili" },
   { value: 50, suffix: "+", label: "Configurazioni", sublabel: "personalizzazioni possibili" },
   { value: 100, suffix: "%", label: "Clienti Soddisfatti", sublabel: "soddisfazione certificata" },
 ];
