@@ -95,23 +95,13 @@ const FeaturedModels = () => {
                   <p className="flex-grow" style={{ color: "#777", fontSize: "0.82rem", lineHeight: 1.6 }}>
                     {t.shortDescription}
                   </p>
-                  {/* CTAs */}
-                  <div className="flex items-center gap-3 mt-auto pt-3">
-                    <Link
+                  <Link
                       to={`/trattori/${t.id}`}
-                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300"
+                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300 mt-auto pt-3"
                       style={{ color: "#F97316", fontSize: "0.7rem", letterSpacing: "0.1em" }}
                     >
-                      Scopri <ArrowRight className="h-3 w-3" />
+                      Scopri di più <ArrowRight className="h-3 w-3" />
                     </Link>
-                    <Link
-                      to={`/configuratore?brand=Tavol&model=${t.id}`}
-                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300"
-                      style={{ color: "#1a3a2a", fontSize: "0.7rem", letterSpacing: "0.1em" }}
-                    >
-                      <Settings className="h-3 w-3" /> Configura
-                    </Link>
-                  </div>
                 </div>
               </div>
             </AnimatedSection>
