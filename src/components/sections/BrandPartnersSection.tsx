@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { brands } from "@/data/brands";
+
+const comingSoonBrands = [
+  {
+    name: "Zoomlion",
+    initials: "ZL",
+    country: "Cina",
+    tagline: "Smart Agriculture Leader",
+    description: "Colosso globale fondato nel 1992. Pioniere nell'agricoltura intelligente con tecnologia AI e 5G.",
+    color: "#1a5fa8",
+  },
+  {
+    name: "YTO",
+    initials: "YT",
+    country: "Cina",
+    tagline: "Heritage & Innovation",
+    description: "Fondato nel 1955 a Luoyang, uno dei più grandi produttori mondiali con oltre 60 anni di esperienza.",
+    color: "#556b5a",
+  },
+];
 
 const BrandPartnersSection = () => {
   return (
@@ -12,19 +31,20 @@ const BrandPartnersSection = () => {
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
         <AnimatedSection className="text-center mb-16">
           <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
-            IL NOSTRO PARTNER
+            I NOSTRI PARTNER
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
             Brand di Eccellenza
           </h2>
           <p style={{ color: "rgba(255,255,255,0.55)" }} className="text-lg max-w-2xl mx-auto">
-            Il nostro partner esclusivo selezionato tra i migliori produttori mondiali.
+            I nostri brand partner selezionati tra i migliori produttori mondiali.
           </p>
         </AnimatedSection>
 
-        <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+          {/* Active Tavol card */}
           {brands.map((brand, i) => (
-            <AnimatedSection key={brand.id} delay={i * 0.15} className="w-full max-w-[480px]">
+            <AnimatedSection key={brand.id} delay={i * 0.15} className="h-full">
               <div
                 className="group flex flex-col justify-between transition-all duration-350 h-full"
                 style={{
@@ -104,6 +124,104 @@ const BrandPartnersSection = () => {
                 >
                   Scopri modelli <ArrowRight className="h-3 w-3 group-hover/link:translate-x-1 transition-transform" />
                 </Link>
+              </div>
+            </AnimatedSection>
+          ))}
+
+          {/* Coming Soon locked cards */}
+          {comingSoonBrands.map((brand, i) => (
+            <AnimatedSection key={brand.name} delay={(brands.length + i) * 0.15} className="h-full">
+              <div
+                className="relative flex flex-col justify-between h-full overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 8,
+                  padding: 40,
+                  minHeight: 320,
+                }}
+              >
+                {/* Subtle overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ background: "rgba(0,0,0,0.15)" }}
+                />
+
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-5">
+                    <div
+                      className="flex items-center justify-center"
+                      style={{
+                        background: brand.color,
+                        borderRadius: 6,
+                        padding: "12px 16px",
+                        width: "fit-content",
+                        fontSize: "1.1rem",
+                        fontWeight: 700,
+                        color: "white",
+                        opacity: 0.7,
+                      }}
+                    >
+                      {brand.initials}
+                    </div>
+                    <div
+                      className="flex items-center justify-center shrink-0"
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "50%",
+                        background: "rgba(249,115,22,0.1)",
+                      }}
+                    >
+                      <Lock className="h-4 w-4" style={{ color: "#F97316" }} />
+                    </div>
+                  </div>
+                  <h3 className="font-display font-bold mb-1" style={{ fontSize: "1.5rem", color: "rgba(255,255,255,0.6)" }}>
+                    {brand.name}
+                  </h3>
+                  <span
+                    className="block mb-1"
+                    style={{
+                      color: "rgba(249,115,22,0.6)",
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {brand.country}
+                  </span>
+                  <p
+                    className="italic mb-3"
+                    style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.8rem" }}
+                  >
+                    {brand.tagline}
+                  </p>
+                  <p
+                    style={{
+                      color: "rgba(255,255,255,0.4)",
+                      fontSize: "0.85rem",
+                      lineHeight: 1.7,
+                      margin: "16px 0",
+                    }}
+                  >
+                    {brand.description}
+                  </p>
+                </div>
+                <div className="relative z-10">
+                  <span
+                    className="inline-block uppercase font-semibold"
+                    style={{
+                      background: "rgba(249,115,22,0.15)",
+                      color: "#F97316",
+                      padding: "6px 16px",
+                      borderRadius: 4,
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.12em",
+                    }}
+                  >
+                    In Arrivo
+                  </span>
+                </div>
               </div>
             </AnimatedSection>
           ))}
