@@ -22,12 +22,20 @@ const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];
 
 const Configuratore = () => {
   const [searchParams] = useSearchParams();
-  const preselectedModel = searchParams.get("modello") || "";
 
-  const [step, setStep] = useState(0);
+  // Preselect from query params
+  const paramBrand = searchParams.get("brand") || "";
+  const paramModel = searchParams.get("model") || "";
+  const preselectedTractor = paramModel ? tractors.find((t) => t.id === paramModel) : null;
+
+  const initialStep = preselectedTractor ? 2 : paramBrand ? 1 : 0;
+  const initialBrand = preselectedTractor ? preselectedTractor.brand : paramBrand || "";
+  const initialModel = preselectedTractor ? preselectedTractor.id : "";
+
+  const [step, setStep] = useState(initialStep);
   const [direction, setDirection] = useState<"next" | "prev">("next");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [model, setModel] = useState(preselectedModel);
+  const [selectedBrand, setSelectedBrand] = useState(initialBrand);
+  const [model, setModel] = useState(initialModel);
   const [power, setPower] = useState("");
   const [transmission, setTransmission] = useState("");
   const [color, setColor] = useState("");
