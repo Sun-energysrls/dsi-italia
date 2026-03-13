@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Send, CheckCircle, ChevronRight, ChevronLeft, Check, Tractor as TractorIcon } from "lucide-react";
 import Layout from "@/components/Layout";
-import { tractors, globalColorOptions, brands } from "@/data/tractors";
+import { tractors, globalColorOptions } from "@/data/tractors";
 import { brands as brandData } from "@/data/brands";
 import { toast } from "sonner";
 import tractorLarge from "@/assets/tractor-large.jpg";
@@ -244,33 +244,40 @@ const Configuratore = () => {
 
               {step === 1 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
                     Seleziona il Modello
                   </h2>
-                  <div className="space-y-3">
-                    {brandTractors.map((t) => (
-                      <button
-                        key={t.id}
-                        onClick={() => handleModelSelect(t.id)}
-                        className="w-full flex items-center gap-4 transition-all duration-200"
-                        style={{
-                          background: model === t.id ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
-                          border: model === t.id ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
-                          borderRadius: 6,
-                          padding: "20px 24px",
-                          ...(model === t.id ? { boxShadow: "0 0 0 1px #F97316, 0 8px 24px rgba(249,115,22,0.15)" } : {}),
-                        }}
-                      >
-                        <div className="shrink-0 w-12 h-12 overflow-hidden rounded" style={{ background: "rgba(255,255,255,0.1)" }}>
-                          <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="text-left flex-1">
-                          <span className="text-white font-semibold block">{t.name}</span>
-                          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem" }}>{t.shortDescription}</span>
-                        </div>
-                        <span style={{ color: "#F97316", fontWeight: 700, fontSize: "1.1rem" }}>{t.hp} HP</span>
-                      </button>
-                    ))}
+                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 16 }}>
+                    {brandTractors.length} modelli Tavol disponibili
+                  </p>
+                  {/* Horizontal scroll container */}
+                  <div
+                    className="overflow-x-auto pb-4 -mx-2"
+                    style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(249,115,22,0.4) transparent" }}
+                  >
+                    <div className="flex gap-3 px-2" style={{ minWidth: "max-content" }}>
+                      {brandTractors.map((t) => (
+                        <button
+                          key={t.id}
+                          onClick={() => handleModelSelect(t.id)}
+                          className="shrink-0 flex flex-col items-center transition-all duration-200"
+                          style={{
+                            width: 192,
+                            background: model === t.id ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
+                            border: model === t.id ? "2px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
+                            borderRadius: 8,
+                            padding: "16px 12px",
+                            ...(model === t.id ? { boxShadow: "0 0 0 1px #F97316, 0 8px 24px rgba(249,115,22,0.15)" } : {}),
+                          }}
+                        >
+                          <div className="w-full h-20 overflow-hidden rounded mb-3" style={{ background: "rgba(255,255,255,0.08)" }}>
+                            <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-contain p-1" />
+                          </div>
+                          <span className="text-white font-semibold text-sm text-center block">{t.name}</span>
+                          <span style={{ color: "#F97316", fontWeight: 700, fontSize: "0.85rem", marginTop: 4 }}>{t.hp} HP</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -410,7 +417,6 @@ const Configuratore = () => {
                   <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Riepilogo e Contatto
                   </h2>
-                  {/* Summary */}
                   <div
                     className="mb-6"
                     style={{
@@ -440,7 +446,6 @@ const Configuratore = () => {
                       </div>
                     ))}
                   </div>
-                  {/* Form */}
                   <div className="space-y-4">
                     {[
                       { label: "Nome *", value: name, setter: setName, ph: "Mario Rossi" },
@@ -579,7 +584,6 @@ const Configuratore = () => {
                 }}
               />
 
-              {/* Color preview */}
               {color && (
                 <div className="flex items-center justify-center gap-3 mt-4">
                   <span
@@ -596,7 +600,6 @@ const Configuratore = () => {
                 </div>
               )}
 
-              {/* Stat boxes */}
               <div className="grid grid-cols-3 gap-4 mt-10">
                 {[
                   { label: "Potenza", value: power ? `${power} HP` : `${selectedTractor.hp} HP` },
@@ -636,7 +639,6 @@ const Configuratore = () => {
             </div>
           )}
 
-          {/* Progress bar at bottom */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
             <div style={{ width: 200, height: 2, background: "#EDE9E3", borderRadius: 1, overflow: "hidden" }}>
               <div style={{ width: `${progressWidth}%`, height: "100%", background: "#F97316", transition: "width 0.4s ease" }} />
