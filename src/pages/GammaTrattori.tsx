@@ -78,7 +78,7 @@ const GammaTrattori = () => {
               Gamma Trattori DSI
             </h1>
             <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem" }}>
-              15 modelli professionali di 1 brand partner.
+              18 modelli professionali di 1 brand partner.
             </p>
           </AnimatedSection>
         </div>

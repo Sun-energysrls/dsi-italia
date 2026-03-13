@@ -14,12 +14,12 @@ const comingSoonBrands = [
     color: "#1a5fa8",
   },
   {
-    name: "Brand 2",
-    country: "???",
-    initials: "??",
-    tagline: "In fase di selezione",
+    name: "YTO",
+    country: "Cina",
+    initials: "YT",
+    tagline: "Heritage & Innovation",
     description:
-      "Stiamo valutando i migliori produttori mondiali per ampliare la nostra gamma. Il prossimo brand partner sarà annunciato a breve.",
+      "Yituo (YTO), fondato nel 1955 a Luoyang, è uno dei più antichi e grandi produttori mondiali di trattori. Con oltre 60 anni di esperienza e milioni di macchine consegnate in 100+ paesi, rappresenta l'eccellenza storica dell'ingegneria agricola cinese.",
     eta: "Da annunciare",
     color: "#556b5a",
   },

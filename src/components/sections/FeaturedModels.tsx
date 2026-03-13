@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Settings } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
@@ -14,13 +14,12 @@ const imageMap: Record<string, string> = {
   "tractor-compact": tractorCompact,
 };
 
+const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
+
 const FeaturedModels = () => {
-  const featured = [
-    tractors.find((t) => t.id === "sd2604"),
-    tractors.find((t) => t.id === "sd1604"),
-    tractors.find((t) => t.id === "sd904"),
-    tractors.find((t) => t.id === "sd504g"),
-  ].filter(Boolean) as typeof tractors;
+  const featured = featuredIds
+    .map((id) => tractors.find((t) => t.id === id))
+    .filter(Boolean) as typeof tractors;
 
   return (
     <section style={{ background: "transparent", padding: "100px 0" }}>
@@ -32,16 +31,15 @@ const FeaturedModels = () => {
           >
             MODELLI IN EVIDENZA
           </h2>
-          <p style={{ color: "#888", fontSize: "1.1rem" }}>Un trattore per ogni esigenza</p>
+          <p style={{ color: "#888", fontSize: "1.1rem" }}>Un trattore per ogni esigenza — dalla compatta al top di gamma</p>
         </AnimatedSection>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featured.map((t, i) => (
             <AnimatedSection key={t.id} delay={i * 0.1}>
-              <Link
-                to={`/trattori/${t.id}`}
-                className="group flex flex-col transition-all duration-350"
+              <div
+                className="group flex flex-col transition-all duration-300"
                 style={{
-                  height: 480,
+                  height: 520,
                   background: "white",
                   borderRadius: 8,
                   overflow: "hidden",
@@ -63,59 +61,59 @@ const FeaturedModels = () => {
                 }}
               >
                 {/* Image */}
-                <div
-                  className="overflow-hidden"
-                  style={{ height: 260, background: "#F9F7F5" }}
-                >
+                <div className="relative overflow-hidden" style={{ height: 240, background: "#F9F7F5" }}>
                   <img
                     src={imageMap[t.image]}
                     alt={t.name}
                     className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
                     loading="lazy"
                   />
+                  {/* HP Badge */}
+                  <div
+                    className="absolute top-3 right-3 font-display font-bold text-white"
+                    style={{
+                      background: "#F97316",
+                      borderRadius: 4,
+                      padding: "4px 10px",
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    {t.hp} HP
+                  </div>
                 </div>
                 {/* Content */}
-                <div
-                  className="flex flex-col flex-grow"
-                  style={{ padding: 24 }}
-                >
+                <div className="flex flex-col flex-grow" style={{ padding: 20 }}>
                   <span
                     className="uppercase font-semibold"
-                    style={{
-                      fontSize: "0.65rem",
-                      letterSpacing: "0.18em",
-                      color: "#F97316",
-                    }}
+                    style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "#F97316" }}
                   >
                     {t.category}
                   </span>
-                  <div className="flex items-center justify-between mt-1 mb-1">
-                    <h3 className="font-display text-lg font-bold" style={{ color: "#1a1a1a" }}>
-                      {t.name}
-                    </h3>
-                    <span className="font-display" style={{ fontSize: "1.8rem", color: "#F97316", fontWeight: 300, lineHeight: 1 }}>
-                      {t.hp}
-                    </span>
-                  </div>
-                  <p
-                    className="flex-grow"
-                    style={{ color: "#777", fontSize: "0.85rem", lineHeight: 1.6 }}
-                  >
+                  <h3 className="font-display text-lg font-bold mt-1 mb-2" style={{ color: "#1a1a1a" }}>
+                    {t.name}
+                  </h3>
+                  <p className="flex-grow" style={{ color: "#777", fontSize: "0.82rem", lineHeight: 1.6 }}>
                     {t.shortDescription}
                   </p>
-                  <span
-                    className="mt-auto inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
-                    style={{
-                      color: "#F97316",
-                      fontSize: "0.75rem",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    Scopri di più
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
+                  {/* CTAs */}
+                  <div className="flex items-center gap-3 mt-auto pt-3">
+                    <Link
+                      to={`/trattori/${t.id}`}
+                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300"
+                      style={{ color: "#F97316", fontSize: "0.7rem", letterSpacing: "0.1em" }}
+                    >
+                      Scopri <ArrowRight className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      to={`/configuratore?modello=${t.id}`}
+                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300"
+                      style={{ color: "#1a3a2a", fontSize: "0.7rem", letterSpacing: "0.1em" }}
+                    >
+                      <Settings className="h-3 w-3" /> Configura
+                    </Link>
+                  </div>
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
           ))}
         </div>
