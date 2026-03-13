@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
-import { ArrowRight, Tractor } from "lucide-react";
+import { ArrowRight, Tractor, Settings } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
@@ -243,8 +243,7 @@ const FilterBtn = ({
 );
 
 const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
-  <Link
-    to={`/trattori/${tractor.id}`}
+  <div
     className="group flex flex-col transition-all duration-300"
     style={{
       height: 480,
@@ -268,42 +267,48 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
       el.style.borderColor = "#EDE9E3";
     }}
   >
-    <div className="relative overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
+    <Link to={`/trattori/${tractor.id}`} className="relative overflow-hidden block" style={{ height: 260, background: "#F9F7F5" }}>
       <img
         src={imageMap[tractor.image]}
         alt={tractor.name}
         className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
         loading="lazy"
       />
-      {/* HP Badge */}
       <div
         className="absolute top-3 right-3 font-display font-bold text-white"
-        style={{
-          background: "#F97316",
-          borderRadius: 4,
-          padding: "4px 10px",
-          fontSize: "0.8rem",
-        }}
+        style={{ background: "#F97316", borderRadius: 4, padding: "4px 10px", fontSize: "0.8rem" }}
       >
         {tractor.hp} HP
       </div>
-    </div>
+    </Link>
     <div className="flex flex-col flex-grow" style={{ padding: 24 }}>
       <span className="uppercase font-semibold" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "#F97316" }}>
         {tractor.category}
       </span>
-      <h3 className="font-display text-lg font-bold mt-1 mb-1" style={{ color: "#1a1a1a" }}>{tractor.name}</h3>
+      <Link to={`/trattori/${tractor.id}`}>
+        <h3 className="font-display text-lg font-bold mt-1 mb-1 hover:text-secondary transition-colors" style={{ color: "#1a1a1a" }}>{tractor.name}</h3>
+      </Link>
       <p className="flex-grow" style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.6 }}>
         {tractor.shortDescription}
       </p>
-      <span
-        className="mt-auto inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
-        style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.1em" }}
-      >
-        Scopri di più <ArrowRight className="h-3.5 w-3.5" />
-      </span>
+      <div className="mt-auto flex items-center gap-4">
+        <Link
+          to={`/trattori/${tractor.id}`}
+          className="inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
+          style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.1em" }}
+        >
+          Scopri <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
+        <Link
+          to={`/configuratore?brand=${tractor.brand}&model=${tractor.id}`}
+          className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300 hover:opacity-80"
+          style={{ color: "#1a3a2a", fontSize: "0.7rem", letterSpacing: "0.1em" }}
+        >
+          <Settings className="h-3.5 w-3.5" /> Configura
+        </Link>
+      </div>
     </div>
-  </Link>
+  </div>
 );
 
 export default GammaTrattori;
