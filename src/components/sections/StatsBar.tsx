@@ -2,10 +2,10 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
 const stats = [
-  { value: 4, suffix: "", label: "BRAND PARTNER", icon: "🤝", sublabel: "selezionati nel mondo" },
-  { value: 23, suffix: "+", label: "MODELLI DISPONIBILI", icon: "🚜", sublabel: "trattori in catalogo" },
-  { value: 50, suffix: "+", label: "CONFIGURAZIONI", icon: "⚙️", sublabel: "personalizzazioni possibili" },
-  { value: 100, suffix: "%", label: "CLIENTI SODDISFATTI", icon: "⭐", sublabel: "soddisfazione garantita" },
+  { value: 3, suffix: "", label: "Brand Partner", sublabel: "selezionati a livello mondiale" },
+  { value: 23, suffix: "+", label: "Modelli Disponibili", sublabel: "in catalogo e configurabili" },
+  { value: 50, suffix: "+", label: "Configurazioni", sublabel: "personalizzazioni possibili" },
+  { value: 100, suffix: "%", label: "Clienti Soddisfatti", sublabel: "soddisfazione certificata" },
 ];
 
 const StatsBar = () => {
@@ -14,10 +14,8 @@ const StatsBar = () => {
       className="relative py-24 noise-overlay"
       style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
-      {/* Orange accent line at top */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-secondary" />
 
-      {/* Subtle background glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -31,24 +29,16 @@ const StatsBar = () => {
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="text-center relative"
+                className="text-center relative group"
                 style={{ willChange: "transform" }}
               >
-                {/* Icon */}
+                {/* Left border accent on hover */}
                 <div
-                  className="mx-auto mb-3 flex items-center justify-center"
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: "50%",
-                    background: "rgba(249,115,22,0.12)",
-                    fontSize: "1.4rem",
-                  }}
-                >
-                  {stat.icon}
-                </div>
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 group-hover:h-12 transition-all duration-500 rounded-full"
+                  style={{ background: "#F97316" }}
+                />
 
-                {/* Number */}
+                {/* Big number */}
                 <div
                   className="font-display font-light mb-1"
                   style={{
@@ -61,7 +51,7 @@ const StatsBar = () => {
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </div>
 
-                {/* Orange accent under number */}
+                {/* Orange dash */}
                 <div
                   className="mx-auto mb-3"
                   style={{ width: 24, height: 2, backgroundColor: "#F97316" }}

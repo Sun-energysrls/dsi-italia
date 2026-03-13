@@ -41,12 +41,11 @@ export const globalColorOptions: ColorOption[] = [
   { name: "Bianco Premium", value: "hsl(0, 0%, 95%)" },
 ];
 
-export const brands = ["Tavol", "John Deere", "New Holland", "Fendt"] as const;
+export const brands = ["Tavol"] as const;
 export type Brand = (typeof brands)[number];
 
 export const categories = [
-  { id: "xl", label: "Grandissima Potenza", description: "260+ HP per grandissime aziende cerealicole" },
-  { id: "large", label: "Alta Potenza", description: "Oltre 150 HP per grandi aziende agricole" },
+  { id: "large", label: "Alta Potenza", description: "150–260 HP per grandi aziende agricole" },
   { id: "medium", label: "Media Potenza", description: "90–140 HP per coltivazioni miste" },
-  { id: "compact", label: "Compatti / Serre", description: "40–90 HP, agili e maneggevoli" },
+  { id: "compact", label: "Compatti / Serre", description: "55–90 HP, agili e maneggevoli" },
 ];
