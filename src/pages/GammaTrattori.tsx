@@ -3,7 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
-import { ArrowRight, Tractor } from "lucide-react";
+import { ArrowRight, Tractor, Settings } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import tractorLarge from "@/assets/tractor-large.jpg";
 import tractorMedium from "@/assets/tractor-medium.jpg";
