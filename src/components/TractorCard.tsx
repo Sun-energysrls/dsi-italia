@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Tractor } from "@/data/tractors";
 import { getTractorImage } from "@/data/tractor-images";
+import fieldBg from "@/assets/field-bg.jpg";
 
 const TractorCard = ({ tractor }: { tractor: Tractor }) => {
   return (
