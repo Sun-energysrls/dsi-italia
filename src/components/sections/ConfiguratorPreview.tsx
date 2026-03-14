@@ -119,18 +119,26 @@ const ConfiguratorPreview = () => {
 
                 {/* Tractor image */}
                 <div className="flex justify-center mb-6">
-                  <img
-                    src={tractorLarge}
-                    alt="Trattore TAVOL configurabile"
+                  <div
                     style={{
                       width: "100%",
-                      maxWidth: 340,
-                      height: "auto",
-                      objectFit: "contain",
-                      filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.4)) brightness(1.1)",
-                      mixBlendMode: "luminosity",
+                      maxWidth: 360,
+                      background: "hsl(0 0% 100%)",
+                      borderRadius: 14,
+                      padding: "14px",
                     }}
-                  />
+                  >
+                    <img
+                      src={tavol2604Preview}
+                      alt="Trattore TAVOL 2604 configurabile"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "contain",
+                        filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.2))",
+                      }}
+                    />
+                  </div>
                 </div>
 
                 {/* Floating config cards */}
