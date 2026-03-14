@@ -5,17 +5,7 @@ import Layout from "@/components/Layout";
 import { tractors, globalColorOptions } from "@/data/tractors";
 import { brands as brandData } from "@/data/brands";
 import { toast } from "sonner";
-import tractorLarge from "@/assets/tractor-large.jpg";
-import tractorMedium from "@/assets/tractor-medium.jpg";
-import tractorSmall from "@/assets/tractor-small.jpg";
-import tractorCompact from "@/assets/tractor-compact.jpg";
-
-const imageMap: Record<string, string> = {
-  "tractor-large": tractorLarge,
-  "tractor-medium": tractorMedium,
-  "tractor-small": tractorSmall,
-  "tractor-compact": tractorCompact,
-};
+import { getTractorImage } from "@/data/tractor-images";
 
 const stepLabels = ["Brand", "Modello", "Motore", "Cambio", "Colore", "Accessori", "Riepilogo"];
 const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];
@@ -279,7 +269,7 @@ const Configuratore = () => {
                           }}
                         >
                           <div className="shrink-0 w-[72px] h-[72px] overflow-hidden rounded" style={{ background: "rgba(255,255,255,0.08)" }}>
-                            <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-contain p-1" />
+                            <img src={getTractorImage(t.id)} alt={t.name} className="w-full h-full object-contain p-1" />
                           </div>
                           <div className="flex-1 text-left min-w-0">
                             <span className="text-white font-semibold text-sm block truncate">{t.name}</span>
@@ -607,7 +597,7 @@ const Configuratore = () => {
             <div className="w-full max-w-[500px]">
               <img
                 key={selectedTractor.id}
-                src={imageMap[selectedTractor.image]}
+                src={getTractorImage(selectedTractor.id)}
                 alt={selectedTractor.name}
                 className="w-full h-auto object-contain"
                 style={{
