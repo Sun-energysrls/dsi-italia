@@ -3,7 +3,7 @@ import { Settings, ArrowLeft, CheckCircle, Zap, Cpu, Settings2, Weight, Gauge, A
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { getTractorById } from "@/data/tractors";
-import { getTractorImage } from "@/data/tractor-images";
+import { getTractorPhoto } from "@/data/tractor-images";
 
 const SchedaProdotto = () => {
   const { id } = useParams<{ id: string }>();
