@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
-import { getTractorPhoto } from "@/data/tractor-images";
+import { getTractorPhoto, hasRealPhoto } from "@/data/tractor-images";
 
 const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
 
