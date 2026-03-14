@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import { getTractorImage } from "@/data/tractor-images";
+import fieldBg from "@/assets/field-bg.jpg";
 
 const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
 
