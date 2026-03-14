@@ -261,7 +261,7 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
       <img
         src={getTractorPhoto(tractor.id)}
         alt={tractor.name}
-        className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+        className="w-full h-full object-contain p-3 group-hover:scale-[1.04] transition-transform duration-500"
         loading="lazy"
       />
       <div
