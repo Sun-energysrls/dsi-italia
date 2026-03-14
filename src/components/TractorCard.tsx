@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Tractor } from "@/data/tractors";
-import tractorLarge from "@/assets/tractor-large.jpg";
-import tractorMedium from "@/assets/tractor-medium.jpg";
-import tractorSmall from "@/assets/tractor-small.jpg";
-import tractorCompact from "@/assets/tractor-compact.jpg";
-
-const imageMap: Record<string, string> = {
-  "tractor-large": tractorLarge,
-  "tractor-medium": tractorMedium,
-  "tractor-small": tractorSmall,
-  "tractor-compact": tractorCompact,
-};
+import { getTractorImage } from "@/data/tractor-images";
 
 const TractorCard = ({ tractor }: { tractor: Tractor }) => {
   return (
@@ -42,7 +32,7 @@ const TractorCard = ({ tractor }: { tractor: Tractor }) => {
     >
       <div className="overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
         <img
-          src={imageMap[tractor.image]}
+          src={getTractorImage(tractor.id)}
           alt={tractor.name}
           className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
           loading="lazy"
