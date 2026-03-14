@@ -602,13 +602,14 @@ const Configuratore = () => {
                   padding: "14px 14px 12px",
                   boxShadow: "0 22px 44px rgba(0,0,0,0.16)",
                   marginBottom: 18,
+                  border: "1px solid rgba(255,255,255,0.14)",
                 }}
               >
                 <div className="flex justify-end mb-2">
                   <span
                     style={{
-                      background: "hsl(var(--background))",
-                      color: "hsl(var(--foreground))",
+                      background: "rgba(255,255,255,0.14)",
+                      color: "hsl(var(--primary-foreground))",
                       borderRadius: 4,
                       padding: "4px 10px",
                       fontSize: "0.62rem",
@@ -621,25 +622,17 @@ const Configuratore = () => {
                   </span>
                 </div>
 
-                <div
+                <img
+                  key={selectedTractor.id}
+                  src={getTractorImage(selectedTractor.id)}
+                  alt={selectedTractor.name}
+                  className="w-full h-auto object-contain"
                   style={{
-                    background: "hsl(var(--background))",
-                    borderRadius: 10,
-                    padding: "10px",
+                    maxHeight: 310,
+                    filter: "drop-shadow(0 16px 30px rgba(0,0,0,0.18))",
+                    animation: "fadeSlideIn 0.4s ease forwards",
                   }}
-                >
-                  <img
-                    key={selectedTractor.id}
-                    src={getTractorImage(selectedTractor.id)}
-                    alt={selectedTractor.name}
-                    className="w-full h-auto object-contain"
-                    style={{
-                      maxHeight: 300,
-                      filter: "drop-shadow(0 14px 28px rgba(0,0,0,0.14))",
-                      animation: "fadeSlideIn 0.4s ease forwards",
-                    }}
-                  />
-                </div>
+                />
 
                 {color && (
                   <div className="flex items-center justify-center gap-3 mt-3">
@@ -653,7 +646,7 @@ const Configuratore = () => {
                         display: "inline-block",
                       }}
                     />
-                    <span style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.85rem", fontWeight: 600 }}>{color}</span>
+                    <span style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.85rem", fontWeight: 600 }}>{color}</span>
                   </div>
                 )}
               </div>
