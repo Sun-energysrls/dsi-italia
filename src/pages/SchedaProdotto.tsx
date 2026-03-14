@@ -63,8 +63,23 @@ const SchedaProdotto = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image */}
             <AnimatedSection>
-              <div className="relative overflow-hidden rounded-lg" style={{ background: "rgba(255,255,255,0.05)" }}>
-                <img src={tractorImage} alt={tractor.name} className="w-full h-auto object-cover" />
+              <div
+                className="relative overflow-hidden rounded-lg"
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                <img
+                  src={tractorImage}
+                  alt={tractor.name}
+                  className="w-full h-auto object-contain"
+                  style={{
+                    maxHeight: 520,
+                    padding: "16px",
+                    filter: "drop-shadow(0 18px 36px rgba(0,0,0,0.18))",
+                  }}
+                />
                 {/* HP Badge */}
                 <div
                   className="absolute top-4 right-4 font-display font-bold text-white"
