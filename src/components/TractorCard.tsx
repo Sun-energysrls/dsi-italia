@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Tractor } from "@/data/tractors";
 import { getTractorImage } from "@/data/tractor-images";
-import fieldBg from "@/assets/field-bg.jpg";
 
 const TractorCard = ({ tractor }: { tractor: Tractor }) => {
   return (
@@ -31,14 +30,11 @@ const TractorCard = ({ tractor }: { tractor: Tractor }) => {
         el.style.borderColor = "#EDE9E3";
       }}
     >
-      <div className="overflow-hidden relative" style={{ height: 260 }}>
-        <img src={fieldBg} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.9) saturate(1.1)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%)" }} />
+      <div className="overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
         <img
           src={getTractorImage(tractor.id)}
           alt={tractor.name}
-          className="relative z-10 w-full object-contain group-hover:scale-[1.04] transition-transform duration-500"
-          style={{ filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.4))", height: "85%", marginTop: "auto", padding: "8px 20px 0", objectPosition: "center bottom", position: "absolute", bottom: 0, left: 0, right: 0 }}
+          className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
           loading="lazy"
         />
       </div>

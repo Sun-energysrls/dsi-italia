@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import { getTractorImage } from "@/data/tractor-images";
-import fieldBg from "@/assets/field-bg.jpg";
 
 const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
 
@@ -52,19 +51,16 @@ const FeaturedModels = () => {
                 }}
               >
                 {/* Image */}
-                <div className="relative overflow-hidden" style={{ height: 240 }}>
-                  <img src={fieldBg} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.9) saturate(1.1)" }} />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%)" }} />
+                <div className="relative overflow-hidden" style={{ height: 240, background: "#F9F7F5" }}>
                   <img
                     src={getTractorImage(t.id)}
                     alt={t.name}
-                    className="absolute bottom-0 left-0 right-0 z-10 w-full object-contain group-hover:scale-[1.04] transition-transform duration-500"
-                    style={{ filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.4))", height: "85%", padding: "8px 16px 0", objectPosition: "center bottom" }}
+                    className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
                     loading="lazy"
                   />
                   {/* HP Badge */}
                   <div
-                    className="absolute top-3 right-3 z-20 font-display font-bold text-white"
+                    className="absolute top-3 right-3 font-display font-bold text-white"
                     style={{
                       background: "#F97316",
                       borderRadius: 4,
