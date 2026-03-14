@@ -55,7 +55,9 @@ const FeaturedModels = () => {
                   <img
                     src={getTractorPhoto(t.id)}
                     alt={t.name}
-                    className="w-full h-full object-contain p-3 group-hover:scale-[1.04] transition-transform duration-500"
+                    className={`w-full h-full transition-transform duration-500 group-hover:scale-[1.04] ${
+                      hasRealPhoto(t.id) ? "object-cover" : "object-contain p-5"
+                    }`}
                     loading="lazy"
                   />
                   {/* HP Badge */}
