@@ -8,6 +8,10 @@ import tavol1404 from "@/assets/tavol-1404.png";
 import tavol1604 from "@/assets/tavol-1604.png";
 import tavol1804 from "@/assets/tavol-1804.png";
 import tavol2004 from "@/assets/tavol-2004.png";
+import tavol2204 from "@/assets/tavol-2204.png";
+import tavol2404 from "@/assets/tavol-2404.png";
+import tavol2604 from "@/assets/tavol-2604.png";
+import tavol2804 from "@/assets/tavol-2804.png";
 
 // Maps tractor IDs to their real product images
 export const tractorImageMap: Record<string, string> = {
