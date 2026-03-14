@@ -595,33 +595,68 @@ const Configuratore = () => {
 
           {selectedTractor ? (
             <div className="w-full max-w-[500px]">
-              <img
-                key={selectedTractor.id}
-                src={getTractorImage(selectedTractor.id)}
-                alt={selectedTractor.name}
-                className="w-full h-auto object-contain"
+              <div
                 style={{
-                  maxHeight: 340,
-                  filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.12))",
-                  animation: "fadeSlideIn 0.4s ease forwards",
+                  background: "var(--dsi-green-gradient)",
+                  borderRadius: 12,
+                  padding: "14px 14px 12px",
+                  boxShadow: "0 22px 44px rgba(0,0,0,0.16)",
+                  marginBottom: 18,
                 }}
-              />
-
-              {color && (
-                <div className="flex items-center justify-center gap-3 mt-4">
+              >
+                <div className="flex justify-end mb-2">
                   <span
                     style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: "50%",
-                      border: "2px solid #F97316",
-                      backgroundColor: globalColorOptions.find((c) => c.name === color)?.value,
-                      display: "inline-block",
+                      background: "hsl(var(--background))",
+                      color: "hsl(var(--foreground))",
+                      borderRadius: 4,
+                      padding: "4px 10px",
+                      fontSize: "0.62rem",
+                      letterSpacing: "0.18em",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    DSI
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    background: "hsl(var(--background))",
+                    borderRadius: 10,
+                    padding: "10px",
+                  }}
+                >
+                  <img
+                    key={selectedTractor.id}
+                    src={getTractorImage(selectedTractor.id)}
+                    alt={selectedTractor.name}
+                    className="w-full h-auto object-contain"
+                    style={{
+                      maxHeight: 300,
+                      filter: "drop-shadow(0 14px 28px rgba(0,0,0,0.14))",
+                      animation: "fadeSlideIn 0.4s ease forwards",
                     }}
                   />
-                  <span style={{ color: "#666", fontSize: "0.85rem", fontWeight: 600 }}>{color}</span>
                 </div>
-              )}
+
+                {color && (
+                  <div className="flex items-center justify-center gap-3 mt-3">
+                    <span
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        border: "2px solid #F97316",
+                        backgroundColor: globalColorOptions.find((c) => c.name === color)?.value,
+                        display: "inline-block",
+                      }}
+                    />
+                    <span style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.85rem", fontWeight: 600 }}>{color}</span>
+                  </div>
+                )}
+              </div>
 
               <div className="grid grid-cols-3 gap-4 mt-10">
                 {[
