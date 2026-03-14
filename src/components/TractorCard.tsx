@@ -32,7 +32,7 @@ const TractorCard = ({ tractor }: { tractor: Tractor }) => {
     >
       <div className="overflow-hidden" style={{ height: 260, background: "#F9F7F5" }}>
         <img
-          src={getTractorImage(tractor.id)}
+          src={getTractorPhoto(tractor.id)}
           alt={tractor.name}
           className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
           loading="lazy"

@@ -26,7 +26,7 @@ const SchedaProdotto = () => {
     );
   }
 
-  const tractorImage = getTractorImage(tractor.id);
+  const tractorImage = getTractorPhoto(tractor.id);
   const specs = tractor.fullTechnicalSpecs || {};
 
   const specLabels: Record<string, { label: string; icon: React.ReactNode }> = {
