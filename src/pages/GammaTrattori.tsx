@@ -6,6 +6,7 @@ import { categories, tractors, brands } from "@/data/tractors";
 import { ArrowRight, Tractor } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import { getTractorImage } from "@/data/tractor-images";
+import fieldBg from "@/assets/field-bg.jpg";
 
 // Power range groupings — xl merged into large
 const powerRanges = [
