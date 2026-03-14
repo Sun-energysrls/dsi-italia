@@ -5,7 +5,7 @@ import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
 import { ArrowRight, Tractor } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
-import { getTractorPhoto } from "@/data/tractor-images";
+import { getTractorPhoto, hasRealPhoto } from "@/data/tractor-images";
 
 // Power range groupings — xl merged into large
 const powerRanges = [
