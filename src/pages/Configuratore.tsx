@@ -269,7 +269,7 @@ const Configuratore = () => {
                           }}
                         >
                           <div className="shrink-0 w-[72px] h-[72px] overflow-hidden rounded" style={{ background: "rgba(255,255,255,0.08)" }}>
-                            <img src={imageMap[t.image]} alt={t.name} className="w-full h-full object-contain p-1" />
+                            <img src={getTractorImage(t.id)} alt={t.name} className="w-full h-full object-contain p-1" />
                           </div>
                           <div className="flex-1 text-left min-w-0">
                             <span className="text-white font-semibold text-sm block truncate">{t.name}</span>
