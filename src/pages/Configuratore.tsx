@@ -597,7 +597,7 @@ const Configuratore = () => {
             <div className="w-full max-w-[500px]">
               <img
                 key={selectedTractor.id}
-                src={imageMap[selectedTractor.image]}
+                src={getTractorImage(selectedTractor.id)}
                 alt={selectedTractor.name}
                 className="w-full h-auto object-contain"
                 style={{
