@@ -27,10 +27,10 @@ export const tractorImageMap: Record<string, string> = {
   "tavol-1604": tavol1604,
   "tavol-1804": tavol1804,
   "tavol-2004": tavol2004,
-  "tavol-2204": tavol2004,    // fallback: closest model
-  "tavol-2404": tavol2004,    // fallback: closest model
-  "tavol-2604": tavol2004,    // fallback: closest model
-  "tavol-2804": tavol2004,    // fallback: closest model
+  "tavol-2204": tavol2204,
+  "tavol-2404": tavol2404,
+  "tavol-2604": tavol2604,
+  "tavol-2804": tavol2804,
 };
 
 export function getTractorImage(tractorId: string): string {

@@ -259,7 +259,7 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
   >
     <Link to={`/trattori/${tractor.id}`} className="relative overflow-hidden block" style={{ height: 260, background: "#F9F7F5" }}>
       <img
-        src={imageMap[tractor.image]}
+        src={getTractorImage(tractor.id)}
         alt={tractor.name}
         className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
         loading="lazy"
