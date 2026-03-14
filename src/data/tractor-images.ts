@@ -61,3 +61,8 @@ export function getTractorImage(tractorId: string): string {
 export function getTractorPhoto(tractorId: string): string {
   return tractorPhotoMap[tractorId] || tractorImageMap[tractorId] || tavol804;
 }
+
+/** Check if a real-world photo exists for this tractor */
+export function hasRealPhoto(tractorId: string): boolean {
+  return tractorId in tractorPhotoMap;
+}
