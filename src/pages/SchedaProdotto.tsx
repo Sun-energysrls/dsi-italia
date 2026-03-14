@@ -3,7 +3,7 @@ import { Settings, ArrowLeft, CheckCircle, Zap, Cpu, Settings2, Weight, Gauge, A
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { getTractorById } from "@/data/tractors";
-import { getTractorImage } from "@/data/tractor-images";
+import { getTractorPhoto } from "@/data/tractor-images";
 
 const SchedaProdotto = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +26,7 @@ const SchedaProdotto = () => {
     );
   }
 
-  const tractorImage = getTractorImage(tractor.id);
+  const tractorImage = getTractorPhoto(tractor.id);
   const specs = tractor.fullTechnicalSpecs || {};
 
   const specLabels: Record<string, { label: string; icon: React.ReactNode }> = {
@@ -73,11 +73,9 @@ const SchedaProdotto = () => {
                 <img
                   src={tractorImage}
                   alt={tractor.name}
-                  className="w-full h-auto object-contain"
+                  className="w-full object-cover rounded-lg"
                   style={{
                     maxHeight: 520,
-                    padding: "16px",
-                    filter: "drop-shadow(0 18px 36px rgba(0,0,0,0.18))",
                   }}
                 />
                 {/* HP Badge */}
