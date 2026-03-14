@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
-import tractorLarge from "@/assets/tractor-large.jpg";
+import tavol2604Preview from "@/assets/tavol-2604-2.png";
 
 const previewFeatures = ["Colore", "Potenza", "Cambio", "Accessori"];
 const pills = ["16 Modelli", "7 Step guidati", "Preventivo Gratuito", "Consegna in Italia"];
