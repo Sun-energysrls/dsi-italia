@@ -53,13 +53,13 @@ const FeaturedModels = () => {
               >
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ height: 240 }}>
-                  <img src={fieldBg} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.85) saturate(0.9)" }} />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.25) 100%)" }} />
+                  <img src={fieldBg} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.9) saturate(1.1)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%)" }} />
                   <img
                     src={getTractorImage(t.id)}
                     alt={t.name}
-                    className="relative z-10 w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
-                    style={{ filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.3))" }}
+                    className="absolute bottom-0 left-0 right-0 z-10 w-full object-contain group-hover:scale-[1.04] transition-transform duration-500"
+                    style={{ filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.4))", height: "85%", padding: "8px 16px 0", objectPosition: "center bottom" }}
                     loading="lazy"
                   />
                   {/* HP Badge */}
