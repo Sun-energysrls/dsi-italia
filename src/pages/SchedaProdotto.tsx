@@ -73,11 +73,9 @@ const SchedaProdotto = () => {
                 <img
                   src={tractorImage}
                   alt={tractor.name}
-                  className="w-full h-auto object-contain"
+                  className="w-full object-cover rounded-lg"
                   style={{
                     maxHeight: 520,
-                    padding: "16px",
-                    filter: "drop-shadow(0 18px 36px rgba(0,0,0,0.18))",
                   }}
                 />
                 {/* HP Badge */}
