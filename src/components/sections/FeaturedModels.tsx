@@ -2,17 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
-import tractorLarge from "@/assets/tractor-large.jpg";
-import tractorMedium from "@/assets/tractor-medium.jpg";
-import tractorSmall from "@/assets/tractor-small.jpg";
-import tractorCompact from "@/assets/tractor-compact.jpg";
-
-const imageMap: Record<string, string> = {
-  "tractor-large": tractorLarge,
-  "tractor-medium": tractorMedium,
-  "tractor-small": tractorSmall,
-  "tractor-compact": tractorCompact,
-};
+import { getTractorImage } from "@/data/tractor-images";
 
 const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
 
