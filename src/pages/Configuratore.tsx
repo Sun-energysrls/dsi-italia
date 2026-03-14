@@ -5,17 +5,7 @@ import Layout from "@/components/Layout";
 import { tractors, globalColorOptions } from "@/data/tractors";
 import { brands as brandData } from "@/data/brands";
 import { toast } from "sonner";
-import tractorLarge from "@/assets/tractor-large.jpg";
-import tractorMedium from "@/assets/tractor-medium.jpg";
-import tractorSmall from "@/assets/tractor-small.jpg";
-import tractorCompact from "@/assets/tractor-compact.jpg";
-
-const imageMap: Record<string, string> = {
-  "tractor-large": tractorLarge,
-  "tractor-medium": tractorMedium,
-  "tractor-small": tractorSmall,
-  "tractor-compact": tractorCompact,
-};
+import { getTractorImage } from "@/data/tractor-images";
 
 const stepLabels = ["Brand", "Modello", "Motore", "Cambio", "Colore", "Accessori", "Riepilogo"];
 const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];

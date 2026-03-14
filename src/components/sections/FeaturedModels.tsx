@@ -53,7 +53,7 @@ const FeaturedModels = () => {
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ height: 240, background: "#F9F7F5" }}>
                   <img
-                    src={imageMap[t.image]}
+                    src={getTractorImage(t.id)}
                     alt={t.name}
                     className="w-full h-full object-contain p-5 group-hover:scale-[1.04] transition-transform duration-500"
                     loading="lazy"
