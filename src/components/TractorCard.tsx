@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Tractor } from "@/data/tractors";
-import { getTractorPhoto, hasRealPhoto } from "@/data/tractor-images";
+import { getTractorPhoto } from "@/data/tractor-images";
 
 const TractorCard = ({ tractor }: { tractor: Tractor }) => {
   return (
@@ -34,9 +34,7 @@ const TractorCard = ({ tractor }: { tractor: Tractor }) => {
         <img
           src={getTractorPhoto(tractor.id)}
           alt={tractor.name}
-          className={`w-full h-full transition-transform duration-500 group-hover:scale-[1.04] ${
-            hasRealPhoto(tractor.id) ? "object-cover" : "object-contain p-5"
-          }`}
+          className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
           loading="lazy"
         />
       </div>

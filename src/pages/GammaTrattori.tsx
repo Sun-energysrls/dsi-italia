@@ -5,7 +5,7 @@ import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
 import { ArrowRight, Tractor } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
-import { getTractorPhoto, hasRealPhoto } from "@/data/tractor-images";
+import { getTractorPhoto } from "@/data/tractor-images";
 
 // Power range groupings — xl merged into large
 const powerRanges = [
@@ -261,9 +261,7 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
       <img
         src={getTractorPhoto(tractor.id)}
         alt={tractor.name}
-        className={`w-full h-full transition-transform duration-500 group-hover:scale-[1.04] ${
-          hasRealPhoto(tractor.id) ? "object-cover" : "object-contain p-5"
-        }`}
+        className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
         loading="lazy"
       />
       <div

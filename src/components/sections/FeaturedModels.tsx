@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
-import { getTractorPhoto, hasRealPhoto } from "@/data/tractor-images";
+import { getTractorPhoto } from "@/data/tractor-images";
 
 const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
 
@@ -55,9 +55,7 @@ const FeaturedModels = () => {
                   <img
                     src={getTractorPhoto(t.id)}
                     alt={t.name}
-                    className={`w-full h-full transition-transform duration-500 group-hover:scale-[1.04] ${
-                      hasRealPhoto(t.id) ? "object-cover" : "object-contain p-5"
-                    }`}
+                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
                     loading="lazy"
                   />
                   {/* HP Badge */}
