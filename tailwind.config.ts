@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        display: ["Bebas Neue", "Playfair Display", "Georgia", "serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
+        body: ["DM Sans", "Inter", "system-ui", "sans-serif"],
+        chinese: ["Noto Serif SC", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -23,6 +25,11 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        cream: "#FDFBF7",
+        "green-dark": "#1B3A2D",
+        orange: "#D4781C",
+        "text-dark": "#2A2520",
+        "text-mid": "#4A443D",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
