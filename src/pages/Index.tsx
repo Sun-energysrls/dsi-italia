@@ -2,26 +2,21 @@ import { useState, useCallback } from "react";
 import Layout from "@/components/Layout";
 import IntroSplash from "@/components/IntroSplash";
 import HeroSection from "@/components/sections/HeroSection";
-import ChiSiamoSection from "@/components/sections/ChiSiamoSection";
+import StatsBar from "@/components/sections/StatsBar";
+import ApproachSection from "@/components/sections/ApproachSection";
 import BrandPartnersSection from "@/components/sections/BrandPartnersSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
-import GammaTrattoriSection from "@/components/sections/GammaTrattoriSection";
-import StatsSection from "@/components/sections/StatsSection";
-import ProcessoSection from "@/components/sections/ProcessoSection";
 import ConfiguratorPreview from "@/components/sections/ConfiguratorPreview";
+import FeaturedModels from "@/components/sections/FeaturedModels";
 import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
-import Footer from "@/components/Footer";
-import { useRevealAnimations } from "@/hooks/useRevealAnimations";
-import { useAnimatedCounters } from "@/hooks/useAnimatedCounters";
+import { useScrollColorMorph } from "@/hooks/useScrollColorMorph";
 
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";
   const [showSplash, setShowSplash] = useState(!alreadyPlayed);
   const [splashDone, setSplashDone] = useState(alreadyPlayed);
-
-  useRevealAnimations();
-  useAnimatedCounters();
+  const { isDark } = useScrollColorMorph();
 
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("dsi-splash-played", "1");
@@ -32,59 +27,34 @@ const Index = () => {
   return (
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
-      <Layout>
-        {/* HERO — invariata */}
-        <div data-nav-theme="hero">
+      <Layout navDark={isDark}>
+        <div data-section-color="#1B4332">
           <HeroSection videoReady={splashDone} />
         </div>
-
-        {/* S1 — Chi Siamo — CHIARA */}
-        <div data-nav-theme="light">
-          <ChiSiamoSection />
+        <div data-section-color="#1B4332">
+          <StatsBar />
         </div>
-
-        {/* S2 — Brand Partner — SCURA */}
-        <div data-nav-theme="dark">
+        <div data-section-color="#ffffff">
+          <ApproachSection />
+        </div>
+        <div data-section-color="#1B4332">
           <BrandPartnersSection />
         </div>
-
-        {/* S3 — Vantaggi — CHIARA */}
-        <div data-nav-theme="light">
+        <div data-section-color="#ffffff">
           <AdvantagesSection />
         </div>
-
-        {/* S4 — Gamma Trattori — SCURA */}
-        <div data-nav-theme="dark">
-          <GammaTrattoriSection />
-        </div>
-
-        {/* S5 — Stats — ARANCIONE */}
-        <div data-nav-theme="dark">
-          <StatsSection />
-        </div>
-
-        {/* S6 — Processo — SCURA */}
-        <div data-nav-theme="dark">
-          <ProcessoSection />
-        </div>
-
-        {/* S7 — Configuratore Preview — CHIARA */}
-        <div data-nav-theme="light">
+        <div data-section-color="#1B4332">
           <ConfiguratorPreview />
         </div>
-
-        {/* S8 — In Arrivo — CHIARA */}
-        <div data-nav-theme="light">
+        <div data-section-color="#F5F2EE">
+          <FeaturedModels />
+        </div>
+        <div data-section-color="#EDE8E0">
           <ComingSoonSection />
         </div>
-
-        {/* S9 — CTA — SCURA */}
-        <div data-nav-theme="dark">
+        <div data-section-color="#1B4332">
           <CtaSection />
         </div>
-
-        {/* Footer */}
-        <Footer />
       </Layout>
     </>
   );

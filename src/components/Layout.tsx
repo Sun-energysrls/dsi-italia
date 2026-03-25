@@ -9,10 +9,9 @@ const Layout = ({ children, navDark }: { children: ReactNode; navDark?: boolean 
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="grain-overlay" />
       <Header navDark={navDark} />
       <main className={`flex-1 ${isHome ? "" : "pt-20"}`}>{children}</main>
-      {!isHome && <Footer />}
+      <Footer />
     </div>
   );
 };
