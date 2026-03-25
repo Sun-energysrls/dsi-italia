@@ -39,13 +39,13 @@ const Index = () => {
           <ApproachSection />
         </div>
         <div data-section-color="#1B4332">
-          <ProcessoSection />
-        </div>
-        <div data-section-color="#1B4332">
           <BrandPartnersSection />
         </div>
         <div data-section-color="#ffffff">
           <AdvantagesSection />
+        </div>
+        <div data-section-color="#1B4332">
+          <ProcessoSection />
         </div>
         <div data-section-color="#1B4332">
           <ConfiguratorPreview />
