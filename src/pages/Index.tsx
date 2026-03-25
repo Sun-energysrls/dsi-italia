@@ -4,6 +4,7 @@ import IntroSplash from "@/components/IntroSplash";
 import HeroSection from "@/components/sections/HeroSection";
 import StatsBar from "@/components/sections/StatsBar";
 import ApproachSection from "@/components/sections/ApproachSection";
+import ProcessoSection from "@/components/sections/ProcessoSection";
 import BrandPartnersSection from "@/components/sections/BrandPartnersSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ConfiguratorPreview from "@/components/sections/ConfiguratorPreview";
@@ -36,6 +37,9 @@ const Index = () => {
         </div>
         <div data-section-color="#ffffff">
           <ApproachSection />
+        </div>
+        <div data-section-color="#1B4332">
+          <ProcessoSection />
         </div>
         <div data-section-color="#1B4332">
           <BrandPartnersSection />
