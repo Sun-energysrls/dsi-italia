@@ -57,7 +57,7 @@ const ProcessoSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 bg-[#1B4332] overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Heading */}
         <div className="text-center mb-16 md:mb-20">
