@@ -77,10 +77,13 @@ const ProcessoSection = () => {
       const rect = sectionEl.getBoundingClientRect();
       const viewportH = window.innerHeight || 1;
 
-      // Progress 0..1 while the section is scrolling through the viewport.
-      const start = viewportH * 0.2;
-      const end = viewportH * 0.8;
-      const t = (start - rect.top) / (rect.height + (end - start));
+      // Progress 0..1 while the section crosses the viewport.
+      // Start when the section top is near the bottom (80% viewport),
+      // end when the section bottom is near the top (20% viewport).
+      const startY = viewportH * 0.8;
+      const endY = viewportH * 0.2;
+      const denom = rect.height + (startY - endY);
+      const t = (startY - rect.top) / (denom || 1);
       const progress = Math.max(0, Math.min(1, t));
 
       sweepEl.style.top = `${progress * 100}%`;
@@ -150,10 +153,10 @@ const ProcessoSection = () => {
                 right: 0,
                 top: "0%",
                 transform: "translateY(-50%)",
-                height: "34%",
+                height: "44%",
                 background:
-                  "linear-gradient(to bottom, transparent 0%, rgba(249,115,22,0.0) 8%, rgba(249,115,22,0.85) 45%, rgba(249,115,22,0.0) 85%, transparent 100%)",
-                filter: "drop-shadow(0 0 10px rgba(249,115,22,0.35))",
+                  "linear-gradient(to bottom, transparent 0%, rgba(249,115,22,0.0) 8%, rgba(249,115,22,0.95) 45%, rgba(249,115,22,0.0) 85%, transparent 100%)",
+                filter: "drop-shadow(0 0 14px rgba(249,115,22,0.55))",
               }}
             />
           </div>
@@ -237,22 +240,22 @@ const ProcessoSection = () => {
 
                     {/* Center — dot */}
                     <div className="flex justify-center">
-                      <div className="relative z-10 flex items-center justify-center" style={{ width: 44, height: 44 }}>
+                      <div className="relative z-10 flex items-center justify-center" style={{ width: 36, height: 36 }}>
                         <div
                           className="absolute inset-0 rounded-full"
                           style={{
-                            border: "2px solid rgba(27,67,50,0.22)",
-                            background: "rgba(255,255,255,0.55)",
-                            boxShadow: "0 10px 24px rgba(0,0,0,0.10)",
+                            border: "2px solid rgba(249,115,22,0.55)",
+                            background: "transparent",
+                            boxShadow: "0 10px 22px rgba(0,0,0,0.08)",
                           }}
                         />
                         <div
                           className="relative rounded-full"
                           style={{
-                            width: 18,
-                            height: 18,
-                            backgroundColor: "#1B4332",
-                            boxShadow: "0 6px 16px rgba(0,0,0,0.18)",
+                            width: 14,
+                            height: 14,
+                            backgroundColor: "#F97316",
+                            boxShadow: "0 8px 18px rgba(249,115,22,0.25)",
                           }}
                         />
                       </div>
