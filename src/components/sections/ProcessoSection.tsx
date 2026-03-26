@@ -63,6 +63,15 @@ const ProcessoSection = () => {
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <style>{`
+          @keyframes processoLineSweep {
+            0% { transform: translateY(-35%); opacity: 0; }
+            10% { opacity: 1; }
+            55% { opacity: 1; }
+            80% { opacity: 0; }
+            100% { transform: translateY(135%); opacity: 0; }
+          }
+        `}</style>
         {/* Heading */}
         <div
           className="processo-animate text-center mb-16 md:mb-20"
@@ -90,9 +99,27 @@ const ProcessoSection = () => {
         <div className="relative">
           {/* Vertical line — desktop only */}
           <div
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
-          />
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 overflow-hidden"
+            style={{
+              width: 1,
+              backgroundColor: "rgba(249,115,22,0.22)",
+              boxShadow: "0 0 0 1px rgba(249,115,22,0.06)",
+            }}
+            aria-hidden="true"
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                height: "38%",
+                background:
+                  "linear-gradient(to bottom, transparent 0%, rgba(249,115,22,0.0) 8%, rgba(249,115,22,0.85) 45%, rgba(249,115,22,0.0) 85%, transparent 100%)",
+                animation: "processoLineSweep 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite",
+              }}
+            />
+          </div>
 
           <div className="flex flex-col gap-16 md:gap-0">
             {steps.map((step, i) => {
