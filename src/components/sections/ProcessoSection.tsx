@@ -186,7 +186,8 @@ const ProcessoSection = () => {
                           className="processo-animate max-w-lg w-full pl-10 text-left relative"
                           style={{
                             opacity: 0,
-                            transform: "translateX(-48px)",
+                            // Step 02/04 (testo a destra) entra come la card di 01/03
+                            transform: "translateX(48px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                           }}
                         >
