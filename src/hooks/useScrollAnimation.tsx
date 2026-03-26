@@ -29,12 +29,26 @@ export const AnimatedSection = ({
   children,
   className = "",
   delay = 0,
+  from = "up",
+  distance = 24,
+  duration = 0.7,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  from?: "up" | "left" | "right" | "none";
+  distance?: number;
+  duration?: number;
 }) => {
   const { ref, isVisible } = useScrollAnimation();
+  const initialTransform =
+    from === "left"
+      ? `translateX(-${distance}px)`
+      : from === "right"
+        ? `translateX(${distance}px)`
+        : from === "none"
+          ? "none"
+          : `translateY(${distance}px)`;
 
   return (
     <div
@@ -42,8 +56,8 @@ export const AnimatedSection = ({
       className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.7s ease-out ${delay}s, transform 0.7s ease-out ${delay}s`,
+        transform: isVisible ? "translate(0, 0)" : initialTransform,
+        transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
       }}
     >
       {children}

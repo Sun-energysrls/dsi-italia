@@ -22,48 +22,57 @@ const ApproachSection = () => {
   return (
     <section className="py-24 lg:py-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="container mx-auto px-4 lg:px-8">
-        <AnimatedSection className="mb-6">
-          <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
-            IL NOSTRO APPROCCIO
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
-            DSI importa direttamente dalla produzione.
-          </h2>
-          <p className="text-2xl md:text-3xl font-display font-bold text-muted-foreground mb-2">
-            Selezioniamo, configuriamo e consegniamo.
-          </p>
-        </AnimatedSection>
+        <div className="mb-6">
+          <AnimatedSection delay={0.02} from="up" distance={20}>
+            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
+              IL NOSTRO APPROCCIO
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={0.12} from="up" distance={24}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
+              DSI importa direttamente dalla produzione.
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2} from="up" distance={24}>
+            <p className="text-2xl md:text-3xl font-display font-bold text-muted-foreground mb-2">
+              Selezioniamo, configuriamo e consegniamo.
+            </p>
+          </AnimatedSection>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <AnimatedSection delay={0.1}>
+          <AnimatedSection delay={0.1} from="left" distance={26}>
             <p className="text-muted-foreground text-base mb-8" style={{ lineHeight: 1.8 }}>
               Non siamo un semplice rivenditore. Siamo un importatore strutturato con relazioni dirette con i principali produttori mondiali di macchine agricole.
             </p>
             <div className="space-y-4 mb-10">
               {checkpoints.map((item, i) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3"
-                  style={{ willChange: "transform" }}
-                >
-                  <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
-                  <span className="text-foreground text-sm font-medium">{item}</span>
-                </div>
+                <AnimatedSection key={item} delay={0.2 + i * 0.07} from="left" distance={18} duration={0.6}>
+                  <div
+                    className="flex items-center gap-3"
+                    style={{ willChange: "transform" }}
+                  >
+                    <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
+                    <span className="text-foreground text-sm font-medium">{item}</span>
+                  </div>
+                </AnimatedSection>
               ))}
             </div>
-            <Link
-              to="/trattori"
-              className="group inline-flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-widest"
-            >
-              <span className="relative">
-                Scopri i nostri brand
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-secondary transition-all duration-300 group-hover:w-full" />
-              </span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <AnimatedSection delay={0.48} from="left" distance={18} duration={0.6}>
+              <Link
+                to="/trattori"
+                className="group inline-flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-widest"
+              >
+                <span className="relative">
+                  Scopri i nostri brand
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-secondary transition-all duration-300 group-hover:w-full" />
+                </span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </AnimatedSection>
           </AnimatedSection>
 
-          <AnimatedSection delay={0.2}>
+          <AnimatedSection delay={0.24} from="right" distance={36} duration={0.85}>
             <div
               className="relative overflow-hidden group transition-all duration-400 hover:-translate-y-1"
               style={{
