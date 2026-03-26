@@ -168,12 +168,12 @@ const ProcessoSection = () => {
               return (
                 <div key={step.num}>
                   {/* DESKTOP */}
-                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] items-center gap-8 mb-20 last:mb-0">
+                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_72px_minmax(0,1fr)] items-center gap-6 mb-16 last:mb-0">
                     {/* Left column */}
                     <div className="flex justify-end">
                       {isLeft ? (
                         <div
-                          className="processo-animate max-w-lg w-full pr-10 text-left relative"
+                          className="processo-animate max-w-md w-full pr-7 text-left relative"
                           style={{
                             opacity: 0,
                             transform: "translateX(-48px)",
@@ -205,7 +205,7 @@ const ProcessoSection = () => {
                         </div>
                       ) : (
                         <div
-                          className="processo-animate max-w-lg w-full overflow-hidden group"
+                          className="processo-animate max-w-md w-full overflow-hidden group"
                           style={{
                             opacity: 0,
                             transform: "translateX(-48px)",
@@ -214,7 +214,7 @@ const ProcessoSection = () => {
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 240 }}>
+                          <div className="relative overflow-hidden" style={{ height: 215 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -265,7 +265,7 @@ const ProcessoSection = () => {
                     <div className="flex justify-start">
                       {!isLeft ? (
                         <div
-                          className="processo-animate max-w-lg w-full pl-10 text-left relative"
+                          className="processo-animate max-w-md w-full pl-7 text-left relative"
                           style={{
                             opacity: 0,
                             transform: "translateX(48px)",
@@ -297,7 +297,7 @@ const ProcessoSection = () => {
                         </div>
                       ) : (
                         <div
-                          className="processo-animate max-w-lg w-full overflow-hidden group"
+                          className="processo-animate max-w-md w-full overflow-hidden group"
                           style={{
                             opacity: 0,
                             transform: "translateX(48px)",
@@ -306,7 +306,7 @@ const ProcessoSection = () => {
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 240 }}>
+                          <div className="relative overflow-hidden" style={{ height: 215 }}>
                             <img
                               src={step.image}
                               alt={step.title}

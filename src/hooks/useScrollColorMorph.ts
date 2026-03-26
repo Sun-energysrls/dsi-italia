@@ -25,6 +25,7 @@ function luminance(hex: string) {
 export function useScrollColorMorph() {
   const [isDark, setIsDark] = useState(true);
   const rafRef = useRef<number>(0);
+  const premiumGreen = "#173F33";
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,7 +33,7 @@ export function useScrollColorMorph() {
       if (!sections.length) return;
 
       const vh = window.innerHeight;
-      let currentColor = sections[0].dataset.sectionColor || "#1B4332";
+      let currentColor = sections[0].dataset.sectionColor || premiumGreen;
 
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];

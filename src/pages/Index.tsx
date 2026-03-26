@@ -13,6 +13,8 @@ import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
 import { useScrollColorMorph } from "@/hooks/useScrollColorMorph";
 
+const PREMIUM_GREEN = "#173F33";
+
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";
   const [showSplash, setShowSplash] = useState(!alreadyPlayed);
@@ -29,25 +31,25 @@ const Index = () => {
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
       <Layout navDark={isDark}>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <HeroSection videoReady={splashDone} />
         </div>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <StatsBar />
         </div>
         <div data-section-color="#ffffff">
           <ApproachSection />
         </div>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <BrandPartnersSection />
         </div>
         <div data-section-color="#ffffff">
           <AdvantagesSection />
         </div>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <ProcessoSection />
         </div>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <ConfiguratorPreview />
         </div>
         <div data-section-color="#F5F2EE">
@@ -56,7 +58,7 @@ const Index = () => {
         <div data-section-color="#EDE8E0">
           <ComingSoonSection />
         </div>
-        <div data-section-color="#1B4332">
+        <div data-section-color={PREMIUM_GREEN}>
           <CtaSection />
         </div>
       </Layout>
