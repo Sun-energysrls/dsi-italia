@@ -25,7 +25,7 @@ function luminance(hex: string) {
 export function useScrollColorMorph() {
   const [isDark, setIsDark] = useState(true);
   const rafRef = useRef<number>(0);
-  const premiumGreen = "#173F33";
+  const premiumGreen = "#1B4332";
 
   useEffect(() => {
     const onScroll = () => {

@@ -212,6 +212,9 @@ const ProcessoSection = () => {
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
+                            backdropFilter: "blur(4px)",
+                            WebkitBackdropFilter: "blur(4px)",
+                            boxShadow: "0 14px 34px rgba(0,0,0,0.18)",
                           }}
                         >
                           <div className="relative overflow-hidden" style={{ height: 215 }}>
@@ -304,6 +307,9 @@ const ProcessoSection = () => {
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
+                            backdropFilter: "blur(4px)",
+                            WebkitBackdropFilter: "blur(4px)",
+                            boxShadow: "0 14px 34px rgba(0,0,0,0.18)",
                           }}
                         >
                           <div className="relative overflow-hidden" style={{ height: 215 }}>
@@ -341,6 +347,9 @@ const ProcessoSection = () => {
                         transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                         borderRadius: 16,
                         border: "1px solid rgba(255,255,255,0.1)",
+                        backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
+                        boxShadow: "0 12px 28px rgba(0,0,0,0.16)",
                       }}
                     >
                       <div className="relative overflow-hidden" style={{ height: 170 }}>

@@ -13,7 +13,7 @@ import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
 import { useScrollColorMorph } from "@/hooks/useScrollColorMorph";
 
-const PREMIUM_GREEN = "#173F33";
+const PREMIUM_GREEN = "#1B4332";
 
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";

@@ -128,18 +128,20 @@
   }
 
   /* Subtle green gradient overlay for dark sections */
-  [data-section-color="#173F33"] {
+  [data-section-color="#1B4332"] {
     position: relative;
   }
-  [data-section-color="#173F33"]::before {
+  [data-section-color="#1B4332"]::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(20,50,40,0.2) 0%, transparent 38%, rgba(30,74,59,0.16) 100%);
+    background:
+      radial-gradient(120% 80% at 50% 10%, rgba(48, 106, 82, 0.18) 0%, rgba(48, 106, 82, 0) 55%),
+      linear-gradient(180deg, rgba(22,56,43,0.18) 0%, rgba(22,56,43,0) 42%, rgba(36,83,63,0.16) 100%);
     pointer-events: none;
     z-index: 0;
   }
-  [data-section-color="#173F33"] > * {
+  [data-section-color="#1B4332"] > * {
     position: relative;
     z-index: 1;
   }
