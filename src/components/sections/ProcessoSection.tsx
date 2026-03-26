@@ -62,11 +62,11 @@ const ProcessoSection = () => {
 
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden" style={{ background: "transparent" }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Heading */}
         <div
           className="processo-animate text-center mb-20 md:mb-28"
-          style={{ opacity: 0, transform: "translateY(30px)", transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }}
+          style={{ opacity: 0, transform: "translateY(0)", transition: "opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
@@ -79,10 +79,13 @@ const ProcessoSection = () => {
             <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
           </div>
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-white"
+            className="w-full text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.08] text-white"
           >
-            Dal <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>configuratore</em> al tuo
-            <br className="hidden md:block" /> campo in 4 semplici passi
+            Dal{" "}
+            <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>
+              configuratore
+            </em>{" "}
+            al tuo campo in 4 semplici passi
           </h2>
         </div>
 
@@ -101,12 +104,12 @@ const ProcessoSection = () => {
               return (
                 <div key={step.num}>
                   {/* DESKTOP */}
-                  <div className="hidden md:grid md:grid-cols-[1fr_64px_1fr] items-center gap-6 mb-24 last:mb-0">
+                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] items-center gap-8 mb-28 last:mb-0">
                     {/* Left column */}
                     <div className="flex justify-end">
                       {isLeft ? (
                         <div
-                          className="processo-animate max-w-md w-full text-right pr-4"
+                          className="processo-animate max-w-lg w-full pr-10 text-left relative"
                           style={{
                             opacity: 0,
                             transform: "translateY(40px)",
@@ -114,14 +117,15 @@ const ProcessoSection = () => {
                           }}
                         >
                           <span
-                            className="font-display font-black block mb-2"
-                            style={{ fontSize: "4rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
+                            className="absolute -top-10 left-0 font-display font-black pointer-events-none select-none"
+                            style={{ fontSize: "7.5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
+                            aria-hidden="true"
                           >
                             {step.num}
                           </span>
                           <h3
                             className="font-display font-bold mb-3 text-white"
-                            style={{ fontSize: "1.5rem" }}
+                            style={{ fontSize: "1.6rem" }}
                           >
                             {step.title}
                           </h3>
@@ -131,16 +135,16 @@ const ProcessoSection = () => {
                         </div>
                       ) : (
                         <div
-                          className="processo-animate max-w-md w-full overflow-hidden group"
+                          className="processo-animate max-w-lg w-full overflow-hidden group"
                           style={{
                             opacity: 0,
                             transform: "translateY(40px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
-                            borderRadius: 8,
+                            borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 280 }}>
+                          <div className="relative overflow-hidden" style={{ height: 320 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -155,7 +159,7 @@ const ProcessoSection = () => {
                             />
                             <span
                               className="absolute bottom-4 right-4 font-display font-black"
-                              style={{ fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1 }}
+                              style={{ fontSize: "3.25rem", color: "rgba(255,255,255,0.14)", lineHeight: 1 }}
                             >
                               {step.num}
                             </span>
@@ -176,7 +180,7 @@ const ProcessoSection = () => {
                     <div className="flex justify-start">
                       {!isLeft ? (
                         <div
-                          className="processo-animate max-w-md w-full pl-4"
+                          className="processo-animate max-w-lg w-full pl-10 text-left relative"
                           style={{
                             opacity: 0,
                             transform: "translateY(40px)",
@@ -184,14 +188,15 @@ const ProcessoSection = () => {
                           }}
                         >
                           <span
-                            className="font-display font-black block mb-2"
-                            style={{ fontSize: "4rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
+                            className="absolute -top-10 left-0 font-display font-black pointer-events-none select-none"
+                            style={{ fontSize: "7.5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
+                            aria-hidden="true"
                           >
                             {step.num}
                           </span>
                           <h3
                             className="font-display font-bold mb-3 text-white"
-                            style={{ fontSize: "1.5rem" }}
+                            style={{ fontSize: "1.6rem" }}
                           >
                             {step.title}
                           </h3>
@@ -201,16 +206,16 @@ const ProcessoSection = () => {
                         </div>
                       ) : (
                         <div
-                          className="processo-animate max-w-md w-full overflow-hidden group"
+                          className="processo-animate max-w-lg w-full overflow-hidden group"
                           style={{
                             opacity: 0,
                             transform: "translateY(40px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
-                            borderRadius: 8,
+                            borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 280 }}>
+                          <div className="relative overflow-hidden" style={{ height: 320 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -225,7 +230,7 @@ const ProcessoSection = () => {
                             />
                             <span
                               className="absolute bottom-4 right-4 font-display font-black"
-                              style={{ fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1 }}
+                              style={{ fontSize: "3.25rem", color: "rgba(255,255,255,0.14)", lineHeight: 1 }}
                             >
                               {step.num}
                             </span>
@@ -243,7 +248,7 @@ const ProcessoSection = () => {
                         opacity: 0,
                         transform: "translateY(30px)",
                         transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
-                        borderRadius: 8,
+                        borderRadius: 16,
                         border: "1px solid rgba(255,255,255,0.1)",
                       }}
                     >
@@ -261,10 +266,11 @@ const ProcessoSection = () => {
                           {step.num}
                         </span>
                       </div>
-                      <div className="p-5">
+                      <div className="p-6 relative text-left">
                         <span
-                          className="font-display font-black block mb-1"
-                          style={{ fontSize: "2rem", color: "rgba(255,255,255,0.08)", lineHeight: 1 }}
+                          className="absolute -top-6 left-6 font-display font-black pointer-events-none select-none"
+                          style={{ fontSize: "4rem", color: "rgba(255,255,255,0.08)", lineHeight: 1 }}
+                          aria-hidden="true"
                         >
                           {step.num}
                         </span>
