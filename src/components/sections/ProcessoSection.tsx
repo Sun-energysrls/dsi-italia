@@ -37,10 +37,15 @@ const steps = [
 
 const ProcessoSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const lineSweepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const elements = sectionRef.current?.querySelectorAll(".processo-animate");
     if (!elements) return;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -57,21 +62,50 @@ const ProcessoSection = () => {
     );
 
     elements.forEach((c) => observer.observe(c));
-    return () => observer.disconnect();
+
+    if (prefersReducedMotion) {
+      return () => observer.disconnect();
+    }
+
+    let raf = 0;
+    const updateLineSweep = () => {
+      raf = 0;
+      const sectionEl = sectionRef.current;
+      const sweepEl = lineSweepRef.current;
+      if (!sectionEl || !sweepEl) return;
+
+      const rect = sectionEl.getBoundingClientRect();
+      const viewportH = window.innerHeight || 1;
+
+      // Progress 0..1 while the section is scrolling through the viewport.
+      const start = viewportH * 0.2;
+      const end = viewportH * 0.8;
+      const t = (start - rect.top) / (rect.height + (end - start));
+      const progress = Math.max(0, Math.min(1, t));
+
+      sweepEl.style.top = `${progress * 100}%`;
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(updateLineSweep);
+    };
+
+    updateLineSweep();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <style>{`
-          @keyframes processoLineSweep {
-            0% { transform: translateY(-35%); opacity: 0; }
-            10% { opacity: 1; }
-            55% { opacity: 1; }
-            80% { opacity: 0; }
-            100% { transform: translateY(135%); opacity: 0; }
-          }
-        `}</style>
         {/* Heading */}
         <div
           className="processo-animate text-center mb-16 md:mb-20"
@@ -99,6 +133,7 @@ const ProcessoSection = () => {
         <div className="relative">
           {/* Vertical line — desktop only */}
           <div
+            ref={lineRef}
             className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 overflow-hidden"
             style={{
               width: 1,
@@ -108,15 +143,17 @@ const ProcessoSection = () => {
             aria-hidden="true"
           >
             <div
+              ref={lineSweepRef}
               style={{
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: 0,
-                height: "38%",
+                top: "0%",
+                transform: "translateY(-50%)",
+                height: "34%",
                 background:
                   "linear-gradient(to bottom, transparent 0%, rgba(249,115,22,0.0) 8%, rgba(249,115,22,0.85) 45%, rgba(249,115,22,0.0) 85%, transparent 100%)",
-                animation: "processoLineSweep 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite",
+                filter: "drop-shadow(0 0 10px rgba(249,115,22,0.35))",
               }}
             />
           </div>
@@ -200,10 +237,25 @@ const ProcessoSection = () => {
 
                     {/* Center — dot */}
                     <div className="flex justify-center">
-                      <div
-                        className="w-4 h-4 rounded-full border-4 z-10"
-                        style={{ backgroundColor: "#F97316", borderColor: "#1B4332" }}
-                      />
+                      <div className="relative z-10 flex items-center justify-center" style={{ width: 44, height: 44 }}>
+                        <div
+                          className="absolute inset-0 rounded-full"
+                          style={{
+                            border: "2px solid rgba(27,67,50,0.22)",
+                            background: "rgba(255,255,255,0.55)",
+                            boxShadow: "0 10px 24px rgba(0,0,0,0.10)",
+                          }}
+                        />
+                        <div
+                          className="relative rounded-full"
+                          style={{
+                            width: 18,
+                            height: 18,
+                            backgroundColor: "#1B4332",
+                            boxShadow: "0 6px 16px rgba(0,0,0,0.18)",
+                          }}
+                        />
+                      </div>
                     </div>
 
                     {/* Right column */}
