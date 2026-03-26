@@ -29,34 +29,34 @@ const Index = () => {
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
       <Layout navDark={isDark}>
-        <div data-section-color="#1B4332" style={{ backgroundColor: "#1B4332" }}>
+        <div data-section-color="#1B4332">
           <HeroSection videoReady={splashDone} />
         </div>
-        <div data-section-color="#1B4332" style={{ backgroundColor: "#1B4332" }}>
+        <div data-section-color="#1B4332">
           <StatsBar />
         </div>
-        <div data-section-color="#ffffff" style={{ backgroundColor: "#ffffff" }}>
+        <div data-section-color="#ffffff">
           <ApproachSection />
         </div>
-        <div data-section-color="#1B4332" style={{ backgroundColor: "#1B4332" }}>
+        <div data-section-color="#1B4332">
           <BrandPartnersSection />
         </div>
-        <div data-section-color="#ffffff" style={{ backgroundColor: "#ffffff" }}>
+        <div data-section-color="#ffffff">
           <AdvantagesSection />
         </div>
-        <div data-section-color="#F5F2EE" style={{ backgroundColor: "#F5F2EE" }}>
+        <div data-section-color="#F5F2EE">
           <ProcessoSection />
         </div>
-        <div data-section-color="#1B4332" style={{ backgroundColor: "#1B4332" }}>
+        <div data-section-color="#1B4332">
           <ConfiguratorPreview />
         </div>
-        <div data-section-color="#F5F2EE" style={{ backgroundColor: "#F5F2EE" }}>
+        <div data-section-color="#F5F2EE">
           <FeaturedModels />
         </div>
-        <div data-section-color="#EDE8E0" style={{ backgroundColor: "#EDE8E0" }}>
+        <div data-section-color="#EDE8E0">
           <ComingSoonSection />
         </div>
-        <div data-section-color="#1B4332" style={{ backgroundColor: "#1B4332" }}>
+        <div data-section-color="#1B4332">
           <CtaSection />
         </div>
       </Layout>
