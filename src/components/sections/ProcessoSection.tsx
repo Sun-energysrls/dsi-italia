@@ -1,33 +1,37 @@
 import { useEffect, useRef } from "react";
+import processStep1 from "@/assets/process-step1.jpg";
+import processStep2 from "@/assets/process-step2.jpg";
+import processStep3 from "@/assets/process-step3.jpg";
+import processStep4 from "@/assets/process-step4.jpg";
 
 const steps = [
   {
     num: "01",
     title: "Scegli il Modello",
-    desc: "Esplora la gamma Tavol e scegli il modello giusto per la tua azienda. Dai 70 ai 240 HP, hai il trattore perfetto per ogni terreno.",
+    desc: "Esplora la nostra gamma completa di trattori e macchine agricole. Utilizza il configuratore online per selezionare il modello ideale per le tue esigenze.",
     side: "left" as const,
-    icon: "🚜",
+    image: processStep1,
   },
   {
     num: "02",
     title: "Personalizza",
-    desc: "Configura colori, cambio, accessori e allestimento con il nostro configuratore guidato. Ogni dettaglio è tuo.",
+    desc: "Configura colori, cambio, accessori e allestimento con il nostro configuratore guidato. Ogni dettaglio è tuo, dalla potenza all'ultimo accessorio.",
     side: "right" as const,
-    icon: "⚙️",
+    image: processStep2,
   },
   {
     num: "03",
     title: "Certificazione & Spedizione",
-    desc: "Gestiamo tutta la documentazione CE, l'omologazione italiana e la logistica direttamente dall'origine.",
+    desc: "Gestiamo tutta la documentazione CE, l'omologazione italiana e la logistica direttamente dall'origine. Zero pensieri per te.",
     side: "left" as const,
-    icon: "✅",
+    image: processStep3,
   },
   {
     num: "04",
     title: "Consegna & Assistenza",
-    desc: "Il tuo trattore arriva pronto all'uso con supporto tecnico dedicato e assistenza post-vendita inclusi.",
+    desc: "Il tuo trattore arriva pronto all'uso con supporto tecnico dedicato e assistenza post-vendita inclusi. Dal campo al tuo terreno.",
     side: "right" as const,
-    icon: "📦",
+    image: processStep4,
   },
 ];
 
@@ -35,8 +39,8 @@ const ProcessoSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll(".processo-card");
-    if (!cards) return;
+    const elements = sectionRef.current?.querySelectorAll(".processo-animate");
+    if (!elements) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,7 +48,7 @@ const ProcessoSection = () => {
           if (entry.isIntersecting) {
             const el = entry.target as HTMLElement;
             el.style.opacity = "1";
-            el.style.transform = "translateX(0) translateY(0)";
+            el.style.transform = "translateY(0)";
             observer.unobserve(el);
           }
         });
@@ -52,109 +56,237 @@ const ProcessoSection = () => {
       { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
     );
 
-    cards.forEach((c) => observer.observe(c));
+    elements.forEach((c) => observer.observe(c));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Heading */}
-        <div className="text-center mb-16 md:mb-20">
-          <span className="inline-block text-emerald-400 font-semibold tracking-widest uppercase text-sm mb-3">
-            Come Lavoriamo
-          </span>
-          <p className="text-emerald-300/60 text-xs tracking-[0.3em] uppercase mb-4">
-            COME FUNZIONA
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-            Il Nostro Processo in 4 Step
+        <div
+          className="processo-animate text-center mb-20 md:mb-28"
+          style={{ opacity: 0, transform: "translateY(30px)", transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }}
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="block h-px w-12" style={{ backgroundColor: "rgba(0,0,0,0.2)" }} />
+            <span
+              className="uppercase font-semibold"
+              style={{ color: "#F97316", fontSize: "0.7rem", letterSpacing: "0.25em" }}
+            >
+              COME FUNZIONA
+            </span>
+            <span className="block h-px w-12" style={{ backgroundColor: "rgba(0,0,0,0.2)" }} />
+          </div>
+          <h2
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight"
+            style={{ color: "#1a1a1a" }}
+          >
+            Dal <em className="not-italic" style={{ color: "#1B4332", fontStyle: "italic" }}>configuratore</em> al tuo
+            <br className="hidden md:block" /> campo in 4 semplici passi
           </h2>
         </div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Linea verticale — solo desktop */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-emerald-500/30 -translate-x-1/2" />
+          {/* Vertical line — desktop only */}
+          <div
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+            style={{ backgroundColor: "rgba(27,67,50,0.15)" }}
+          />
 
-          <div className="flex flex-col gap-12 md:gap-0">
-            {steps.map((step, i) => (
-              <div key={step.num}>
-                {/* DESKTOP */}
-                <div className="hidden md:grid md:grid-cols-[1fr_64px_1fr] items-center gap-4 mb-16 last:mb-0">
-                  {/* Colonna sinistra */}
-                  <div className="flex justify-end">
-                    {step.side === "left" ? (
-                      <div
-                        className="processo-card max-w-md w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 transition-all duration-700"
-                        style={{
-                          opacity: 0,
-                          transform: "translateX(-60px)",
-                        }}
-                      >
-                        <span className="text-emerald-400/40 text-5xl font-black">{step.num}</span>
-                        <div className="flex items-center gap-3 mt-2 mb-2">
-                          <span className="text-2xl">{step.icon}</span>
-                          <h3 className="text-xl font-bold text-white">{step.title}</h3>
+          <div className="flex flex-col gap-16 md:gap-0">
+            {steps.map((step, i) => {
+              const isLeft = step.side === "left";
+
+              return (
+                <div key={step.num}>
+                  {/* DESKTOP */}
+                  <div className="hidden md:grid md:grid-cols-[1fr_64px_1fr] items-center gap-6 mb-24 last:mb-0">
+                    {/* Left column */}
+                    <div className="flex justify-end">
+                      {isLeft ? (
+                        <div
+                          className="processo-animate max-w-md w-full text-right pr-4"
+                          style={{
+                            opacity: 0,
+                            transform: "translateY(40px)",
+                            transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                          }}
+                        >
+                          <span
+                            className="font-display font-black block mb-2"
+                            style={{ fontSize: "4rem", color: "rgba(27,67,50,0.08)", lineHeight: 1 }}
+                          >
+                            {step.num}
+                          </span>
+                          <h3
+                            className="font-display font-bold mb-3"
+                            style={{ fontSize: "1.5rem", color: "#1a1a1a" }}
+                          >
+                            {step.title}
+                          </h3>
+                          <p style={{ color: "#666", fontSize: "0.9rem", lineHeight: 1.8 }}>
+                            {step.desc}
+                          </p>
                         </div>
-                        <p className="text-white/60 text-sm leading-relaxed">{step.desc}</p>
-                      </div>
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-
-                  {/* Centro — pallino */}
-                  <div className="flex justify-center">
-                    <div className="w-4 h-4 rounded-full bg-emerald-400 border-4 border-[#1B4332] z-10" />
-                  </div>
-
-                  {/* Colonna destra */}
-                  <div className="flex justify-start">
-                    {step.side === "right" ? (
-                      <div
-                        className="processo-card max-w-md w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 transition-all duration-700"
-                        style={{
-                          opacity: 0,
-                          transform: "translateX(60px)",
-                        }}
-                      >
-                        <span className="text-emerald-400/40 text-5xl font-black">{step.num}</span>
-                        <div className="flex items-center gap-3 mt-2 mb-2">
-                          <span className="text-2xl">{step.icon}</span>
-                          <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                      ) : (
+                        <div
+                          className="processo-animate max-w-md w-full overflow-hidden group"
+                          style={{
+                            opacity: 0,
+                            transform: "translateY(40px)",
+                            transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                            borderRadius: 8,
+                            background: "rgba(27,67,50,0.04)",
+                            border: "1px solid rgba(27,67,50,0.08)",
+                          }}
+                        >
+                          <div className="relative overflow-hidden" style={{ height: 280 }}>
+                            <img
+                              src={step.image}
+                              alt={step.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              loading="lazy"
+                              width={704}
+                              height={512}
+                            />
+                            <div
+                              className="absolute inset-0 pointer-events-none"
+                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.1), transparent)" }}
+                            />
+                            <span
+                              className="absolute bottom-4 right-4 font-display font-black"
+                              style={{ fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1 }}
+                            >
+                              {step.num}
+                            </span>
+                          </div>
                         </div>
-                        <p className="text-white/60 text-sm leading-relaxed">{step.desc}</p>
-                      </div>
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-                </div>
-
-                {/* MOBILE */}
-                <div className="md:hidden flex gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#1B4332] z-10 shrink-0" />
-                    {i < steps.length - 1 && <div className="w-px flex-1 bg-emerald-500/30 mt-1" />}
-                  </div>
-                  <div
-                    className="processo-card flex-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 mb-2 transition-all duration-700"
-                    style={{
-                      opacity: 0,
-                      transform: "translateY(30px)",
-                    }}
-                  >
-                    <span className="text-emerald-400/40 text-3xl font-black">{step.num}</span>
-                    <div className="flex items-center gap-2 mt-1 mb-1">
-                      <span className="text-xl">{step.icon}</span>
-                      <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                      )}
                     </div>
-                    <p className="text-white/60 text-sm leading-relaxed">{step.desc}</p>
+
+                    {/* Center — dot */}
+                    <div className="flex justify-center">
+                      <div
+                        className="w-4 h-4 rounded-full border-4 z-10"
+                        style={{ backgroundColor: "#1B4332", borderColor: "#F5F2EE" }}
+                      />
+                    </div>
+
+                    {/* Right column */}
+                    <div className="flex justify-start">
+                      {!isLeft ? (
+                        <div
+                          className="processo-animate max-w-md w-full pl-4"
+                          style={{
+                            opacity: 0,
+                            transform: "translateY(40px)",
+                            transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                          }}
+                        >
+                          <span
+                            className="font-display font-black block mb-2"
+                            style={{ fontSize: "4rem", color: "rgba(27,67,50,0.08)", lineHeight: 1 }}
+                          >
+                            {step.num}
+                          </span>
+                          <h3
+                            className="font-display font-bold mb-3"
+                            style={{ fontSize: "1.5rem", color: "#1a1a1a" }}
+                          >
+                            {step.title}
+                          </h3>
+                          <p style={{ color: "#666", fontSize: "0.9rem", lineHeight: 1.8 }}>
+                            {step.desc}
+                          </p>
+                        </div>
+                      ) : (
+                        <div
+                          className="processo-animate max-w-md w-full overflow-hidden group"
+                          style={{
+                            opacity: 0,
+                            transform: "translateY(40px)",
+                            transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                            borderRadius: 8,
+                            background: "rgba(27,67,50,0.04)",
+                            border: "1px solid rgba(27,67,50,0.08)",
+                          }}
+                        >
+                          <div className="relative overflow-hidden" style={{ height: 280 }}>
+                            <img
+                              src={step.image}
+                              alt={step.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              loading="lazy"
+                              width={704}
+                              height={512}
+                            />
+                            <div
+                              className="absolute inset-0 pointer-events-none"
+                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.1), transparent)" }}
+                            />
+                            <span
+                              className="absolute bottom-4 right-4 font-display font-black"
+                              style={{ fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1 }}
+                            >
+                              {step.num}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* MOBILE */}
+                  <div className="md:hidden flex flex-col gap-4">
+                    <div
+                      className="processo-animate overflow-hidden group"
+                      style={{
+                        opacity: 0,
+                        transform: "translateY(30px)",
+                        transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                        borderRadius: 8,
+                        background: "rgba(27,67,50,0.04)",
+                        border: "1px solid rgba(27,67,50,0.08)",
+                      }}
+                    >
+                      <div className="relative overflow-hidden" style={{ height: 200 }}>
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <span
+                          className="absolute bottom-3 right-3 font-display font-black"
+                          style={{ fontSize: "2rem", color: "rgba(255,255,255,0.2)", lineHeight: 1 }}
+                        >
+                          {step.num}
+                        </span>
+                      </div>
+                      <div className="p-5">
+                        <span
+                          className="font-display font-black block mb-1"
+                          style={{ fontSize: "2rem", color: "rgba(27,67,50,0.1)", lineHeight: 1 }}
+                        >
+                          {step.num}
+                        </span>
+                        <h3
+                          className="font-display font-bold mb-2"
+                          style={{ fontSize: "1.2rem", color: "#1a1a1a" }}
+                        >
+                          {step.title}
+                        </h3>
+                        <p style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.7 }}>
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
