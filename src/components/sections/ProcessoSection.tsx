@@ -65,7 +65,7 @@ const ProcessoSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Heading */}
         <div
-          className="processo-animate text-center mb-20 md:mb-28"
+          className="processo-animate text-center mb-16 md:mb-20"
           style={{ opacity: 0, transform: "translateX(0)", transition: "opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           <div className="flex items-center justify-center gap-4 mb-6">
@@ -101,7 +101,7 @@ const ProcessoSection = () => {
               return (
                 <div key={step.num}>
                   {/* DESKTOP */}
-                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] items-center gap-8 mb-28 last:mb-0">
+                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] items-center gap-8 mb-20 last:mb-0">
                     {/* Left column */}
                     <div className="flex justify-end">
                       {isLeft ? (
@@ -147,7 +147,7 @@ const ProcessoSection = () => {
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 320 }}>
+                          <div className="relative overflow-hidden" style={{ height: 240 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -224,7 +224,7 @@ const ProcessoSection = () => {
                             border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 320 }}>
+                          <div className="relative overflow-hidden" style={{ height: 240 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -261,7 +261,7 @@ const ProcessoSection = () => {
                         border: "1px solid rgba(255,255,255,0.1)",
                       }}
                     >
-                      <div className="relative overflow-hidden" style={{ height: 200 }}>
+                      <div className="relative overflow-hidden" style={{ height: 170 }}>
                         <img
                           src={step.image}
                           alt={step.title}
