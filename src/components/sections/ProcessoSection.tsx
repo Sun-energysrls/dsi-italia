@@ -48,7 +48,7 @@ const ProcessoSection = () => {
           if (entry.isIntersecting) {
             const el = entry.target as HTMLElement;
             el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
+            el.style.transform = "translateX(0)";
             observer.unobserve(el);
           }
         });
@@ -66,7 +66,7 @@ const ProcessoSection = () => {
         {/* Heading */}
         <div
           className="processo-animate text-center mb-20 md:mb-28"
-          style={{ opacity: 0, transform: "translateY(0)", transition: "opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1)" }}
+          style={{ opacity: 0, transform: "translateX(0)", transition: "opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
@@ -79,13 +79,10 @@ const ProcessoSection = () => {
             <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
           </div>
           <h2
-            className="w-full text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.08] text-white"
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-white"
           >
-            Dal{" "}
-            <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>
-              configuratore
-            </em>{" "}
-            al tuo campo in 4 semplici passi
+            Dal <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>configuratore</em> al tuo
+            <br className="hidden md:block" /> campo in 4 semplici passi
           </h2>
         </div>
 
@@ -112,14 +109,20 @@ const ProcessoSection = () => {
                           className="processo-animate max-w-lg w-full pr-10 text-left relative"
                           style={{
                             opacity: 0,
-                            transform: "translateY(40px)",
+                            transform: "translateX(-48px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                           }}
                         >
                           <span
-                            className="absolute -top-10 left-0 font-display font-black pointer-events-none select-none"
-                            style={{ fontSize: "7.5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
-                            aria-hidden="true"
+                            className="font-display font-black block mb-2 pointer-events-none select-none"
+                            style={{
+                              fontSize: "4rem",
+                              lineHeight: 1,
+                              backgroundImage: "linear-gradient(135deg, rgba(249,115,22,0.32), rgba(255,255,255,0.08))",
+                              WebkitBackgroundClip: "text",
+                              backgroundClip: "text",
+                              color: "transparent",
+                            }}
                           >
                             {step.num}
                           </span>
@@ -138,7 +141,7 @@ const ProcessoSection = () => {
                           className="processo-animate max-w-lg w-full overflow-hidden group"
                           style={{
                             opacity: 0,
-                            transform: "translateY(40px)",
+                            transform: "translateX(48px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
@@ -183,14 +186,20 @@ const ProcessoSection = () => {
                           className="processo-animate max-w-lg w-full pl-10 text-left relative"
                           style={{
                             opacity: 0,
-                            transform: "translateY(40px)",
+                            transform: "translateX(-48px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                           }}
                         >
                           <span
-                            className="absolute -top-10 left-0 font-display font-black pointer-events-none select-none"
-                            style={{ fontSize: "7.5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
-                            aria-hidden="true"
+                            className="font-display font-black block mb-2 pointer-events-none select-none"
+                            style={{
+                              fontSize: "4rem",
+                              lineHeight: 1,
+                              backgroundImage: "linear-gradient(135deg, rgba(249,115,22,0.32), rgba(255,255,255,0.08))",
+                              WebkitBackgroundClip: "text",
+                              backgroundClip: "text",
+                              color: "transparent",
+                            }}
                           >
                             {step.num}
                           </span>
@@ -209,7 +218,7 @@ const ProcessoSection = () => {
                           className="processo-animate max-w-lg w-full overflow-hidden group"
                           style={{
                             opacity: 0,
-                            transform: "translateY(40px)",
+                            transform: "translateX(48px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 16,
                             border: "1px solid rgba(255,255,255,0.1)",
@@ -246,7 +255,7 @@ const ProcessoSection = () => {
                       className="processo-animate overflow-hidden group"
                       style={{
                         opacity: 0,
-                        transform: "translateY(30px)",
+                        transform: i % 2 === 0 ? "translateX(-28px)" : "translateX(28px)",
                         transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                         borderRadius: 16,
                         border: "1px solid rgba(255,255,255,0.1)",
@@ -268,9 +277,15 @@ const ProcessoSection = () => {
                       </div>
                       <div className="p-6 relative text-left">
                         <span
-                          className="absolute -top-6 left-6 font-display font-black pointer-events-none select-none"
-                          style={{ fontSize: "4rem", color: "rgba(255,255,255,0.08)", lineHeight: 1 }}
-                          aria-hidden="true"
+                          className="font-display font-black block mb-2 pointer-events-none select-none"
+                          style={{
+                            fontSize: "2.25rem",
+                            lineHeight: 1,
+                            backgroundImage: "linear-gradient(135deg, rgba(249,115,22,0.34), rgba(255,255,255,0.1))",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            color: "transparent",
+                          }}
                         >
                           {step.num}
                         </span>
