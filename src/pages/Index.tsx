@@ -44,7 +44,7 @@ const Index = () => {
         <div data-section-color="#ffffff">
           <AdvantagesSection />
         </div>
-        <div data-section-color="#F5F2EE">
+        <div data-section-color="#1B4332">
           <ProcessoSection />
         </div>
         <div data-section-color="#1B4332">

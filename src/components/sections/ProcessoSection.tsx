@@ -69,20 +69,19 @@ const ProcessoSection = () => {
           style={{ opacity: 0, transform: "translateY(30px)", transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="block h-px w-12" style={{ backgroundColor: "rgba(0,0,0,0.2)" }} />
+            <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
             <span
               className="uppercase font-semibold"
               style={{ color: "#F97316", fontSize: "0.7rem", letterSpacing: "0.25em" }}
             >
               COME FUNZIONA
             </span>
-            <span className="block h-px w-12" style={{ backgroundColor: "rgba(0,0,0,0.2)" }} />
+            <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
           </div>
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight"
-            style={{ color: "#1a1a1a" }}
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-white"
           >
-            Dal <em className="not-italic" style={{ color: "#1B4332", fontStyle: "italic" }}>configuratore</em> al tuo
+            Dal <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>configuratore</em> al tuo
             <br className="hidden md:block" /> campo in 4 semplici passi
           </h2>
         </div>
@@ -92,7 +91,7 @@ const ProcessoSection = () => {
           {/* Vertical line — desktop only */}
           <div
             className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ backgroundColor: "rgba(27,67,50,0.15)" }}
+            style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
           />
 
           <div className="flex flex-col gap-16 md:gap-0">
@@ -116,17 +115,17 @@ const ProcessoSection = () => {
                         >
                           <span
                             className="font-display font-black block mb-2"
-                            style={{ fontSize: "4rem", color: "rgba(27,67,50,0.08)", lineHeight: 1 }}
+                            style={{ fontSize: "4rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
                           >
                             {step.num}
                           </span>
                           <h3
-                            className="font-display font-bold mb-3"
-                            style={{ fontSize: "1.5rem", color: "#1a1a1a" }}
+                            className="font-display font-bold mb-3 text-white"
+                            style={{ fontSize: "1.5rem" }}
                           >
                             {step.title}
                           </h3>
-                          <p style={{ color: "#666", fontSize: "0.9rem", lineHeight: 1.8 }}>
+                          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", lineHeight: 1.8 }}>
                             {step.desc}
                           </p>
                         </div>
@@ -138,8 +137,7 @@ const ProcessoSection = () => {
                             transform: "translateY(40px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 8,
-                            background: "rgba(27,67,50,0.04)",
-                            border: "1px solid rgba(27,67,50,0.08)",
+                            border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
                           <div className="relative overflow-hidden" style={{ height: 280 }}>
@@ -153,7 +151,7 @@ const ProcessoSection = () => {
                             />
                             <div
                               className="absolute inset-0 pointer-events-none"
-                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.1), transparent)" }}
+                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.3), transparent)" }}
                             />
                             <span
                               className="absolute bottom-4 right-4 font-display font-black"
@@ -170,7 +168,7 @@ const ProcessoSection = () => {
                     <div className="flex justify-center">
                       <div
                         className="w-4 h-4 rounded-full border-4 z-10"
-                        style={{ backgroundColor: "#1B4332", borderColor: "#F5F2EE" }}
+                        style={{ backgroundColor: "#F97316", borderColor: "#1B4332" }}
                       />
                     </div>
 
@@ -187,17 +185,17 @@ const ProcessoSection = () => {
                         >
                           <span
                             className="font-display font-black block mb-2"
-                            style={{ fontSize: "4rem", color: "rgba(27,67,50,0.08)", lineHeight: 1 }}
+                            style={{ fontSize: "4rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
                           >
                             {step.num}
                           </span>
                           <h3
-                            className="font-display font-bold mb-3"
-                            style={{ fontSize: "1.5rem", color: "#1a1a1a" }}
+                            className="font-display font-bold mb-3 text-white"
+                            style={{ fontSize: "1.5rem" }}
                           >
                             {step.title}
                           </h3>
-                          <p style={{ color: "#666", fontSize: "0.9rem", lineHeight: 1.8 }}>
+                          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", lineHeight: 1.8 }}>
                             {step.desc}
                           </p>
                         </div>
@@ -209,8 +207,7 @@ const ProcessoSection = () => {
                             transform: "translateY(40px)",
                             transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                             borderRadius: 8,
-                            background: "rgba(27,67,50,0.04)",
-                            border: "1px solid rgba(27,67,50,0.08)",
+                            border: "1px solid rgba(255,255,255,0.1)",
                           }}
                         >
                           <div className="relative overflow-hidden" style={{ height: 280 }}>
@@ -224,7 +221,7 @@ const ProcessoSection = () => {
                             />
                             <div
                               className="absolute inset-0 pointer-events-none"
-                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.1), transparent)" }}
+                              style={{ background: "linear-gradient(to top, rgba(27,67,50,0.3), transparent)" }}
                             />
                             <span
                               className="absolute bottom-4 right-4 font-display font-black"
@@ -247,8 +244,7 @@ const ProcessoSection = () => {
                         transform: "translateY(30px)",
                         transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
                         borderRadius: 8,
-                        background: "rgba(27,67,50,0.04)",
-                        border: "1px solid rgba(27,67,50,0.08)",
+                        border: "1px solid rgba(255,255,255,0.1)",
                       }}
                     >
                       <div className="relative overflow-hidden" style={{ height: 200 }}>
@@ -268,17 +264,17 @@ const ProcessoSection = () => {
                       <div className="p-5">
                         <span
                           className="font-display font-black block mb-1"
-                          style={{ fontSize: "2rem", color: "rgba(27,67,50,0.1)", lineHeight: 1 }}
+                          style={{ fontSize: "2rem", color: "rgba(255,255,255,0.08)", lineHeight: 1 }}
                         >
                           {step.num}
                         </span>
                         <h3
-                          className="font-display font-bold mb-2"
-                          style={{ fontSize: "1.2rem", color: "#1a1a1a" }}
+                          className="font-display font-bold mb-2 text-white"
+                          style={{ fontSize: "1.2rem" }}
                         >
                           {step.title}
                         </h3>
-                        <p style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.7 }}>
+                        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.85rem", lineHeight: 1.7 }}>
                           {step.desc}
                         </p>
                       </div>
