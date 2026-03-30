@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
@@ -13,6 +14,43 @@ const FeaturedModels = () => {
   const rightBottom = tractors.find((t) => t.id === rightBottomId);
 
   if (!featured || !rightTop || !rightBottom) return null;
+
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tractor-card='true']"));
+    if (!cards.length) return;
+
+    const cleanupFns: Array<() => void> = [];
+
+    cards.forEach((card) => {
+      const handleMouseMove = (e: MouseEvent) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+      };
+
+      const handleMouseLeave = () => {
+        card.style.transform = "";
+        card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
+      };
+
+      const handleMouseEnter = () => {
+        card.style.transition = "none";
+      };
+
+      card.addEventListener("mousemove", handleMouseMove);
+      card.addEventListener("mouseleave", handleMouseLeave);
+      card.addEventListener("mouseenter", handleMouseEnter);
+
+      cleanupFns.push(() => {
+        card.removeEventListener("mousemove", handleMouseMove);
+        card.removeEventListener("mouseleave", handleMouseLeave);
+        card.removeEventListener("mouseenter", handleMouseEnter);
+      });
+    });
+
+    return () => cleanupFns.forEach((fn) => fn());
+  }, []);
 
   const specsById: Record<string, string> = {
     "tavol-2404": "240 CV • 6 Cilindri Turbo • Cabina Premium",
@@ -48,18 +86,22 @@ const FeaturedModels = () => {
         duration={0.85}
       >
         <div
-          className={`group relative overflow-hidden ${className}`}
+          data-tractor-card="true"
+          className={`tractor-card group relative overflow-hidden ${className}`}
           style={{
-            borderRadius: 6,
-            boxShadow: "0 10px 28px rgba(0,0,0,0.08)",
-            border: "1px solid rgba(237,233,227,0.9)",
+            borderRadius: 8,
+            boxShadow: "0 8px 40px rgba(0,0,0,0.15), inset 0 -22px 46px rgba(249,115,22,0.08)",
+            border: "1px solid rgba(255,255,255,0.1)",
             background: "#fff",
             minHeight: imgMinHeight,
+            height: "100%",
+            transformStyle: "preserve-3d",
           }}
+          aria-label={modelName}
         >
           {/* Tractor background */}
           <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.08]"
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out"
             style={{
               backgroundImage: `url(${getTractorPhoto(t.id)})`,
               minHeight: imgMinHeight,
@@ -70,16 +112,16 @@ const FeaturedModels = () => {
           <div
             className="absolute inset-0 transition-opacity duration-700"
             style={{
-              background:
-                "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.9) 100%)",
-              opacity: 0.95,
+              background: "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.85) 100%)",
+              opacity: 1,
             }}
           />
           {/* Darken on hover */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
-              background: "rgba(0,0,0,0.14)",
+              background:
+                "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.15) 100%)",
             }}
           />
 
@@ -183,19 +225,19 @@ const FeaturedModels = () => {
         </div>
 
         <div
-          className="grid gap-6 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
+          className="grid gap-8 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
           style={{
-            gridAutoRows: 350,
+            gridAutoRows: "350px",
           }}
         >
           {/* Featured (left) */}
-          <div className="row-span-1 md:row-span-2">
+          <div className="row-span-2 md:row-span-2">
             <Card
               t={featured}
               variant="featured"
               animation="left"
               delay={0}
-              imgMinHeight={350}
+              imgMinHeight={732}
             />
           </div>
 
