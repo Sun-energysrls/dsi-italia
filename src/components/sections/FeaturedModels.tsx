@@ -4,6 +4,12 @@ import { tractors } from "@/data/tractors";
 import { getTractorPhoto } from "@/data/tractor-images";
 
 const FeaturedModels = () => {
+  const ROW_HEIGHT_PX = 350;
+  const GRID_GAP_REM = 1.5;
+  const GRID_GAP = `${GRID_GAP_REM}rem`;
+  const COMPACT_CARD_HEIGHT = `${ROW_HEIGHT_PX}px`;
+  const FEATURED_CARD_HEIGHT = `calc(${ROW_HEIGHT_PX}px * 2 + ${GRID_GAP_REM}rem)`;
+
   const featuredId = "tavol-2404";
   const rightTopId = "tavol-1204";
   const rightBottomId = "tavol-704";
@@ -54,6 +60,7 @@ const FeaturedModels = () => {
             border: "1px solid rgba(255,255,255,0.08)",
             background: "#fff",
             height: "100%",
+            minHeight: isFeatured ? FEATURED_CARD_HEIGHT : COMPACT_CARD_HEIGHT,
             transformStyle: "preserve-3d",
           }}
           onMouseMove={(e) => {
@@ -81,7 +88,8 @@ const FeaturedModels = () => {
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
             style={{
-              minHeight: 350,
+              filter: "brightness(0.55) contrast(1.2) saturate(1.1)",
+              transition: "filter 0.8s",
             }}
           />
 
@@ -221,9 +229,11 @@ const FeaturedModels = () => {
         <div
           className="grid gap-6 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
           style={{
+            display: "grid",
+            gridTemplateColumns: "1.2fr 0.8fr",
             gridTemplateRows: "1fr 1fr",
-            gap: "1.5rem",
-            height: "calc(2 * 350px + 1.5rem)",
+            gap: GRID_GAP,
+            height: `calc(${ROW_HEIGHT_PX}px * 2 + ${GRID_GAP})`,
           }}
         >
           {/* Featured (left) */}
