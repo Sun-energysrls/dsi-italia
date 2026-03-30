@@ -24,14 +24,12 @@ const FeaturedModels = () => {
     t,
     variant,
     className = "",
-    imgMinHeight = 350,
     animation,
     delay = 0,
   }: {
     t: (typeof tractors)[number];
     variant: "featured" | "compact";
     className?: string;
-    imgMinHeight?: number;
     animation: "left" | "right";
     delay?: number;
   }) => {
@@ -52,10 +50,9 @@ const FeaturedModels = () => {
           className={`tractor-card group relative overflow-hidden ${className}`}
           style={{
             borderRadius: 8,
-            boxShadow: "0 8px 40px rgba(0,0,0,0.15), inset 0 -22px 46px rgba(249,115,22,0.08)",
-            border: "1px solid rgba(255,255,255,0.1)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
+            border: "1px solid rgba(255,255,255,0.08)",
             background: "#fff",
-            minHeight: imgMinHeight,
             height: "100%",
             transformStyle: "preserve-3d",
           }}
@@ -77,29 +74,40 @@ const FeaturedModels = () => {
           }}
           aria-label={modelName}
         >
-          {/* Tractor background */}
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out"
+          {/* Tractor background (cinematic filters) */}
+          <img
+            src={getTractorPhoto(t.id)}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
             style={{
-              backgroundImage: `url(${getTractorPhoto(t.id)})`,
-              minHeight: imgMinHeight,
+              minHeight: 350,
             }}
           />
 
           {/* Gradient overlay */}
           <div
-            className="absolute inset-0 transition-opacity duration-700"
+            className="absolute inset-0"
             style={{
-              background: "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.85) 100%)",
-              opacity: 1,
+              background: "linear-gradient(180deg, transparent 25%, rgba(27,58,45,0.92) 100%)",
             }}
           />
-          {/* Darken on hover */}
+          {/* Hover overlay (slightly darker for readability) */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{
+              background: "rgba(27,58,45,0.95)",
+              transition: "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          />
+
+          {/* Inner glow at the bottom (premium depth) */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none opacity-35 group-hover:opacity-55 transition-opacity duration-500"
             style={{
               background:
-                "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.15) 100%)",
+                "radial-gradient(ellipse at center, rgba(249,115,22,0.25) 0%, rgba(249,115,22,0.0) 70%)",
+              filter: "blur(10px)",
             }}
           />
 
@@ -115,19 +123,17 @@ const FeaturedModels = () => {
               style={{
                 fontSize: "0.65rem",
                 letterSpacing: "0.3em",
-                color: "#F97316",
+                color: "#e8860c",
               }}
             >
               {category}
             </div>
 
             <div
-              className="font-display font-black"
+              className="font-display font-bold text-white"
               style={{
                 marginTop: 8,
                 fontSize: isFeatured ? "2.5rem" : "1.8rem",
-                color: "#ffffff",
-                fontWeight: 800,
               }}
             >
               {modelName}
@@ -136,7 +142,7 @@ const FeaturedModels = () => {
             <div
               style={{
                 marginTop: 8,
-                color: "rgba(255,255,255,0.7)",
+                color: "rgba(255,255,255,0.65)",
                 fontSize: "0.8rem",
               }}
             >
@@ -146,15 +152,20 @@ const FeaturedModels = () => {
             <div className="mt-4">
               <Link
                 to={`/trattori/${t.id}`}
-                className="inline-flex items-center gap-2 uppercase font-semibold"
+                className="group inline-flex items-center uppercase font-semibold"
                 style={{
-                  color: "#F97316",
+                  color: "#e8860c",
                   fontSize: "0.75rem",
-                  letterSpacing: "0.1em",
+                  letterSpacing: "0.12em",
                 }}
               >
                 <span>Scopri di più</span>
-                <span aria-hidden="true">→</span>
+                <span
+                  aria-hidden="true"
+                  className="ml-0 transition-all duration-300 group-hover:ml-2"
+                >
+                  →
+                </span>
               </Link>
             </div>
           </div>
@@ -165,6 +176,11 @@ const FeaturedModels = () => {
 
   return (
     <section style={{ background: "transparent", padding: "100px 0" }}>
+      <style>{`
+        /* Cinematic hover for tractor images (no scale/zoom) */
+        .tractor-card img { filter: brightness(0.55) contrast(1.2) saturate(1.1); transition: filter 0.8s; }
+        .tractor-card:hover img { filter: brightness(0.65) contrast(1.2) saturate(1.1); }
+      `}</style>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="mb-16">
           <div className="flex items-start justify-between gap-8 flex-wrap">
@@ -172,7 +188,7 @@ const FeaturedModels = () => {
               <div
                 className="uppercase font-semibold"
                 style={{
-                  color: "#F97316",
+                  color: "#e8860c",
                   fontSize: "0.65rem",
                   letterSpacing: "0.3em",
                   marginBottom: 10,
@@ -190,9 +206,9 @@ const FeaturedModels = () => {
                 to="/trattori"
                 className="inline-flex items-center gap-2 uppercase font-semibold"
                 style={{
-                  color: "#F97316",
+                  color: "#e8860c",
                   fontSize: "0.75rem",
-                  letterSpacing: "0.1em",
+                  letterSpacing: "0.12em",
                 }}
               >
                 <span>Catalogo Completo</span>
@@ -203,19 +219,20 @@ const FeaturedModels = () => {
         </div>
 
         <div
-          className="grid gap-8 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
+          className="grid gap-6 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
           style={{
-            gridAutoRows: "350px",
+            gridTemplateRows: "1fr 1fr",
+            gap: "1.5rem",
+            height: "calc(2 * 350px + 1.5rem)",
           }}
         >
           {/* Featured (left) */}
-          <div className="row-span-2 md:row-span-2">
+          <div className="row-span-1 md:row-span-2">
             <Card
               t={featured}
               variant="featured"
               animation="left"
               delay={0}
-              imgMinHeight={732}
             />
           </div>
 
@@ -226,7 +243,6 @@ const FeaturedModels = () => {
               variant="compact"
               animation="right"
               delay={0.1}
-              imgMinHeight={350}
             />
           </div>
           <div>
@@ -235,7 +251,6 @@ const FeaturedModels = () => {
               variant="compact"
               animation="right"
               delay={0.2}
-              imgMinHeight={350}
             />
           </div>
         </div>
