@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
@@ -14,43 +13,6 @@ const FeaturedModels = () => {
   const rightBottom = tractors.find((t) => t.id === rightBottomId);
 
   if (!featured || !rightTop || !rightBottom) return null;
-
-  useEffect(() => {
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tractor-card='true']"));
-    if (!cards.length) return;
-
-    const cleanupFns: Array<() => void> = [];
-
-    cards.forEach((card) => {
-      const handleMouseMove = (e: MouseEvent) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
-      };
-
-      const handleMouseLeave = () => {
-        card.style.transform = "";
-        card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-      };
-
-      const handleMouseEnter = () => {
-        card.style.transition = "none";
-      };
-
-      card.addEventListener("mousemove", handleMouseMove);
-      card.addEventListener("mouseleave", handleMouseLeave);
-      card.addEventListener("mouseenter", handleMouseEnter);
-
-      cleanupFns.push(() => {
-        card.removeEventListener("mousemove", handleMouseMove);
-        card.removeEventListener("mouseleave", handleMouseLeave);
-        card.removeEventListener("mouseenter", handleMouseEnter);
-      });
-    });
-
-    return () => cleanupFns.forEach((fn) => fn());
-  }, []);
 
   const specsById: Record<string, string> = {
     "tavol-2404": "240 CV • 6 Cilindri Turbo • Cabina Premium",
@@ -96,6 +58,22 @@ const FeaturedModels = () => {
             minHeight: imgMinHeight,
             height: "100%",
             transformStyle: "preserve-3d",
+          }}
+          onMouseMove={(e) => {
+            const card = e.currentTarget;
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+          }}
+          onMouseEnter={(e) => {
+            const card = e.currentTarget;
+            card.style.transition = "none";
+          }}
+          onMouseLeave={(e) => {
+            const card = e.currentTarget;
+            card.style.transform = "";
+            card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
           }}
           aria-label={modelName}
         >
