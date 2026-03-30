@@ -1,101 +1,223 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { tractors } from "@/data/tractors";
 import { getTractorPhoto } from "@/data/tractor-images";
 
-const featuredIds = ["tavol-704", "tavol-1204", "tavol-1804", "tavol-2404"];
-
 const FeaturedModels = () => {
-  const featured = featuredIds
-    .map((id) => tractors.find((t) => t.id === id))
-    .filter(Boolean) as typeof tractors;
+  const featuredId = "tavol-2404";
+  const rightTopId = "tavol-1204";
+  const rightBottomId = "tavol-704";
+
+  const featured = tractors.find((t) => t.id === featuredId);
+  const rightTop = tractors.find((t) => t.id === rightTopId);
+  const rightBottom = tractors.find((t) => t.id === rightBottomId);
+
+  if (!featured || !rightTop || !rightBottom) return null;
+
+  const specsById: Record<string, string> = {
+    "tavol-2404": "240 CV • 6 Cilindri Turbo • Cabina Premium",
+    "tavol-1204": "120 CV • 6 Cilindri • Cabina Condizionata",
+    "tavol-704": "70 CV • 4 Cilindri • Cabina Condizionata",
+  };
+
+  const Card = ({
+    t,
+    variant,
+    className = "",
+    imgMinHeight = 350,
+    animation,
+    delay = 0,
+  }: {
+    t: (typeof tractors)[number];
+    variant: "featured" | "compact";
+    className?: string;
+    imgMinHeight?: number;
+    animation: "left" | "right";
+    delay?: number;
+  }) => {
+    const isFeatured = variant === "featured";
+    const category = (t.category || "").toUpperCase();
+    const modelName = t.name || "";
+    const specs = specsById[t.id] || `${t.hp} CV • ${t.engine || ""} • Cabina`;
+
+    return (
+      <AnimatedSection
+        delay={delay}
+        from={animation}
+        distance={70}
+        duration={0.85}
+      >
+        <div
+          className={`group relative overflow-hidden ${className}`}
+          style={{
+            borderRadius: 6,
+            boxShadow: "0 10px 28px rgba(0,0,0,0.08)",
+            border: "1px solid rgba(237,233,227,0.9)",
+            background: "#fff",
+            minHeight: imgMinHeight,
+          }}
+        >
+          {/* Tractor background */}
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.08]"
+            style={{
+              backgroundImage: `url(${getTractorPhoto(t.id)})`,
+              minHeight: imgMinHeight,
+            }}
+          />
+
+          {/* Gradient overlay */}
+          <div
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 30%, rgba(27,58,45,0.9) 100%)",
+              opacity: 0.95,
+            }}
+          />
+          {/* Darken on hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            style={{
+              background: "rgba(0,0,0,0.14)",
+            }}
+          />
+
+          {/* Bottom content */}
+          <div
+            className="absolute left-0 right-0 bottom-0 p-8"
+            style={{
+              paddingBottom: isFeatured ? 34 : 26,
+            }}
+          >
+            <div
+              className="uppercase font-semibold"
+              style={{
+                fontSize: "0.65rem",
+                letterSpacing: "0.3em",
+                color: "#F97316",
+              }}
+            >
+              {category}
+            </div>
+
+            <div
+              className="font-display font-black"
+              style={{
+                marginTop: 8,
+                fontSize: isFeatured ? "2.5rem" : "1.8rem",
+                color: "#ffffff",
+                fontWeight: 800,
+              }}
+            >
+              {modelName}
+            </div>
+
+            <div
+              style={{
+                marginTop: 8,
+                color: "rgba(255,255,255,0.7)",
+                fontSize: "0.8rem",
+              }}
+            >
+              {specs}
+            </div>
+
+            <div className="mt-4">
+              <Link
+                to={`/trattori/${t.id}`}
+                className="inline-flex items-center gap-2 uppercase font-semibold"
+                style={{
+                  color: "#F97316",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                <span>Scopri di più</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+    );
+  };
 
   return (
     <section style={{ background: "transparent", padding: "100px 0" }}>
       <div className="container mx-auto px-4 lg:px-8">
-        <AnimatedSection className="text-center mb-16">
-          <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight"
-            style={{ color: "#1a1a1a" }}
-          >
-            MODELLI IN EVIDENZA
-          </h2>
-          <p style={{ color: "#888", fontSize: "1.1rem" }}>Un trattore per ogni esigenza — dalla compatta al top di gamma</p>
-        </AnimatedSection>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featured.map((t, i) => (
-            <AnimatedSection key={t.id} delay={i * 0.1}>
+        <div className="mb-16">
+          <div className="flex items-start justify-between gap-8 flex-wrap">
+            <div>
               <div
-                className="group flex flex-col transition-all duration-300"
+                className="uppercase font-semibold"
                 style={{
-                  height: 520,
-                  background: "white",
-                  borderRadius: 8,
-                  overflow: "hidden",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
-                  border: "1px solid #EDE9E3",
-                  willChange: "transform",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(-8px)";
-                  el.style.boxShadow = "0 24px 48px rgba(0,0,0,0.14)";
-                  el.style.borderColor = "#F97316";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(0)";
-                  el.style.boxShadow = "0 4px 24px rgba(0,0,0,0.08)";
-                  el.style.borderColor = "#EDE9E3";
+                  color: "#F97316",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.3em",
+                  marginBottom: 10,
                 }}
               >
-                {/* Image */}
-                <div className="relative overflow-hidden" style={{ height: 240, background: "#F9F7F5" }}>
-                  <img
-                    src={getTractorPhoto(t.id)}
-                    alt={t.name}
-                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  {/* HP Badge */}
-                  <div
-                    className="absolute top-3 right-3 font-display font-bold text-white"
-                    style={{
-                      background: "#F97316",
-                      borderRadius: 4,
-                      padding: "4px 10px",
-                      fontSize: "0.8rem",
-                    }}
-                  >
-                    {t.hp} HP
-                  </div>
-                </div>
-                {/* Content */}
-                <div className="flex flex-col flex-grow" style={{ padding: 20 }}>
-                  <span
-                    className="uppercase font-semibold"
-                    style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "#F97316" }}
-                  >
-                    {t.category}
-                  </span>
-                  <h3 className="font-display text-lg font-bold mt-1 mb-2" style={{ color: "#1a1a1a" }}>
-                    {t.name}
-                  </h3>
-                  <p className="flex-grow" style={{ color: "#777", fontSize: "0.82rem", lineHeight: 1.6 }}>
-                    {t.shortDescription}
-                  </p>
-                  <Link
-                      to={`/trattori/${t.id}`}
-                      className="inline-flex items-center gap-1.5 font-semibold uppercase transition-all duration-300 mt-auto pt-3"
-                      style={{ color: "#F97316", fontSize: "0.7rem", letterSpacing: "0.1em" }}
-                    >
-                      Scopri di più <ArrowRight className="h-3 w-3" />
-                    </Link>
-                </div>
+                La Nostra Gamma
               </div>
-            </AnimatedSection>
-          ))}
+              <h2 className="font-display font-black" style={{ color: "#1a1a1a", fontSize: "3rem", lineHeight: 1.05 }}>
+                Trattori <em style={{ fontStyle: "italic" }}>potenti</em>, pronti per ogni sfida
+              </h2>
+            </div>
+
+            <div className="self-center">
+              <Link
+                to="/trattori"
+                className="inline-flex items-center gap-2 uppercase font-semibold"
+                style={{
+                  color: "#F97316",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                <span>Catalogo Completo</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="grid gap-6 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]"
+          style={{
+            gridAutoRows: 350,
+          }}
+        >
+          {/* Featured (left) */}
+          <div className="row-span-1 md:row-span-2">
+            <Card
+              t={featured}
+              variant="featured"
+              animation="left"
+              delay={0}
+              imgMinHeight={350}
+            />
+          </div>
+
+          {/* Right stacked cards */}
+          <div>
+            <Card
+              t={rightTop}
+              variant="compact"
+              animation="right"
+              delay={0.1}
+              imgMinHeight={350}
+            />
+          </div>
+          <div>
+            <Card
+              t={rightBottom}
+              variant="compact"
+              animation="right"
+              delay={0.2}
+              imgMinHeight={350}
+            />
+          </div>
         </div>
       </div>
     </section>
