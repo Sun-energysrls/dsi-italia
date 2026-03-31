@@ -29,22 +29,28 @@ const BrandPartnersSection = () => {
       style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
-            I NOSTRI PARTNER
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
-            Brand di Eccellenza
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.55)" }} className="text-lg max-w-2xl mx-auto">
-            I nostri brand partner selezionati tra i migliori produttori mondiali.
-          </p>
-        </AnimatedSection>
+        <div className="text-center mb-16">
+          <AnimatedSection from="left" distance={20} duration={0.7} delay={0.05}>
+            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
+              I NOSTRI PARTNER
+            </p>
+          </AnimatedSection>
+          <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
+              Brand di Eccellenza
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection from="none" duration={0.6} delay={0.2}>
+            <p style={{ color: "rgba(255,255,255,0.55)" }} className="text-lg max-w-2xl mx-auto">
+              I nostri brand partner selezionati tra i migliori produttori mondiali.
+            </p>
+          </AnimatedSection>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {/* Active Tavol card */}
           {brands.map((brand, i) => (
-            <AnimatedSection key={brand.id} delay={i * 0.15} className="h-full">
+            <AnimatedSection key={brand.id} delay={i * 0.12} duration={0.7} className="h-full" withScale>
               <div
                 className="group flex flex-col justify-between transition-all duration-350 h-full"
                 style={{

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { useEffect, useRef } from "react";
 
+const HERO_LINES = ["IMPORTAZIONE", "DIRETTA DI MACCHINE", "AGRICOLE"];
+
 const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -17,7 +19,10 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section
+      className="relative flex flex-col items-center justify-center overflow-hidden"
+      style={{ position: "sticky", top: 0, zIndex: 1, height: "100vh" }}
+    >
       <video
         ref={videoRef}
         muted
@@ -39,12 +44,20 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
 
       {/* Content */}
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
-        <p className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-8 animate-fade-in-up">
+
+        {/* Eyebrow */}
+        <p
+          className="text-secondary font-bold text-xs uppercase tracking-[0.3em] mb-8"
+          style={{ animation: "dsiHeroLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both" }}
+        >
           DSI — FOR INDUSTRY & AGRICULTURE
         </p>
 
-        {/* Premium brand stamp */}
-        <div className="flex items-center justify-center gap-5 mb-8 animate-fade-in-up" style={{ animationDelay: "0.05s" }}>
+        {/* Brand stamp */}
+        <div
+          className="flex items-center justify-center gap-5 mb-8"
+          style={{ animation: "dsiHeroLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both" }}
+        >
           <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
           <div className="text-center">
             <span
@@ -66,49 +79,59 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
           </div>
           <span className="block w-[60px] h-px" style={{ backgroundColor: "rgba(255,255,255,0.3)" }} />
         </div>
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight animate-fade-in-up max-w-4xl mx-auto">
-          IMPORTAZIONE
-          <br />
-          DIRETTA DI MACCHINE
-          <br />
-          AGRICOLE
+
+        {/* Title — line-by-line reveal with overflow:hidden clip */}
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight max-w-4xl mx-auto">
+          {HERO_LINES.map((line, i) => (
+            <span
+              key={i}
+              style={{ display: "block", overflow: "hidden", lineHeight: 1.1 }}
+            >
+              <span
+                style={{
+                  display: "block",
+                  animation: `dsiHeroLine 0.9s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.15}s both`,
+                }}
+              >
+                {line}
+              </span>
+            </span>
+          ))}
         </h1>
+
+        {/* Tagline */}
         <p
-          className="text-white/55 text-xs md:text-sm uppercase tracking-[0.35em] mb-14 animate-fade-in-up"
-          style={{ animationDelay: "0.15s" }}
+          className="text-white/55 text-xs md:text-sm uppercase tracking-[0.35em] mb-14"
+          style={{ animation: "dsiHeroLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both" }}
         >
           POTENZA. AFFIDABILITÀ. CONTROLLO TOTALE.
         </p>
+
+        {/* Buttons */}
         <div
-          className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
-          style={{ animationDelay: "0.3s" }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          style={{ animation: "dsiHeroLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both" }}
         >
-          <Link
-            to="/trattori"
-            className="btn-orange"
-          >
+          <Link to="/trattori" className="btn-orange">
             Scopri i modelli
             <ArrowRight className="h-5 w-5" />
           </Link>
-          <Link
-            to="/configuratore"
-            className="btn-outline-light"
-          >
+          <Link to="/configuratore" className="btn-outline-light">
             Configura il tuo trattore
           </Link>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — pulsing arrow */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors animate-fade-in z-[3]"
-        style={{ animationDelay: "0.6s" }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors z-[3]"
+        style={{ animation: "dsiHeroLine 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both" }}
       >
         <span className="text-xs uppercase tracking-[0.3em] font-medium">
           Scorri
         </span>
-        <ArrowDown className="h-5 w-5 animate-bounce" />
+        <ArrowDown className="h-5 w-5 dsi-scroll-pulse" />
       </button>
     </section>
   );

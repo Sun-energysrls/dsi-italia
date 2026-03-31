@@ -54,6 +54,7 @@ const ProcessoSection = () => {
             const el = entry.target as HTMLElement;
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";
+            el.classList.add("dsi-imgs-revealed");
             observer.unobserve(el);
           }
         });
@@ -107,7 +108,7 @@ const ProcessoSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden" style={{ background: "transparent" }}>
+    <section ref={sectionRef} className="relative pt-24 pb-0 md:pt-32 overflow-hidden" style={{ background: "transparent" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Heading */}
         <div
@@ -217,7 +218,7 @@ const ProcessoSection = () => {
                             boxShadow: "0 14px 34px rgba(0,0,0,0.18)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 215 }}>
+                          <div className="dsi-img-reveal relative overflow-hidden" style={{ height: 215 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -236,6 +237,7 @@ const ProcessoSection = () => {
                             >
                               {step.num}
                             </span>
+                            <div className="dsi-img-overlay" />
                           </div>
                         </div>
                       )}
@@ -312,7 +314,7 @@ const ProcessoSection = () => {
                             boxShadow: "0 14px 34px rgba(0,0,0,0.18)",
                           }}
                         >
-                          <div className="relative overflow-hidden" style={{ height: 215 }}>
+                          <div className="dsi-img-reveal relative overflow-hidden" style={{ height: 215 }}>
                             <img
                               src={step.image}
                               alt={step.title}
@@ -331,6 +333,7 @@ const ProcessoSection = () => {
                             >
                               {step.num}
                             </span>
+                            <div className="dsi-img-overlay" />
                           </div>
                         </div>
                       )}
@@ -352,7 +355,7 @@ const ProcessoSection = () => {
                         boxShadow: "0 12px 28px rgba(0,0,0,0.16)",
                       }}
                     >
-                      <div className="relative overflow-hidden" style={{ height: 170 }}>
+                      <div className="dsi-img-reveal relative overflow-hidden" style={{ height: 170 }}>
                         <img
                           src={step.image}
                           alt={step.title}
@@ -365,6 +368,7 @@ const ProcessoSection = () => {
                         >
                           {step.num}
                         </span>
+                        <div className="dsi-img-overlay" />
                       </div>
                       <div className="p-6 relative text-left">
                         <span

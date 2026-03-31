@@ -25,21 +25,21 @@ function luminance(hex: string) {
 export function useScrollColorMorph() {
   const [isDark, setIsDark] = useState(true);
   const rafRef = useRef<number>(0);
-  const premiumGreen = "#1B4332";
+  const premiumGreen = "#1b3a2d";
 
   useEffect(() => {
     const onScroll = () => {
-      const sections = document.querySelectorAll<HTMLElement>("[data-section-color]");
+      const sections = document.querySelectorAll<HTMLElement>("[data-bg]");
       if (!sections.length) return;
 
       const vh = window.innerHeight;
-      let currentColor = sections[0].dataset.sectionColor || premiumGreen;
+      let currentColor = premiumGreen;
 
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
         const rect = section.getBoundingClientRect();
         const nextSection = sections[i + 1];
-        const color = section.dataset.sectionColor!;
+        const color = section.dataset.bg!;
 
         // If this section covers the middle of the viewport, use its color
         if (rect.top <= vh * 0.5 && rect.bottom >= vh * 0.5) {
@@ -48,7 +48,7 @@ export function useScrollColorMorph() {
 
         if (!nextSection) continue;
 
-        const nextColor = nextSection.dataset.sectionColor!;
+        const nextColor = nextSection.dataset.bg!;
         if (color === nextColor) continue;
 
         // Blend zone: 30% viewport around the boundary

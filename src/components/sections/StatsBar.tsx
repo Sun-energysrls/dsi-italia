@@ -24,11 +24,16 @@ const StatsBar = () => {
       />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-[1]">
-        <AnimatedSection>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-4">
             {stats.map((stat, i) => (
-              <div
+              <AnimatedSection
                 key={stat.label}
+                from="up"
+                distance={30}
+                duration={0.8}
+                delay={i * 0.2}
+              >
+              <div
                 className="text-center relative group"
                 style={{ willChange: "transform" }}
               >
@@ -91,9 +96,9 @@ const StatsBar = () => {
                   />
                 )}
               </div>
+              </AnimatedSection>
             ))}
           </div>
-        </AnimatedSection>
       </div>
     </section>
   );

@@ -53,13 +53,13 @@ const ComingSoonSection = () => {
           </div>
           <h2
             className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight mb-4"
-            style={{ color: "#1a1a1a" }}
+            style={{ color: "white" }}
           >
             In Arrivo
           </h2>
           <p
             className="mx-auto"
-            style={{ color: "#888", maxWidth: 560, fontSize: "1rem" }}
+            style={{ color: "rgba(255,255,255,0.65)", maxWidth: 560, fontSize: "1rem" }}
           >
             Nuovi brand partner e modelli esclusivi in fase di importazione.
             Seguici per essere il primo a saperlo.
@@ -68,7 +68,7 @@ const ComingSoonSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {comingSoonBrands.map((brand, i) => (
-            <AnimatedSection key={brand.name} delay={i * 0.15}>
+            <AnimatedSection key={brand.name} delay={i * 0.12} duration={0.7} withScale>
               <div
                 className="relative overflow-hidden transition-all duration-300"
                 style={{

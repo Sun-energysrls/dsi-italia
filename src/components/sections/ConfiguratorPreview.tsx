@@ -9,88 +9,99 @@ const pills = ["16 Modelli", "7 Step guidati", "Preventivo Gratuito", "Consegna 
 const ConfiguratorPreview = () => {
   return (
     <section
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative pt-0 pb-24 lg:pb-32 overflow-hidden"
       style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: text */}
-          <AnimatedSection>
-            <p
-              className="font-bold uppercase mb-3"
-              style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.25em" }}
-            >
-              CONFIGURA LA TUA MACCHINA
-            </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
-              Configura il tuo trattore ideale
-            </h2>
+          {/* Left: text — granular per-element animations */}
+          <div>
+            <AnimatedSection from="left" distance={20} duration={0.7} delay={0.05}>
+              <p
+                className="font-bold uppercase mb-3"
+                style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.25em" }}
+              >
+                CONFIGURA LA TUA MACCHINA
+              </p>
+            </AnimatedSection>
+            <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
+                Configura il tuo trattore ideale
+              </h2>
+            </AnimatedSection>
 
             {/* Pills */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {pills.map((pill) => (
-                <span
-                  key={pill}
-                  style={{
-                    border: "1px solid rgba(249,115,22,0.5)",
-                    borderRadius: 20,
-                    padding: "4px 14px",
-                    fontSize: "0.65rem",
-                    color: "#F97316",
-                    letterSpacing: "0.05em",
-                    fontWeight: 600,
-                  }}
-                >
-                  {pill}
-                </span>
-              ))}
-            </div>
+            <AnimatedSection from="none" duration={0.6} delay={0.15}>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {pills.map((pill) => (
+                  <span
+                    key={pill}
+                    style={{
+                      border: "1px solid rgba(249,115,22,0.5)",
+                      borderRadius: 20,
+                      padding: "4px 14px",
+                      fontSize: "0.65rem",
+                      color: "#F97316",
+                      letterSpacing: "0.05em",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </AnimatedSection>
 
-            <p
-              className="text-base leading-relaxed mb-6"
-              style={{ color: "rgba(255,255,255,0.55)" }}
-            >
-              Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
-            </p>
+            <AnimatedSection from="none" duration={0.6} delay={0.2}>
+              <p
+                className="text-base leading-relaxed mb-6"
+                style={{ color: "rgba(255,255,255,0.55)" }}
+              >
+                Il nostro configuratore avanzato ti permette di personalizzare ogni aspetto della tua macchina agricola.
+              </p>
+            </AnimatedSection>
 
-            <div className="flex flex-wrap gap-3 mb-4">
-              {previewFeatures.map((feat) => (
-                <span
-                  key={feat}
-                  className="font-medium transition-all duration-200 cursor-default"
-                  style={{
-                    background: "rgba(255,255,255,0.1)",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    borderRadius: 4,
-                    color: "white",
-                    padding: "8px 16px",
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#F97316";
-                    (e.currentTarget as HTMLElement).style.color = "#F97316";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)";
-                    (e.currentTarget as HTMLElement).style.color = "white";
-                  }}
-                >
-                  {feat}
-                </span>
-              ))}
-            </div>
+            <AnimatedSection from="none" duration={0.5} delay={0.25}>
+              <div className="flex flex-wrap gap-3 mb-4">
+                {previewFeatures.map((feat) => (
+                  <span
+                    key={feat}
+                    className="font-medium transition-all duration-200 cursor-default"
+                    style={{
+                      background: "rgba(255,255,255,0.1)",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      borderRadius: 4,
+                      color: "white",
+                      padding: "8px 16px",
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "#F97316";
+                      (e.currentTarget as HTMLElement).style.color = "#F97316";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)";
+                      (e.currentTarget as HTMLElement).style.color = "white";
+                    }}
+                  >
+                    {feat}
+                  </span>
+                ))}
+              </div>
+            </AnimatedSection>
 
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 24 }}>
-              Ricevi il tuo preventivo personalizzato in 24 ore
-            </p>
-
-            <Link to="/configuratore" className="btn-orange">
-              Configura il tuo trattore
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </AnimatedSection>
+            <AnimatedSection from="none" duration={0.5} delay={0.3}>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 24 }}>
+                Ricevi il tuo preventivo personalizzato in 24 ore
+              </p>
+              <Link to="/configuratore" className="btn-orange">
+                Configura il tuo trattore
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </AnimatedSection>
+          </div>
 
           {/* Right: Image + animated cards */}
           <AnimatedSection delay={0.15}>

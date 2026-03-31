@@ -15,11 +15,17 @@ const navItems = [
 const Header = ({ navDark }: { navDark?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
   const location = useLocation();
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+      const docEl = document.documentElement;
+      const total = docEl.scrollHeight - docEl.clientHeight;
+      setScrollPct(total > 0 ? (window.scrollY / total) * 100 : 0);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -53,13 +59,28 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
       className="fixed top-0 left-0 right-0 z-50"
       style={{ ...bgStyle, transition: "all 0.4s ease" }}
     >
+      {/* Scroll progress bar */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: 2,
+          width: `${scrollPct}%`,
+          backgroundColor: "#e8860c",
+          transition: "width 0.08s linear",
+          zIndex: 60,
+          pointerEvents: "none",
+        }}
+      />
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center group/logo">
             <img
               src={logo}
               alt="DSI Import"
-              className="h-14 w-auto"
+              className="h-14 w-auto transition-transform duration-500 ease-out group-hover/logo:scale-[1.04]"
             />
           </Link>
 

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -127,21 +131,14 @@
     background-size: 4px 4px;
   }
 
-  /* Subtle green gradient overlay for dark sections */
-  [data-section-color="#1B4332"] {
+  /* ── Section theming via light-section / dark-section classes ── */
+  .dark-section,
+  .light-section {
     position: relative;
   }
-  [data-section-color="#1B4332"]::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(120% 80% at 50% 10%, rgba(48, 106, 82, 0.18) 0%, rgba(48, 106, 82, 0) 55%),
-      linear-gradient(180deg, rgba(22,56,43,0.18) 0%, rgba(22,56,43,0) 42%, rgba(36,83,63,0.16) 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  [data-section-color="#1B4332"] > * {
+
+  /* On dark backgrounds, ensure content layers stack above body color */
+  .dark-section > * {
     position: relative;
     z-index: 1;
   }
@@ -166,8 +163,8 @@
 
   .btn-orange:hover {
     background-color: #e06010;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(249,115,22,0.42);
   }
 
   .btn-outline-light {
@@ -184,12 +181,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-outline-light:hover {
     border-color: white;
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   }
 
   .btn-outline-dark {
@@ -206,11 +205,55 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-outline-dark:hover {
     background: hsl(var(--foreground));
     color: hsl(var(--background));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Hero line-by-line reveal ── */
+@keyframes dsiHeroLine {
+  from { transform: translateY(105%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Scroll-down arrow pulse ── */
+@keyframes dsiScrollPulse {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+.dsi-scroll-pulse {
+  animation: dsiScrollPulse 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* ── Image reveal overlay ── */
+.dsi-img-reveal {
+  position: relative;
+  overflow: hidden;
+}
+.dsi-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: #1b3a2d;
+  z-index: 3;
+  transform: translateX(0%);
+  pointer-events: none;
+}
+.dsi-imgs-revealed .dsi-img-overlay {
+  transform: translateX(101%);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.18, 1) 0.35s;
 }

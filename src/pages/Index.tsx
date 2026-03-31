@@ -2,8 +2,8 @@ import { useState, useCallback } from "react";
 import Layout from "@/components/Layout";
 import IntroSplash from "@/components/IntroSplash";
 import HeroSection from "@/components/sections/HeroSection";
-import StatsBar from "@/components/sections/StatsBar";
 import ApproachSection from "@/components/sections/ApproachSection";
+import StatsBanner from "@/components/sections/StatsBanner";
 import ProcessoSection from "@/components/sections/ProcessoSection";
 import BrandPartnersSection from "@/components/sections/BrandPartnersSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
@@ -13,7 +13,7 @@ import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
 import { useScrollColorMorph } from "@/hooks/useScrollColorMorph";
 
-const PREMIUM_GREEN = "#1B4332";
+const above: React.CSSProperties = { position: "relative", zIndex: 2 };
 
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";
@@ -31,34 +31,52 @@ const Index = () => {
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
       <Layout navDark={isDark}>
-        <div data-section-color={PREMIUM_GREEN}>
-          <HeroSection videoReady={splashDone} />
-        </div>
-        <div data-section-color={PREMIUM_GREEN}>
-          <StatsBar />
-        </div>
-        <div data-section-color="#ffffff">
+        {/* Hero — NO wrapper div. Direct child of <main> so sticky works. */}
+        <HeroSection videoReady={splashDone} />
+
+        {/* First section slides over the hero — SOLID bg required */}
+        <div
+          data-bg="#faf8f4"
+          style={{
+            ...above,
+            background: "#faf8f4",
+            borderRadius: "24px 24px 0 0",
+            boxShadow: "0 -15px 50px rgba(0,0,0,0.2)",
+          }}
+        >
           <ApproachSection />
         </div>
-        <div data-section-color={PREMIUM_GREEN}>
+
+        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
           <BrandPartnersSection />
         </div>
-        <div data-section-color="#ffffff">
+
+        <div data-bg="#faf8f4" style={{ ...above, background: "#faf8f4" }}>
           <AdvantagesSection />
         </div>
-        <div data-section-color={PREMIUM_GREEN}>
+
+        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
           <ProcessoSection />
         </div>
-        <div data-section-color={PREMIUM_GREEN}>
+
+        {/* StatsBanner — own gradient bg, NOT in color morph (no data-bg) */}
+        <div style={{ ...above, overflow: "hidden" }}>
+          <StatsBanner />
+        </div>
+
+        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
           <ConfiguratorPreview />
         </div>
-        <div data-section-color="#F5F2EE">
+
+        <div data-bg="#faf8f4" style={{ ...above, background: "#faf8f4" }}>
           <FeaturedModels />
         </div>
-        <div data-section-color="#EDE8E0">
+
+        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
           <ComingSoonSection />
         </div>
-        <div data-section-color={PREMIUM_GREEN}>
+
+        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
           <CtaSection />
         </div>
       </Layout>
