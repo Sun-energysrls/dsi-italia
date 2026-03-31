@@ -34,8 +34,6 @@ const ComingSoonSection = () => {
         padding: "100px 0",
       }}
     >
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#F97316]" />
-
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">

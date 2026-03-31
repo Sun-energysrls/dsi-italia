@@ -42,7 +42,7 @@ const SchedaProdotto = () => {
   return (
     <Layout>
       {/* HERO SEZIONE */}
-      <section style={{ background: "var(--dsi-green-gradient)" }}>
+      <section data-bg-color="#1b3a2d" style={{ background: "var(--dsi-green-gradient)" }}>
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -177,7 +177,7 @@ const SchedaProdotto = () => {
       </section>
 
       {/* CARATTERISTICHE PRINCIPALI */}
-      <section style={{ background: "#F5F2EE", padding: "80px 0" }}>
+      <section data-bg-color="#F5F2EE" style={{ background: "#F5F2EE", padding: "80px 0" }}>
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
@@ -218,7 +218,7 @@ const SchedaProdotto = () => {
       </section>
 
       {/* SPECIFICHE TECNICHE */}
-      <section style={{ background: "var(--dsi-green-gradient)", padding: "80px 0" }}>
+      <section data-bg-color="#1b3a2d" style={{ background: "var(--dsi-green-gradient)", padding: "80px 0" }}>
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
@@ -276,7 +276,7 @@ const SchedaProdotto = () => {
 
       {/* ACCESSORI */}
       {tractor.accessories && tractor.accessories.length > 0 && (
-        <section style={{ background: "#F5F2EE", padding: "80px 0" }}>
+        <section data-bg-color="#F5F2EE" style={{ background: "#F5F2EE", padding: "80px 0" }}>
           <div className="container mx-auto px-4 lg:px-8">
             <AnimatedSection>
               <div className="flex items-center gap-3 mb-8">
@@ -310,7 +310,7 @@ const SchedaProdotto = () => {
       )}
 
       {/* BOTTOM CTA */}
-      <section style={{ background: "var(--dsi-green-gradient)", padding: "60px 0" }}>
+      <section data-bg-color="#1b3a2d" style={{ background: "var(--dsi-green-gradient)", padding: "60px 0" }}>
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <div className="text-center">

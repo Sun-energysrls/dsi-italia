@@ -11,15 +11,11 @@ import ConfiguratorPreview from "@/components/sections/ConfiguratorPreview";
 import FeaturedModels from "@/components/sections/FeaturedModels";
 import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
-import { useScrollColorMorph } from "@/hooks/useScrollColorMorph";
-
-const above: React.CSSProperties = { position: "relative", zIndex: 2 };
 
 const Index = () => {
   const alreadyPlayed = sessionStorage.getItem("dsi-splash-played") === "1";
   const [showSplash, setShowSplash] = useState(!alreadyPlayed);
   const [splashDone, setSplashDone] = useState(alreadyPlayed);
-  const { isDark } = useScrollColorMorph();
 
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("dsi-splash-played", "1");
@@ -30,54 +26,68 @@ const Index = () => {
   return (
     <>
       {showSplash && <IntroSplash onComplete={handleSplashComplete} />}
-      <Layout navDark={isDark}>
-        {/* Hero — NO wrapper div. Direct child of <main> so sticky works. */}
+      <Layout>
+        {/* Hero — sticky, sits behind page-content */}
         <HeroSection videoReady={splashDone} />
 
-        {/* First section slides over the hero — SOLID bg required */}
+        {/* ── page-content wrapper ──
+            This div's background-color transitions via useScrollColorMorph.
+            ALL sections inside have background: transparent so the wrapper shows through.
+            Exception: StatsBanner keeps its own orange gradient. */}
         <div
-          data-bg="#faf8f4"
+          id="page-content"
           style={{
-            ...above,
-            background: "#faf8f4",
+            position: "relative",
+            zIndex: 2,
+            backgroundColor: "#faf8f4",
             borderRadius: "24px 24px 0 0",
             boxShadow: "0 -15px 50px rgba(0,0,0,0.2)",
           }}
         >
-          <ApproachSection />
-        </div>
+          {/* 2. DSI importa — light */}
+          <div data-bg-color="#faf8f4">
+            <ApproachSection />
+          </div>
 
-        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
-          <BrandPartnersSection />
-        </div>
+          {/* 3. Brand di Eccellenza — dark */}
+          <div data-bg-color="#1b3a2d">
+            <BrandPartnersSection />
+          </div>
 
-        <div data-bg="#faf8f4" style={{ ...above, background: "#faf8f4" }}>
-          <AdvantagesSection />
-        </div>
+          {/* 4. Perché scegliere DSI — light */}
+          <div data-bg-color="#faf8f4">
+            <AdvantagesSection />
+          </div>
 
-        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
-          <ProcessoSection />
-        </div>
+          {/* 5. Dal configuratore al tuo campo — dark */}
+          <div data-bg-color="#1b3a2d">
+            <ProcessoSection />
+          </div>
 
-        {/* StatsBanner — own gradient bg, NOT in color morph (no data-bg) */}
-        <div style={{ ...above, overflow: "hidden" }}>
-          <StatsBanner />
-        </div>
+          {/* 6. Banner arancione — keeps its own gradient, excluded from morph */}
+          <div style={{ overflow: "hidden" }}>
+            <StatsBanner />
+          </div>
 
-        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
-          <ConfiguratorPreview />
-        </div>
+          {/* 7. Configura il tuo trattore — dark */}
+          <div data-bg-color="#1b3a2d">
+            <ConfiguratorPreview />
+          </div>
 
-        <div data-bg="#faf8f4" style={{ ...above, background: "#faf8f4" }}>
-          <FeaturedModels />
-        </div>
+          {/* 8. Trattori potenti — light */}
+          <div data-bg-color="#faf8f4">
+            <FeaturedModels />
+          </div>
 
-        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
-          <ComingSoonSection />
-        </div>
+          {/* 9. In Arrivo — dark */}
+          <div data-bg-color="#1b3a2d">
+            <ComingSoonSection />
+          </div>
 
-        <div data-bg="#1b3a2d" style={{ ...above, background: "#1b3a2d" }}>
-          <CtaSection />
+          {/* 10. CTA finale — dark */}
+          <div data-bg-color="#1b3a2d">
+            <CtaSection />
+          </div>
         </div>
       </Layout>
     </>

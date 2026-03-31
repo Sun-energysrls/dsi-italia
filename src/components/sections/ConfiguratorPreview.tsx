@@ -9,7 +9,7 @@ const pills = ["16 Modelli", "7 Step guidati", "Preventivo Gratuito", "Consegna 
 const ConfiguratorPreview = () => {
   return (
     <section
-      className="relative pt-0 pb-24 lg:pb-32 overflow-hidden"
+      className="relative pt-20 pb-24 lg:pt-28 lg:pb-32 overflow-hidden"
       style={{ background: "transparent", color: "hsl(40,100%,97%)" }}
     >
       <div className="container mx-auto px-4 lg:px-8 relative z-[2]">

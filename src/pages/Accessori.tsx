@@ -55,6 +55,7 @@ const Accessori = () => {
     <Layout>
       {/* HERO */}
       <section
+        data-bg-color="#1b3a2d"
         className="relative overflow-hidden"
         style={{ background: "var(--dsi-green-gradient)", minHeight: 380 }}
       >
@@ -105,7 +106,7 @@ const Accessori = () => {
       </section>
 
       {/* CATEGORIES */}
-      <section style={{ background: "#F5F2EE", padding: "80px 0" }}>
+      <section data-bg-color="#F5F2EE" style={{ background: "#F5F2EE", padding: "80px 0" }}>
         <div className="container mx-auto px-4 lg:px-8">
           {accessoryCategories.map((cat, catIndex) => {
             const Icon = cat.icon;
@@ -202,7 +203,7 @@ const Accessori = () => {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--dsi-green-gradient)", padding: "80px 0" }}>
+      <section data-bg-color="#1b3a2d" style={{ background: "var(--dsi-green-gradient)", padding: "80px 0" }}>
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection>
             <Tractor className="h-10 w-10 mx-auto mb-4" style={{ color: "#F97316" }} />

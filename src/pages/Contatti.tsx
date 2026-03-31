@@ -23,7 +23,7 @@ const Contatti = () => {
 
   return (
     <Layout>
-      <section className="section-dark py-20 lg:py-24">
+      <section data-bg-color="#1b3a2d" className="section-dark py-20 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">Contattaci</h1>
@@ -32,7 +32,7 @@ const Contatti = () => {
         </div>
       </section>
 
-      <section className="py-20 lg:py-28 bg-background">
+      <section data-bg-color="#faf8f4" className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Form */}

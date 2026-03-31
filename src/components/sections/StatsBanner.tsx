@@ -16,7 +16,7 @@ const StatsBanner = () => {
         padding: "3rem 2rem",
         background: "linear-gradient(135deg, #c06a10 0%, #e8860c 40%, #d4781c 100%)",
         overflow: "hidden",
-        margin: "2rem 0",
+        margin: 0,
         borderRadius: 0,
       }}
     >

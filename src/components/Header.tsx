@@ -12,7 +12,7 @@ const navItems = [
   { label: "Contatti", path: "/contatti" },
 ];
 
-const Header = ({ navDark }: { navDark?: boolean }) => {
+const Header = ({ navDark, morphColor }: { navDark?: boolean; morphColor?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
@@ -32,22 +32,34 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
   }, []);
 
   const transparent = isHome && !scrolled && !isOpen;
-  // On non-home pages, always dark nav
-  const dark = isHome ? (navDark ?? true) : true;
+  // Use navDark from scroll morph on all pages
+  const dark = navDark ?? true;
 
+  // Use morphColor on all routes for smooth scroll-driven transitions
   const bgStyle = transparent
     ? { background: "transparent", borderBottom: "1px solid transparent" }
-    : dark
+    : morphColor
       ? {
-          background: "rgba(27,67,50,0.95)",
+          background: morphColor,
           backdropFilter: "blur(12px)",
-          boxShadow: "0 1px 0 rgba(255,255,255,0.08)",
+          boxShadow: dark
+            ? "0 1px 0 rgba(255,255,255,0.08)"
+            : "0 1px 0 rgba(0,0,0,0.06)",
         }
-      : {
-          background: "rgba(255,255,255,0.95)",
-          backdropFilter: "blur(12px)",
-          boxShadow: "0 1px 0 rgba(0,0,0,0.06)",
-        };
+      : dark
+        ? {
+            background: "rgba(27,67,50,0.95)",
+            backdropFilter: "blur(12px)",
+            boxShadow: "0 1px 0 rgba(255,255,255,0.08)",
+          }
+        : {
+            background: "rgba(255,255,255,0.95)",
+            backdropFilter: "blur(12px)",
+            boxShadow: "0 1px 0 rgba(0,0,0,0.06)",
+          };
+
+  // Transition timing matches body morph for synchronized feel
+  const headerTransition = "background-color 0.8s ease, box-shadow 0.8s ease, color 0.8s ease";
 
   const textColor = transparent || dark ? "text-white/80" : "text-foreground/70";
   const textActive = transparent || dark ? "text-secondary" : "text-secondary";
@@ -57,7 +69,7 @@ const Header = ({ navDark }: { navDark?: boolean }) => {
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ ...bgStyle, transition: "all 0.4s ease" }}
+      style={{ ...bgStyle, transition: headerTransition }}
     >
       {/* Scroll progress bar */}
       <div

@@ -1,95 +1,98 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-function hexToRgb(hex: string) {
+function luminance(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
-  return { r, g, b };
-}
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * Math.max(0, Math.min(1, t));
-}
-
-function lerpColor(colorA: string, colorB: string, t: number) {
-  const a = hexToRgb(colorA);
-  const bC = hexToRgb(colorB);
-  return `rgb(${Math.round(lerp(a.r, bC.r, t))},${Math.round(lerp(a.g, bC.g, t))},${Math.round(lerp(a.b, bC.b, t))})`;
-}
-
-function luminance(hex: string) {
-  const { r, g, b } = hexToRgb(hex);
   return 0.299 * r + 0.587 * g + 0.114 * b;
 }
 
+/**
+ * Scroll-driven color morph — targets #page-content wrapper.
+ *
+ * The wrapper's background-color transitions smoothly (0.8s ease).
+ * Sections inside declare data-bg-color but have background: transparent,
+ * so the wrapper's background shows through and morphs as user scrolls.
+ *
+ * Also exposes isDark + morphColor for the navbar (Header).
+ */
 export function useScrollColorMorph() {
   const [isDark, setIsDark] = useState(true);
-  const rafRef = useRef<number>(0);
-  const premiumGreen = "#1b3a2d";
+  const [morphColor, setMorphColor] = useState("#1b3a2d");
 
-  useEffect(() => {
-    const onScroll = () => {
-      const sections = document.querySelectorAll<HTMLElement>("[data-bg]");
-      if (!sections.length) return;
+  const applyColor = useCallback((color: string, wrapper: HTMLElement) => {
+    wrapper.style.backgroundColor = color;
+    setMorphColor(color);
 
-      const vh = window.innerHeight;
-      let currentColor = premiumGreen;
+    const dark = luminance(color) < 140;
+    setIsDark(dark);
 
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const rect = section.getBoundingClientRect();
-        const nextSection = sections[i + 1];
-        const color = section.dataset.bg!;
-
-        // If this section covers the middle of the viewport, use its color
-        if (rect.top <= vh * 0.5 && rect.bottom >= vh * 0.5) {
-          currentColor = color;
-        }
-
-        if (!nextSection) continue;
-
-        const nextColor = nextSection.dataset.bg!;
-        if (color === nextColor) continue;
-
-        // Blend zone: 30% viewport around the boundary
-        const boundary = rect.bottom;
-        const blendStart = boundary - vh * 0.15;
-        const blendEnd = boundary + vh * 0.15;
-
-        if (blendStart < vh && blendEnd > 0) {
-          // How far through the blend zone is the viewport center?
-          const viewCenter = vh * 0.5;
-          const t = (viewCenter - blendStart) / (blendEnd - blendStart);
-          if (t > 0 && t < 1) {
-            currentColor = "interpolated";
-            const blended = lerpColor(color, nextColor, t);
-            document.body.style.backgroundColor = blended;
-
-            // Determine darkness from interpolated color
-            const lum = lerp(luminance(color), luminance(nextColor), t);
-            setIsDark(lum < 140);
-            return;
-          }
-        }
-      }
-
-      // No interpolation — set solid color
-      document.body.style.backgroundColor = currentColor;
-      setIsDark(luminance(currentColor) < 140);
-    };
-
-    const tick = () => {
-      onScroll();
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      document.body.style.backgroundColor = "";
-    };
+    if (dark) {
+      wrapper.classList.add("section-dark");
+      wrapper.classList.remove("section-light");
+    } else {
+      wrapper.classList.add("section-light");
+      wrapper.classList.remove("section-dark");
+    }
   }, []);
 
-  return { isDark };
+  useEffect(() => {
+    const wrapper = document.getElementById("page-content");
+    if (!wrapper) return;
+
+    // Ensure CSS transition is set
+    wrapper.style.transition = "background-color 0.8s ease";
+
+    const setupObserver = () => {
+      const sections = wrapper.querySelectorAll<HTMLElement>("[data-bg-color]");
+      if (!sections.length) return null;
+
+      // Immediately apply the first section's color (prevents flash on load)
+      const firstColor = sections[0].dataset.bgColor!;
+      applyColor(firstColor, wrapper);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          let best: IntersectionObserverEntry | null = null;
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (!best || entry.intersectionRatio > best.intersectionRatio) {
+                best = entry;
+              }
+            }
+          });
+          if (best) {
+            const color = (best.target as HTMLElement).dataset.bgColor!;
+            applyColor(color, wrapper);
+          }
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "-10% 0px -10% 0px",
+        }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+      return observer;
+    };
+
+    // Initial setup
+    let observer = setupObserver();
+
+    // Re-observe when the DOM changes (route transitions)
+    const mutationObs = new MutationObserver(() => {
+      observer?.disconnect();
+      observer = setupObserver();
+    });
+
+    mutationObs.observe(wrapper, { childList: true, subtree: true });
+
+    return () => {
+      observer?.disconnect();
+      mutationObs.disconnect();
+      wrapper.style.transition = "";
+    };
+  }, [applyColor]);
+
+  return { isDark, morphColor };
 }

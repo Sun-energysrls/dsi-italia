@@ -257,3 +257,35 @@ html {
   transform: translateX(101%);
   transition: transform 0.8s cubic-bezier(0.77, 0, 0.18, 1) 0.35s;
 }
+
+/* ── Scroll-driven color morph wrapper ── */
+#page-content {
+  transition: background-color 0.8s ease;
+}
+
+/* ── Section theming classes (toggled by useScrollColorMorph) ── */
+.section-dark {
+  color: #fff;
+}
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark h4 {
+  color: #fff;
+}
+.section-dark p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.section-light {
+  color: hsl(150, 15%, 11%);
+}
+.section-light h1,
+.section-light h2,
+.section-light h3,
+.section-light h4 {
+  color: hsl(150, 15%, 11%);
+}
+.section-light p {
+  color: hsl(150, 8%, 42%);
+}
