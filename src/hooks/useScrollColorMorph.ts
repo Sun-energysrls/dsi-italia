@@ -53,22 +53,16 @@ export function useScrollColorMorph() {
 
       const observer = new IntersectionObserver(
         (entries) => {
-          let best: IntersectionObserverEntry | null = null;
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              if (!best || entry.intersectionRatio > best.intersectionRatio) {
-                best = entry;
-              }
+              const color = (entry.target as HTMLElement).dataset.bgColor!;
+              applyColor(color, wrapper);
             }
           });
-          if (best) {
-            const color = (best.target as HTMLElement).dataset.bgColor!;
-            applyColor(color, wrapper);
-          }
         },
         {
-          threshold: 0.3,
-          rootMargin: "-10% 0px -10% 0px",
+          threshold: 0,
+          rootMargin: "-45% 0px -45% 0px",
         }
       );
 
