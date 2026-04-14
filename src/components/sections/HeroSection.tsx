@@ -39,7 +39,7 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center scale-[1.10] origin-center lg:scale-100"
       />
 
       {/* Dark cinematic overlay */}
@@ -50,9 +50,6 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
             "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.55) 100%)",
         }}
       />
-      
-      {/* Watermark hider overlay (Bottom Right) */}
-      <div className="absolute bottom-0 right-0 w-32 h-24 bg-gradient-to-tl from-black/90 via-black/50 to-transparent z-[2]" />
 
       {/* Content */}
       <div className="relative container mx-auto px-4 lg:px-8 text-center py-28 z-[3]">
@@ -140,7 +137,7 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors z-[3]"
         style={{ animation: "dsiHeroLine 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both" }}
       >
-        <span className="text-xs uppercase tracking-widest font-medium">
+        <span className="text-xs uppercase tracking-[0.2em] pl-[0.2em] font-medium">
           Scorri
         </span>
         <ArrowDown className="h-5 w-5 dsi-scroll-pulse" />
