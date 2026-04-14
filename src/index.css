@@ -240,6 +240,47 @@ html {
   animation: dsiScrollPulse 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
+/* ── Accessori Marquee ── */
+.dsi-marquee-container {
+  display: flex;
+  width: max-content;
+}
+
+.dsi-marquee-text {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 2.25rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #e8860c;
+  letter-spacing: 0.05em;
+  will-change: transform;
+  animation: marquee_scroll 20s linear infinite;
+}
+
+@keyframes marquee_scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.acc-card {
+  transition: all 0.3s ease;
+  border-left: 2px solid transparent;
+}
+
+.acc-card:hover {
+  transform: translateY(-6px);
+  border-left-color: #e8860c;
+  background: rgba(0,0,0,0.04);
+}
+
+.dark-section .acc-card:hover, .section-dark .acc-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.acc-card:hover .acc-card-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
 /* ── Image reveal overlay ── */
 .dsi-img-reveal {
   position: relative;

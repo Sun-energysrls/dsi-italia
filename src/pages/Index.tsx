@@ -9,6 +9,7 @@ import BrandPartnersSection from "@/components/sections/BrandPartnersSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ConfiguratorPreview from "@/components/sections/ConfiguratorPreview";
 import FeaturedModels from "@/components/sections/FeaturedModels";
+import AccessoriPreviewSection from "@/components/sections/AccessoriPreviewSection";
 import ComingSoonSection from "@/components/sections/ComingSoonSection";
 import CtaSection from "@/components/sections/CtaSection";
 
@@ -77,6 +78,11 @@ const Index = () => {
           {/* 8. Trattori potenti — light */}
           <div data-bg-color="#faf8f4">
             <FeaturedModels />
+          </div>
+
+          {/* 8.5 Accessori — dark */}
+          <div data-bg-color="#1b3a2d">
+            <AccessoriPreviewSection />
           </div>
 
           {/* 9. In Arrivo — dark */}

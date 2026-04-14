@@ -83,7 +83,7 @@ const Accessori = () => {
               Accessori & Attrezzature
             </h1>
             <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem", maxWidth: 600 }}>
-              Una gamma completa di soluzioni per massimizzare la produttività della tua azienda agricola.
+              Siamo in fase di allestimento per fornirti la migliore gamma di accessori disponibili. Le seguenti categorie mostrano cosa potremo procurarti: contatta il Team DSI per scoprire le disponibilità tramite una richiesta specifica.
             </p>
 
             {/* Stats row */}
@@ -186,10 +186,10 @@ const Accessori = () => {
                           </div>
                           <Link
                             to="/contatti"
-                            className="shrink-0 self-center"
+                            className="shrink-0 self-center hover:text-white transition-colors duration-200"
                             style={{ color: "#F97316", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}
                           >
-                            Info
+                            Richiedi
                           </Link>
                         </div>
                       </AnimatedSection>

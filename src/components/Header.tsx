@@ -9,6 +9,7 @@ const navItems = [
   { label: "Trattori", path: "/trattori" },
   { label: "Accessori", path: "/accessori" },
   { label: "Configuratore", path: "/configuratore" },
+  { label: "Assistenza", path: "/assistenza" },
   { label: "Contatti", path: "/contatti" },
 ];
 

@@ -7,8 +7,7 @@ import { brands as brandData } from "@/data/brands";
 import { toast } from "sonner";
 import { getTractorImage } from "@/data/tractor-images";
 
-const stepLabels = ["Brand", "Modello", "Motore", "Cambio", "Colore", "Accessori", "Riepilogo"];
-const transmissionAllOptions = ["Manuale", "Automatico", "CVT"];
+const stepLabels = ["Brand", "Modello", "Cambio", "Colore", "Accessori", "Riepilogo"];
 
 const Configuratore = () => {
   const [searchParams] = useSearchParams();
@@ -26,10 +25,10 @@ const Configuratore = () => {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [selectedBrand, setSelectedBrand] = useState(initialBrand);
   const [model, setModel] = useState(initialModel);
-  const [power, setPower] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [transmission, setTransmission] = useState("");
   const [color, setColor] = useState("");
-  const [accessories, setAccessories] = useState<string[]>([]);
+  const [accessories, setAccessories] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -40,28 +39,23 @@ const Configuratore = () => {
   const selectedTractor = tractors.find((t) => t.id === model);
   const brandTractors = tractors.filter((t) => t.brand === selectedBrand);
   const accessoryOptions = selectedTractor?.accessories ?? [];
-  const powerOptions = selectedTractor
-    ? [selectedTractor.hp - 10, selectedTractor.hp, selectedTractor.hp + 10].filter((v) => v > 0)
-    : [];
+  const transmissionOptions = selectedTractor?.transmissionOptions ?? [];
 
   const handleBrandSelect = (brand: string) => {
     setSelectedBrand(brand);
-    setModel(""); setPower(""); setTransmission(""); setColor(""); setAccessories([]);
+    setModel(""); setTransmission(""); setColor(""); setAccessories(""); setSelectedCategory("");
   };
   const handleModelSelect = (id: string) => {
-    setModel(id); setPower(""); setTransmission(""); setColor(""); setAccessories([]);
+    setModel(id); setTransmission(""); setColor(""); setAccessories("");
   };
-  const toggleAccessory = (acc: string) => {
-    setAccessories((prev) => prev.includes(acc) ? prev.filter((a) => a !== acc) : [...prev, acc]);
-  };
+  // toggleAccessory removed
   const canGoNext = () => {
     if (step === 0) return !!selectedBrand;
     if (step === 1) return !!model;
-    if (step === 2) return !!power;
-    if (step === 3) return !!transmission;
-    if (step === 4) return !!color;
-    if (step === 5) return true;
-    if (step === 6) return !!name && !!email && !!phone;
+    if (step === 2) return !!transmission;
+    if (step === 3) return !!color;
+    if (step === 4) return true;
+    if (step === 5) return !!name && !!email && !!phone;
     return false;
   };
   const goNext = () => {
@@ -101,7 +95,7 @@ const Configuratore = () => {
     );
   }
 
-  const progressWidth = ((step + 1) / 7) * 100;
+  const progressWidth = ((step + 1) / 6) * 100;
 
   return (
     <Layout>
@@ -177,8 +171,20 @@ const Configuratore = () => {
             </div>
           </div>
 
+          {/* Mobile Preview Tractors */}
+          <div className="lg:hidden flex items-center justify-between px-6 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(0,0,0,0.15)] shadow-inner">
+            <span style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>In Configurazione</span>
+            {selectedTractor ? (
+              <div className="flex bg-[#F97316] text-white px-2 py-1 rounded text-[0.7rem] font-bold items-center gap-2 drop-shadow">
+                {selectedTractor.name} {color ? `(Color: ${color})` : ""}
+              </div>
+            ) : (
+              <span className="text-[0.7rem] text-white/40 italic">Nessun modello</span>
+            )}
+          </div>
+
           {/* Step content - scrollable */}
-          <div className="flex-1 overflow-y-auto px-6 lg:px-10 pb-4">
+          <div className="flex-1 overflow-y-auto px-6 lg:px-10 pb-4 pt-4" data-lenis-prevent="true">
             <div
               key={animKey}
               style={{
@@ -187,7 +193,7 @@ const Configuratore = () => {
             >
               {/* Step title */}
               <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 8 }}>
-                PASSO {step + 1} DI 7
+                PASSO {step + 1} DI 6
               </p>
 
               {step === 0 && (
@@ -245,16 +251,50 @@ const Configuratore = () => {
                   <h2 className="font-display font-black text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
                     Seleziona il Modello
                   </h2>
-                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 16 }}>
-                    {brandTractors.length} modelli Tavol disponibili
+                  
+                  {/* Category Filter Buttons */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <button
+                        onClick={() => setSelectedCategory("")}
+                        className="px-3 py-1.5 md:px-4 md:py-2 rounded text-[0.7rem] md:text-[0.8rem] transition-colors whitespace-nowrap flex-grow-0"
+                        style={{
+                            background: selectedCategory === "" ? "#F97316" : "rgba(255,255,255,0.06)",
+                            color: selectedCategory === "" ? "white" : "rgba(255,255,255,0.6)",
+                            border: selectedCategory === "" ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
+                            fontWeight: selectedCategory === "" ? 700 : 500
+                        }}
+                    >
+                        Tutti
+                    </button>
+                    {Array.from(new Set(brandTractors.map(t => t.category))).map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => setSelectedCategory(cat)}
+                            className="px-3 py-1.5 md:px-4 md:py-2 rounded text-[0.7rem] md:text-[0.8rem] transition-colors whitespace-nowrap flex-grow-0"
+                            style={{
+                                background: selectedCategory === cat ? "#F97316" : "rgba(255,255,255,0.06)",
+                                color: selectedCategory === cat ? "white" : "rgba(255,255,255,0.6)",
+                                border: selectedCategory === cat ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.12)",
+                                fontWeight: selectedCategory === cat ? 700 : 500
+                            }}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                  </div>
+
+                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginBottom: 12 }}>
+                    {brandTractors.filter(t => selectedCategory === "" || t.category === selectedCategory).length} modelli disponibili
                   </p>
-                  {/* Vertical scroll container */}
+
+                  {/* Vertical scroll container with fixed height simulating a dropdown/list */}
                   <div
-                    className="overflow-y-auto pr-1"
-                    style={{ maxHeight: "calc(100vh - 360px)", scrollbarWidth: "thin", scrollbarColor: "rgba(249,115,22,0.4) transparent" }}
+                    className="overflow-y-auto pr-2"
+                    data-lenis-prevent="true"
+                    style={{ maxHeight: "40vh", minHeight: "250px", scrollbarWidth: "thin", scrollbarColor: "rgba(249,115,22,0.4) transparent" }}
                   >
                     <div className="flex flex-col gap-3">
-                      {brandTractors.map((t) => (
+                      {brandTractors.filter(t => selectedCategory === "" || t.category === selectedCategory).map((t) => (
                         <button
                           key={t.id}
                           onClick={() => handleModelSelect(t.id)}
@@ -308,38 +348,10 @@ const Configuratore = () => {
               {step === 2 && (
                 <div>
                   <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
-                    Seleziona la Potenza
-                  </h2>
-                  <div className="flex flex-wrap gap-3">
-                    {powerOptions.map((hp) => (
-                      <button
-                        key={hp}
-                        onClick={() => setPower(String(hp))}
-                        className="transition-all duration-200"
-                        style={{
-                          border: power === String(hp) ? "1px solid #F97316" : "1px solid rgba(255,255,255,0.2)",
-                          background: power === String(hp) ? "#F97316" : "transparent",
-                          color: power === String(hp) ? "white" : "rgba(255,255,255,0.7)",
-                          borderRadius: 4,
-                          padding: "10px 20px",
-                          fontWeight: 700,
-                          fontSize: "1rem",
-                        }}
-                      >
-                        {hp} HP
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Tipo di Cambio
                   </h2>
                   <div className="flex flex-wrap gap-3">
-                    {transmissionAllOptions.map((t) => (
+                    {transmissionOptions.map((t) => (
                       <button
                         key={t}
                         onClick={() => setTransmission(t)}
@@ -361,7 +373,7 @@ const Configuratore = () => {
                 </div>
               )}
 
-              {step === 4 && (
+              {step === 3 && (
                 <div>
                   <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Scegli il Colore
@@ -379,7 +391,7 @@ const Configuratore = () => {
                             width: 40,
                             height: 40,
                             borderRadius: "50%",
-                            backgroundColor: c.value,
+                            background: c.value,
                             display: "block",
                             border: color === c.name ? "2px solid #F97316" : "2px solid transparent",
                             boxShadow: color === c.name ? "0 0 0 3px rgba(249,115,22,0.3)" : "none",
@@ -395,47 +407,43 @@ const Configuratore = () => {
                 </div>
               )}
 
-              {step === 5 && (
+              {step === 4 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
-                    Accessori Opzionali
+                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
+                    Richiedi Accessori
                   </h2>
-                  <div>
-                    {accessoryOptions.map((acc) => (
-                      <button
-                        key={acc}
-                        onClick={() => toggleAccessory(acc)}
-                        className="w-full flex items-center gap-3 transition-all duration-200"
-                        style={{
-                          padding: "14px 0",
-                          borderBottom: "1px solid rgba(255,255,255,0.08)",
-                        }}
-                      >
-                        <span
-                          className="shrink-0 flex items-center justify-center"
-                          style={{
-                            width: 20,
-                            height: 20,
-                            borderRadius: 3,
-                            border: accessories.includes(acc) ? "none" : "1.5px solid rgba(255,255,255,0.3)",
-                            background: accessories.includes(acc) ? "#F97316" : "transparent",
-                          }}
-                        >
-                          {accessories.includes(acc) && <Check className="h-3 w-3 text-white" />}
-                        </span>
-                        <span className="text-white text-left" style={{ fontSize: "0.9rem" }}>{acc}</span>
-                      </button>
-                    ))}
-                    {accessoryOptions.length === 0 && (
-                      <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem" }}>
-                        Nessun accessorio disponibile per questo modello.
-                      </p>
-                    )}
-                  </div>
+                  <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.85rem", marginBottom: 16 }}>
+                    Al momento non abbiamo gli accessori in pronta consegna. Usa questo spazio per inviare una richiesta specifica al Team DSI e ti proporremo le migliori soluzioni per {selectedTractor?.name || "il tuo modello"}.
+                  </p>
+                  <textarea
+                    value={accessories}
+                    onChange={(e) => setAccessories(e.target.value)}
+                    rows={6}
+                    placeholder="Esempio: Vorrei installare un caricatore frontale e avere un preventivo per un rimorchio ribaltabile..."
+                    className="w-full resize-none"
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(255,255,255,0.15)",
+                      borderRadius: 6,
+                      color: "white",
+                      padding: "16px",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.5",
+                      outline: "none",
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "#F97316";
+                      e.currentTarget.style.boxShadow = "0 0 0 3px rgba(249,115,22,0.15)";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  />
                 </div>
               )}
 
-              {step === 6 && (
+              {step === 5 && (
                 <div>
                   <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Riepilogo e Contatto
@@ -452,10 +460,10 @@ const Configuratore = () => {
                     {[
                       { label: "Brand", value: selectedBrand },
                       { label: "Modello", value: selectedTractor?.name },
-                      { label: "Potenza", value: `${power} HP` },
+                      { label: "Potenza", value: `${selectedTractor?.hp} HP` },
                       { label: "Cambio", value: transmission },
                       { label: "Colore", value: color },
-                      { label: "Accessori", value: accessories.length > 0 ? accessories.join(", ") : "Nessuno" },
+                      { label: "Accessori", value: accessories.trim() !== "" ? "Richiesti (vedi note)" : "Nessuno" },
                     ].map((item) => (
                       <div
                         key={item.label}
@@ -559,7 +567,7 @@ const Configuratore = () => {
               <div />
             )}
 
-            {step < 6 ? (
+            {step < 5 ? (
               <button
                 onClick={goNext}
                 disabled={!canGoNext()}
@@ -642,7 +650,7 @@ const Configuratore = () => {
                         height: 20,
                         borderRadius: "50%",
                         border: "2px solid #F97316",
-                        backgroundColor: globalColorOptions.find((c) => c.name === color)?.value,
+                        background: globalColorOptions.find((c) => c.name === color)?.value,
                         display: "inline-block",
                       }}
                     />
@@ -653,9 +661,9 @@ const Configuratore = () => {
 
               <div className="grid grid-cols-3 gap-4 mt-10">
                 {[
-                  { label: "Potenza", value: power ? `${power} HP` : `${selectedTractor.hp} HP` },
+                  { label: "Potenza", value: `${selectedTractor.hp} HP` },
                   { label: "Brand", value: selectedBrand || selectedTractor.brand },
-                  { label: "Accessori", value: accessories.length > 0 ? `${accessories.length} sel.` : "—" },
+                  { label: "Accessori", value: accessories.trim() !== "" ? "Richiesti" : "—" },
                 ].map((s) => (
                   <div
                     key={s.label}
@@ -695,7 +703,7 @@ const Configuratore = () => {
               <div style={{ width: `${progressWidth}%`, height: "100%", background: "#F97316", transition: "width 0.4s ease" }} />
             </div>
             <span style={{ color: "#999", fontSize: "0.65rem" }}>
-              Step {step + 1} di 7
+              Step {step + 1} di 6
             </span>
           </div>
         </div>
@@ -717,7 +725,8 @@ const Configuratore = () => {
         input::placeholder, textarea::placeholder {
           color: rgba(255,255,255,0.35) !important;
         }
-      `}</style>
+      `}
+      </style>
     </Layout>
   );
 };

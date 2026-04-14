@@ -10,7 +10,10 @@ import SchedaProdotto from "./pages/SchedaProdotto";
 import Configuratore from "./pages/Configuratore";
 import Accessori from "./pages/Accessori";
 import Contatti from "./pages/Contatti";
+import Assistenza from "./pages/Assistenza";
 import NotFound from "./pages/NotFound";
+
+import Lenis from "lenis";
 
 const queryClient = new QueryClient();
 
@@ -20,11 +23,30 @@ function ScrollToTop() {
   return null;
 }
 
+function SmoothScroll() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+  return null;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <SmoothScroll />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
@@ -33,6 +55,7 @@ const App = () => (
           <Route path="/trattori/:id" element={<SchedaProdotto />} />
           <Route path="/configuratore" element={<Configuratore />} />
           <Route path="/accessori" element={<Accessori />} />
+          <Route path="/assistenza" element={<Assistenza />} />
           <Route path="/contatti" element={<Contatti />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

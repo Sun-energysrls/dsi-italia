@@ -33,12 +33,11 @@ export interface Tractor {
 }
 
 export const globalColorOptions: ColorOption[] = [
-  { name: "Verde DSI", value: "hsl(156, 32%, 17%)" },
-  { name: "Nero Industrial", value: "hsl(0, 0%, 11%)" },
-  { name: "Rosso Agricolo", value: "hsl(0, 70%, 45%)" },
-  { name: "Grigio Titanio", value: "hsl(0, 0%, 40%)" },
-  { name: "Blu Tecnico", value: "hsl(210, 60%, 35%)" },
-  { name: "Bianco Premium", value: "hsl(0, 0%, 95%)" },
+  { name: "Bianco Perla", value: "#F5F5F0" },
+  { name: "Rosso/Nero", value: "linear-gradient(135deg, #C41E3A 50%, #1a1a1a 50%)" },
+  { name: "Nero Lucido", value: "#1a1a1a" },
+  { name: "Nero Opaco/Grigio", value: "linear-gradient(135deg, #2d2d2d 50%, #6b6b6b 50%)" },
+  { name: "Verde", value: "#2d5a3d" },
 ];
 
 export const brands = ["Tavol"] as const;

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import processStep1 from "@/assets/process-step1.jpg";
-import processStep2 from "@/assets/process-step2.jpg";
-import processStep3 from "@/assets/process-step3.jpg";
-import processStep4 from "@/assets/process-step4.jpg";
+import processStep1 from "@/assets/process-step1-new.png";
+import processStep2 from "@/assets/process-step2-new.png";
+import processStep3 from "@/assets/process-step3-new.png";
+import processStep4 from "@/assets/process-step4-new.png";
 
 const steps = [
   {
