@@ -172,14 +172,20 @@ const Configuratore = () => {
           </div>
 
           {/* Mobile Preview Tractors */}
-          <div className="lg:hidden flex items-center justify-between px-6 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(0,0,0,0.15)] shadow-inner">
-            <span style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>In Configurazione</span>
+          <div className="lg:hidden flex flex-col items-center px-6 py-4 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(0,0,0,0.2)] shadow-inner">
+            <span style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: 8 }}>In Configurazione</span>
             {selectedTractor ? (
-              <div className="flex bg-[#F97316] text-white px-2 py-1 rounded text-[0.7rem] font-bold items-center gap-2 drop-shadow">
-                {selectedTractor.name} {color ? `(Color: ${color})` : ""}
+              <div className="flex flex-col items-center">
+                <img key={selectedTractor.id} src={getTractorImage(selectedTractor.id)} alt={selectedTractor.name} className="h-28 object-contain drop-shadow-2xl mb-3" style={{ animation: "fadeSlideIn 0.4s ease forwards" }} />
+                <div className="flex bg-[#F97316] text-white px-3 py-1.5 rounded text-[0.75rem] font-bold items-center gap-2 drop-shadow">
+                  {selectedTractor.name} {color ? `(Color: ${color})` : ""}
+                </div>
               </div>
             ) : (
-              <span className="text-[0.7rem] text-white/40 italic">Nessun modello</span>
+              <div className="flex flex-col items-center py-2">
+                <TractorIcon className="h-10 w-10 text-white/20 mb-2" />
+                <span className="text-[0.7rem] text-white/40 italic">Nessun modello</span>
+              </div>
             )}
           </div>
 
