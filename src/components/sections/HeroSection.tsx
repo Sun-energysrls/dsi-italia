@@ -1,18 +1,27 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const HERO_LINES = ["IMPORTAZIONE", "DIRETTA DI MACCHINE", "AGRICOLE"];
 
 const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (videoReady && videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
-  }, [videoReady]);
+  }, [videoReady, isMobile]);
+
+  const videoSrc = isMobile ? "/hero-video-mobile.mp4" : "/hero-video.mp4";
 
   const scrollToContent = () => {
     window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
@@ -24,14 +33,14 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
       style={{ position: "sticky", top: 0, zIndex: 1, height: "100vh" }}
     >
       <video
+        key={videoSrc}
         ref={videoRef}
+        src={videoSrc}
         muted
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover object-center"
-      >
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Dark cinematic overlay */}
       <div
