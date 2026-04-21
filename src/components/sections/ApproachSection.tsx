@@ -198,9 +198,10 @@ const ApproachSection = () => {
             </AnimatedSection>
           </div>
 
-          {/* RIGHT — stacked images + manifesto card */}
-          <AnimatedSection from="right" distance={40} duration={1} delay={0.2}>
-            <div className="relative hidden lg:block" style={{ minHeight: 1150 }}>
+          {/* RIGHT — stacked images + manifesto card (Desktop) */}
+          <div className="hidden lg:block">
+            <AnimatedSection from="right" distance={40} duration={1} delay={0.2}>
+              <div className="relative" style={{ minHeight: 1150 }}>
               {/* Main tractor image card */}
               <div
                 style={{
@@ -385,19 +386,24 @@ const ApproachSection = () => {
               </div>
             </div>
 
-            {/* Mobile Layout stack */}
-            <div className="lg:hidden flex flex-col gap-6 mt-16 pb-8">
+              </div>
+            </AnimatedSection>
+          </div>
+
+          {/* MOBILE LAYOUT STACK */}
+          <div className="lg:hidden flex flex-col gap-6 mt-8 w-full max-w-[100vw] overflow-hidden">
+            <AnimatedSection from="up" distance={20} duration={0.8}>
               {/* Mobile tractor image card */}
               <div
                 style={{
                   width: '100%',
-                  borderRadius: 12,
+                  borderRadius: 16,
                   boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)',
                   background: 'linear-gradient(145deg, #ffffff 0%, #f7f7f7 100%)',
                   border: '1px solid rgba(0,0,0,0.02)',
                   overflow: 'hidden',
                   position: 'relative',
-                  paddingBottom: '75%', // 4:3 aspect ratio
+                  aspectRatio: '4/3', // using proper aspect ratio property
                 }}
               >
                 <img
@@ -406,42 +412,45 @@ const ApproachSection = () => {
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
+            </AnimatedSection>
 
+            <AnimatedSection from="up" distance={20} duration={0.8} delay={0.1}>
               {/* Mobile manifesto card */}
               <div
                 style={{
                   background: PX.forestDeep,
                   color: '#fff',
-                  padding: '36px 28px 32px',
+                  padding: '32px 24px',
                   borderRadius: 12,
                   position: 'relative',
                   boxShadow: '0 20px 40px -10px rgba(15,42,31,0.5)',
+                  overflow: 'hidden', // prevent absolute quotes from breaking width
                 }}
               >
                 <span
                   aria-hidden="true"
                   className="font-display"
                   style={{
-                    fontSize: 80,
+                    fontSize: 70,
                     lineHeight: 0.6,
                     color: PX.copper,
                     position: 'absolute',
                     top: 14,
                     left: 18,
-                    opacity: 0.8,
+                    opacity: 0.6,
                   }}
                 >
                   "
                 </span>
                 <p
-                  className="font-display"
+                  className="font-display relative z-10"
                   style={{
                     fontStyle: 'italic',
                     fontWeight: 400,
                     fontSize: 18,
                     lineHeight: 1.4,
                     color: '#fff',
-                    margin: '16px 0 24px',
+                    margin: '12px 0 24px',
                   }}
                 >
                   Non vendiamo un mezzo. Scegliamo un compagno di lavoro per la tua terra, lo costruiamo e lo portiamo a destinazione.
@@ -461,6 +470,7 @@ const ApproachSection = () => {
                       fontWeight: 700,
                       color: '#fff',
                       fontSize: 16,
+                      flexShrink: 0,
                     }}
                   >
                     D
@@ -473,12 +483,14 @@ const ApproachSection = () => {
                   </div>
                 </div>
               </div>
+            </AnimatedSection>
 
+            <AnimatedSection from="up" distance={20} duration={0.8} delay={0.2}>
               {/* Mobile Innovation card */}
               <div
                 style={{
                   width: '100%',
-                  padding: '48px 24px',
+                  padding: '40px 20px',
                   background: 'linear-gradient(135deg, #e8860c 0%, #d4781c 100%)',
                   backgroundImage: 'radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(135deg, #e8860c 0%, #d4781c 100%)',
                   backgroundSize: '12px 12px, 100% 100%',
@@ -490,19 +502,19 @@ const ApproachSection = () => {
                   textAlign: 'center',
                 }}
               >
-                <div className="font-display" style={{ fontSize: '4.5rem', color: '#ffffff', lineHeight: 1, textShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                <div className="font-display" style={{ fontSize: 'clamp(3rem, 12vw, 4.5rem)', color: '#ffffff', lineHeight: 1, textShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
                   载新
                 </div>
                 <div style={{ width: 48, height: 1, background: 'rgba(255,255,255,0.4)', margin: '1.25rem 0 1rem' }} />
-                <p className="font-body" style={{ color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.25em', fontSize: '0.65rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                <p className="font-body" style={{ color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.25em', fontSize: '10px', fontWeight: 600, marginBottom: '0.5rem' }}>
                   PORTARE L'INNOVAZIONE
                 </p>
                 <p className="font-body" style={{ color: '#ffffff', opacity: 0.9, fontSize: '0.85rem', lineHeight: 1.6, margin: 0 }}>
                   Import diretto dalla Cina — tecnologia avanzata per l'agricoltura italiana.
                 </p>
               </div>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
         </div>
 
       </div>
