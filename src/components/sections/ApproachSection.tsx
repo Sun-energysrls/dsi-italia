@@ -94,7 +94,7 @@ const ApproachSection = () => {
               >
                 Importiamo <br className="hidden md:block" />
                 <em style={{ fontStyle: 'italic', color: PX.copper, fontWeight: 400 }}>direttamente</em>.<br />
-                Configuriamo.<br className="hidden md:block" />
+                Configuriamo. <br className="hidden md:block" />
                 Consegniamo.
               </h2>
             </AnimatedSection>

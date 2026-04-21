@@ -266,7 +266,7 @@ const AdvantagesSection = () => {
                     {/* KPI strip, revealed when open */}
                     <div
                       style={{
-                        maxHeight: open ? 140 : 0,
+                        maxHeight: open ? 500 : 0,
                         overflow: 'hidden',
                         transition: 'max-height .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease .1s, margin-top .3s ease',
                         opacity: open ? 1 : 0,
@@ -274,7 +274,7 @@ const AdvantagesSection = () => {
                       }}
                     >
                       <div
-                        className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
+                        className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start pb-6"
                         style={{ paddingTop: 24, borderTop: `1px solid ${PX.line}` }}
                       >
                         {it.kpi.map(k => (
