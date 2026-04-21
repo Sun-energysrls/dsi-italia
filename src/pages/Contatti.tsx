@@ -26,7 +26,7 @@ const Contatti = () => {
       <section data-bg-color="#1b3a2d" className="section-dark py-20 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight">Contattaci</h1>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-normal mb-4 uppercase tracking-tight">Contattaci</h1>
             <p className="text-[hsl(120,10%,55%)] text-lg">Siamo a disposizione per qualsiasi richiesta</p>
           </AnimatedSection>
         </div>
@@ -38,7 +38,7 @@ const Contatti = () => {
             {/* Form */}
             <AnimatedSection>
               <div className="bg-card border border-border p-6 lg:p-8 shadow-card">
-                <h2 className="font-display text-2xl font-black text-foreground mb-6 uppercase tracking-tight">Scrivici</h2>
+                <h2 className="font-display text-2xl font-normal text-foreground mb-6 uppercase tracking-tight">Scrivici</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-bold text-foreground mb-1 uppercase tracking-wide">Nome e Cognome *</label>
@@ -62,7 +62,7 @@ const Contatti = () => {
                       Acconsento al trattamento dei dati personali ai sensi del GDPR. *
                     </span>
                   </label>
-                  <button type="submit" className="w-full gradient-accent text-accent-foreground py-4 font-black uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated">
+                  <button type="submit" className="w-full gradient-accent text-accent-foreground py-4 font-normal uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated">
                     <Send className="h-4 w-4" /> Invia Messaggio
                   </button>
                 </form>
@@ -73,7 +73,7 @@ const Contatti = () => {
             <AnimatedSection delay={0.15}>
               <div className="space-y-8">
                 <div className="bg-card border border-border p-6 shadow-card space-y-6">
-                  <h2 className="font-display text-2xl font-black text-foreground uppercase tracking-tight">Informazioni</h2>
+                  <h2 className="font-display text-2xl font-normal text-foreground uppercase tracking-tight">Informazioni</h2>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
                       <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />

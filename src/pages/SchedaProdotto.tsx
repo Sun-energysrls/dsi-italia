@@ -109,7 +109,7 @@ const SchedaProdotto = () => {
                 </span>
 
                 <h1
-                  className="font-display font-black uppercase tracking-tight mb-4 text-white"
+                  className="font-display font-normal uppercase tracking-tight mb-4 text-white"
                   style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.1 }}
                 >
                   {tractor.name}
@@ -182,7 +182,7 @@ const SchedaProdotto = () => {
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
               <div style={{ width: 4, height: 28, backgroundColor: "#F97316", borderRadius: 2 }} />
-              <h2 className="font-display font-black uppercase tracking-tight" style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>
+              <h2 className="font-display font-normal uppercase tracking-tight" style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>
                 Caratteristiche Principali
               </h2>
             </div>
@@ -223,7 +223,7 @@ const SchedaProdotto = () => {
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
               <div style={{ width: 4, height: 28, backgroundColor: "#F97316", borderRadius: 2 }} />
-              <h2 className="font-display font-black uppercase tracking-tight text-white" style={{ fontSize: "1.5rem" }}>
+              <h2 className="font-display font-normal uppercase tracking-tight text-white" style={{ fontSize: "1.5rem" }}>
                 Specifiche Tecniche
               </h2>
             </div>
@@ -281,7 +281,7 @@ const SchedaProdotto = () => {
             <AnimatedSection>
               <div className="flex items-center gap-3 mb-8">
                 <div style={{ width: 4, height: 28, backgroundColor: "#F97316", borderRadius: 2 }} />
-                <h2 className="font-display font-black uppercase tracking-tight" style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>
+                <h2 className="font-display font-normal uppercase tracking-tight" style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>
                   Accessori Compatibili
                 </h2>
               </div>
@@ -321,7 +321,7 @@ const SchedaProdotto = () => {
                 Interessato a questo modello?
               </p>
               <h2
-                className="font-display font-black text-white uppercase tracking-tight mb-6"
+                className="font-display font-normal text-white uppercase tracking-tight mb-6"
                 style={{ fontSize: "1.8rem" }}
               >
                 Configura il tuo {tractor.name}

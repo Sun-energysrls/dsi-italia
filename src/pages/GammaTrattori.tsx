@@ -73,7 +73,7 @@ const GammaTrattori = () => {
                   Catalogo completo
                 </span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal text-white mb-4 uppercase tracking-tight">
                 Gamma Trattori DSI
               </h1>
               <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem" }}>

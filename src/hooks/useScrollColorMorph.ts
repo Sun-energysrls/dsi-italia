@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 
 function luminance(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -19,6 +20,7 @@ function luminance(hex: string) {
 export function useScrollColorMorph() {
   const [isDark, setIsDark] = useState(true);
   const [morphColor, setMorphColor] = useState("#1b3a2d");
+  const location = useLocation();
 
   const applyColor = useCallback((color: string, wrapper: HTMLElement) => {
     wrapper.style.backgroundColor = color;
@@ -70,23 +72,14 @@ export function useScrollColorMorph() {
       return observer;
     };
 
-    // Initial setup
-    let observer = setupObserver();
-
-    // Re-observe when the DOM changes (route transitions)
-    const mutationObs = new MutationObserver(() => {
-      observer?.disconnect();
-      observer = setupObserver();
-    });
-
-    mutationObs.observe(wrapper, { childList: true, subtree: true });
+    // Re-run setupObserver only when route changes (tracked by location.pathname in dependency array)
+    const observer = setupObserver();
 
     return () => {
-      observer?.disconnect();
-      mutationObs.disconnect();
+      if (observer) observer.disconnect();
       wrapper.style.transition = "";
     };
-  }, [applyColor]);
+  }, [applyColor, location.pathname]);
 
   return { isDark, morphColor };
 }

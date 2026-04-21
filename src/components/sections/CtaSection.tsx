@@ -11,7 +11,7 @@ const CtaSection = () => {
       <div className="container mx-auto px-4 lg:px-8 text-center relative z-[2]">
         <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 uppercase tracking-tight text-white"
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-normal mb-6 uppercase tracking-tight text-white"
           >
             Pronto a Trovare il Trattore Perfetto?
           </h2>

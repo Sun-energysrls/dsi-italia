@@ -90,7 +90,7 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
         </div>
 
         {/* Title — line-by-line reveal with overflow:hidden clip */}
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-[1.05] mb-6 uppercase tracking-tight max-w-4xl mx-auto">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-normal text-white leading-[1.05] mb-6 uppercase tracking-tight max-w-4xl mx-auto">
           {HERO_LINES.map((line, i) => (
             <span
               key={i}

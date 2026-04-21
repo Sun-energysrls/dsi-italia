@@ -82,7 +82,7 @@ const Configuratore = () => {
             <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 rounded-full" style={{ background: "#F97316" }}>
               <CheckCircle className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-3xl font-display font-black uppercase mb-4" style={{ color: "#1a1a1a" }}>
+            <h1 className="text-3xl font-display font-normal uppercase mb-4" style={{ color: "#1a1a1a" }}>
               Richiesta Inviata!
             </h1>
             <p style={{ color: "#666", fontSize: "1.1rem" }} className="mb-8">
@@ -204,7 +204,7 @@ const Configuratore = () => {
 
               {step === 0 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Seleziona il Brand
                   </h2>
                   <div className="space-y-3">
@@ -254,7 +254,7 @@ const Configuratore = () => {
 
               {step === 1 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
                     Seleziona il Modello
                   </h2>
                   
@@ -353,7 +353,7 @@ const Configuratore = () => {
 
               {step === 2 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Tipo di Cambio
                   </h2>
                   <div className="flex flex-wrap gap-3">
@@ -381,7 +381,7 @@ const Configuratore = () => {
 
               {step === 3 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Scegli il Colore
                   </h2>
                   <div className="flex flex-wrap gap-3 justify-center">
@@ -415,7 +415,7 @@ const Configuratore = () => {
 
               {step === 4 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-4" style={{ fontSize: "1.4rem" }}>
                     Richiedi Accessori
                   </h2>
                   <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.85rem", marginBottom: 16 }}>
@@ -451,7 +451,7 @@ const Configuratore = () => {
 
               {step === 5 && (
                 <div>
-                  <h2 className="font-display font-black text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
+                  <h2 className="font-display font-normal text-white uppercase tracking-tight mb-8" style={{ fontSize: "1.4rem" }}>
                     Riepilogo e Contatto
                   </h2>
                   <div

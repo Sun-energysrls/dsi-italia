@@ -126,7 +126,7 @@ const ProcessoSection = () => {
             <span className="block h-px w-12" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
           </div>
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-black leading-tight text-white"
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-normal leading-tight text-white"
           >
             Dal <em className="not-italic" style={{ color: "#F97316", fontStyle: "italic" }}>configuratore</em> al tuo
             <br className="hidden md:block" /> campo in 4 semplici passi
@@ -182,7 +182,7 @@ const ProcessoSection = () => {
                           }}
                         >
                           <span
-                            className="font-display font-black block mb-2 pointer-events-none select-none"
+                            className="font-display font-normal block mb-2 pointer-events-none select-none"
                             style={{
                               fontSize: "4rem",
                               lineHeight: 1,
@@ -232,7 +232,7 @@ const ProcessoSection = () => {
                               style={{ background: "linear-gradient(to top, rgba(27,67,50,0.3), transparent)" }}
                             />
                             <span
-                              className="absolute bottom-4 right-4 font-display font-black"
+                              className="absolute bottom-4 right-4 font-display font-normal"
                               style={{ fontSize: "3.25rem", color: "rgba(255,255,255,0.14)", lineHeight: 1 }}
                             >
                               {step.num}
@@ -278,7 +278,7 @@ const ProcessoSection = () => {
                           }}
                         >
                           <span
-                            className="font-display font-black block mb-2 pointer-events-none select-none"
+                            className="font-display font-normal block mb-2 pointer-events-none select-none"
                             style={{
                               fontSize: "4rem",
                               lineHeight: 1,
@@ -328,7 +328,7 @@ const ProcessoSection = () => {
                               style={{ background: "linear-gradient(to top, rgba(27,67,50,0.3), transparent)" }}
                             />
                             <span
-                              className="absolute bottom-4 right-4 font-display font-black"
+                              className="absolute bottom-4 right-4 font-display font-normal"
                               style={{ fontSize: "3.25rem", color: "rgba(255,255,255,0.14)", lineHeight: 1 }}
                             >
                               {step.num}
@@ -363,7 +363,7 @@ const ProcessoSection = () => {
                           loading="lazy"
                         />
                         <span
-                          className="absolute bottom-3 right-3 font-display font-black"
+                          className="absolute bottom-3 right-3 font-display font-normal"
                           style={{ fontSize: "2rem", color: "rgba(255,255,255,0.2)", lineHeight: 1 }}
                         >
                           {step.num}
@@ -372,7 +372,7 @@ const ProcessoSection = () => {
                       </div>
                       <div className="p-6 relative text-left">
                         <span
-                          className="font-display font-black block mb-2 pointer-events-none select-none"
+                          className="font-display font-normal block mb-2 pointer-events-none select-none"
                           style={{
                             fontSize: "2.25rem",
                             lineHeight: 1,

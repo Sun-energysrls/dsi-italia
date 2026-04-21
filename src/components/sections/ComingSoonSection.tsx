@@ -50,7 +50,7 @@ const ComingSoonSection = () => {
             </span>
           </div>
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-normal uppercase tracking-tight mb-4"
             style={{ color: "white" }}
           >
             In Arrivo

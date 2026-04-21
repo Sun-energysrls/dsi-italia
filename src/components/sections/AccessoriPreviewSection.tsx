@@ -46,7 +46,7 @@ const AccessoriPreviewSection = () => {
         
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "2rem", marginBottom: "3rem" }}>
           <AnimatedSection from="up" delay={0.2} style={{ flex: 1 }}>
-            <h2 className="vantaggi-heading font-display font-black" style={{
+            <h2 className="vantaggi-heading font-display font-normal" style={{
                 fontSize: "3rem", lineHeight: 1.05, margin: 0, maxWidth: "800px"
             }}>
               Tutto ciò che serve per <em style={{ fontStyle: "italic", color: "#e8860c" }}>massimizzare</em> la produttività

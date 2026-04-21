@@ -25,7 +25,7 @@ const ConfiguratorPreview = () => {
               </p>
             </AnimatedSection>
             <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 uppercase tracking-tight text-white">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal mb-4 uppercase tracking-tight text-white">
                 Configura il tuo trattore ideale
               </h2>
             </AnimatedSection>

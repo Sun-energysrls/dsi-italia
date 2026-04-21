@@ -1,123 +1,331 @@
-import { Globe, Settings2, Wrench, KeyRound } from "lucide-react";
-import { AnimatedSection, AnimatedLine } from "@/hooks/useScrollAnimation";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { AnimatedSection } from "@/hooks/useScrollAnimation";
 
-const advantages = [
+const PX = {
+  ink: '#1a1a1a',
+  paper: '#f3eee5',
+  line: '#E6DFD2',
+  muted: '#7a7366',
+  copper: '#d4781c',
+};
+
+const items = [
   {
-    number: "01",
-    title: "Import Diretto",
-    desc: "Importiamo direttamente dalla produzione, eliminando intermediari e garantendo il miglior rapporto qualità-prezzo.",
-    Icon: Globe,
+    n: '01',
+    kicker: 'Filiera',
+    t: 'Import diretto, zero intermediari.',
+    d: "Trattiamo con le linee di produzione e gestiamo in autonomia la logistica internazionale. Nessuna catena di rivenditori che gonfia i costi: dalla manifattura all'azienda agricola.",
+    kpi: [{ v: '−24%', l: 'Rispetto al listino ufficiale medio' }, { v: '100%', l: 'Import gestito da DSI' }],
+    link: '/trattori',
   },
   {
-    number: "02",
-    title: "Personalizzazione Totale",
-    desc: "Ogni macchina viene configurata secondo le tue esigenze specifiche: colori, potenza, accessori e allestimenti.",
-    Icon: Settings2,
+    n: '02',
+    kicker: 'Configurazione',
+    t: 'Costruito sulla tua azienda.',
+    d: 'Potenza, trasmissione, cabina, idraulica, pneumatici e allestimenti. Ogni trattore viene configurato prima della produzione, non assemblato al volo sul piazzale.',
+    kpi: [{ v: '50+', l: 'Variabili di configurazione' }, { v: '4–8 sett.', l: 'Tempo medio di consegna' }],
+    link: '/configuratore',
   },
   {
-    number: "03",
-    title: "Supporto Tecnico",
-    desc: "Team di tecnici specializzati per assistenza, manutenzione e formazione sulle macchine consegnate.",
-    Icon: Wrench,
+    n: '03',
+    kicker: 'Assistenza',
+    t: 'Tecnici certificati in tutta Italia.',
+    d: "Rete di officine partner qualificate sul prodotto DSI. Manutenzione programmata, interventi d'urgenza e ricambi originali garantiti.",
+    kpi: [{ v: '< 48h', l: 'Intervento medio garantito' }, { v: 'Italia', l: 'Copertura nazionale' }],
+    link: '/assistenza',
   },
   {
-    number: "04",
-    title: "Consegna Chiavi in Mano",
-    desc: "Gestiamo logistica, documentazione doganale e omologazione per una consegna completa e senza pensieri.",
-    Icon: KeyRound,
+    n: '04',
+    kicker: 'Consegna',
+    t: 'Chiavi in mano, documentazione inclusa.',
+    d: "Sdoganamento, omologazione italiana, immatricolazione e formazione all'uso. Tu firmi una volta: a noi il resto.",
+    kpi: [{ v: 'CE', l: 'Omologazione inclusa' }, { v: '1 firma', l: 'Un unico referente contrattuale' }],
+    link: '/contatti',
   },
 ];
 
 const AdvantagesSection = () => {
+  const [openIdx, setOpenIdx] = useState(0);
+
   return (
-    <section style={{ padding: "100px 0", background: "transparent" }}>
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <AnimatedLine className="mx-auto mb-6" />
-          <AnimatedSection from="left" distance={20} duration={0.7} delay={0.1}>
-            <p className="text-secondary font-bold text-xs uppercase tracking-[0.25em] mb-3">
-              I NOSTRI VANTAGGI
-            </p>
-          </AnimatedSection>
-          <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-foreground mb-4 uppercase tracking-tight">
-              Perché scegliere DSI
-            </h2>
-          </AnimatedSection>
+    <section
+      className="relative overflow-hidden"
+      style={{ background: "transparent", padding: "clamp(80px, 10vw, 160px) 0" }}
+    >
+      <div
+        aria-hidden="true"
+        className="absolute w-full flex justify-center pointer-events-none select-none hidden lg:flex"
+        style={{
+          top: '25%',
+          left: 0,
+          fontWeight: 900,
+          fontStyle: 'italic',
+          fontSize: 'clamp(120px, 18vw, 300px)',
+          color: 'rgba(249,115,22,0.06)',
+          letterSpacing: '-0.02em',
+          lineHeight: 1,
+        }}
+      >
+        Vantaggi
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative">
+        {/* Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-end mb-16 lg:mb-24">
+          <div>
+            <AnimatedSection from="left" distance={20} duration={0.7} delay={0.05}>
+              <span
+                className="inline-flex items-center gap-3"
+                style={{
+                  color: PX.copper,
+                  fontWeight: 600,
+                  fontSize: 11,
+                  letterSpacing: '0.32em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <span aria-hidden="true" style={{ width: 28, height: 1, background: 'currentColor', opacity: 0.5 }} />
+                I nostri vantaggi
+              </span>
+            </AnimatedSection>
+            <AnimatedSection from="up" distance={30} duration={0.9} delay={0.1}>
+              <h2
+                style={{
+                  
+                  fontWeight: 400,
+                  fontSize: 'clamp(36px, 5vw, 72px)',
+                  lineHeight: 1.02,
+                  letterSpacing: '-0.025em',
+                  color: PX.ink,
+                  margin: '28px 0 0',
+                  textWrap: 'balance',
+                }}
+              >
+                Quattro promesse,<br />
+                <em style={{ color: PX.copper, fontStyle: 'italic', fontWeight: 400 }}>messe nero su bianco.</em>
+              </h2>
+            </AnimatedSection>
+          </div>
           <AnimatedSection from="none" duration={0.6} delay={0.2}>
-            <p style={{ color: "#888", fontSize: "1rem", maxWidth: 540, margin: "0 auto" }}>
-              Quattro pilastri che ci rendono il partner ideale per la tua azienda agricola
+            <p
+              style={{
+                fontSize: 16,
+                lineHeight: 1.75,
+                color: PX.muted,
+                margin: 0,
+                maxWidth: 460,
+              }}
+              className="lg:justify-self-end"
+            >
+              Quello che ci rende diversi non è una lista di slogan, ma un protocollo operativo che
+              ogni cliente verifica al primo ordine.
             </p>
           </AnimatedSection>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {advantages.map((adv, i) => (
-            <AnimatedSection key={adv.number} delay={i * 0.12} duration={0.7} withScale>
-              <div
-                className="relative transition-all duration-300 flex flex-col overflow-hidden"
-                style={{
-                  background: "#FAFAF8",
-                  border: "1px solid #E8E4DF",
-                  borderRadius: 8,
-                  padding: "40px 40px 36px",
-                  minHeight: 240,
-                  willChange: "transform",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "#F97316";
-                  el.style.transform = "translateY(-4px)";
-                  el.style.boxShadow = "0 12px 40px rgba(249,115,22,0.12)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "#E8E4DF";
-                  el.style.transform = "translateY(0)";
-                  el.style.boxShadow = "none";
-                }}
-              >
-                {/* Decorative number */}
-                <span
-                  className="absolute font-display select-none pointer-events-none"
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical copper rule — desktop only */}
+          <div
+            aria-hidden="true"
+            className="hidden lg:block absolute"
+            style={{
+              left: 180,
+              top: 20,
+              bottom: 20,
+              width: 1,
+              background: `linear-gradient(180deg, transparent 0%, ${PX.copper}55 10%, ${PX.copper}55 90%, transparent 100%)`,
+            }}
+          />
+
+          {items.map((it, i) => {
+            const open = openIdx === i;
+            return (
+              <AnimatedSection key={it.n} from="up" distance={20} duration={0.7} delay={0.2 + i * 0.1}>
+                <div
+                  className="cursor-pointer"
+                  onMouseEnter={() => setOpenIdx(i)}
+                  onClick={() => setOpenIdx(i)}
                   style={{
-                    top: -10,
-                    right: 16,
-                    fontSize: "7rem",
-                    fontWeight: 800,
-                    color: "rgba(249,115,22,0.06)",
-                    lineHeight: 1,
+                    display: 'grid',
+                    gridTemplateColumns: 'auto 1fr',
+                    gap: 'clamp(16px, 3vw, 48px)',
+                    padding: '32px 0',
+                    borderBottom: i === items.length - 1 ? 'none' : `1px solid ${PX.line}`,
+                    position: 'relative',
+                    transition: 'all .4s ease',
                   }}
                 >
-                  {adv.number}
-                </span>
+                  {/* Big numeral */}
+                  <div className="relative text-right hidden lg:block" style={{ width: 180, paddingRight: 32 }}>
+                    <span
+                      style={{
+                        
+                        fontWeight: 300,
+                        fontStyle: 'italic',
+                        fontSize: 'clamp(60px, 8vw, 120px)',
+                        lineHeight: 0.9,
+                        color: open ? PX.copper : 'rgba(26,26,26,0.12)',
+                        letterSpacing: '-0.04em',
+                        display: 'inline-block',
+                        transition: 'color .4s ease',
+                      }}
+                    >
+                      {it.n}
+                    </span>
+                    {/* Dot on rule */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute"
+                      style={{
+                        right: -8,
+                        top: 60,
+                        width: 16,
+                        height: 16,
+                        borderRadius: '50%',
+                        background: open ? PX.copper : PX.paper,
+                        border: `2px solid ${open ? PX.copper : PX.copper + '55'}`,
+                        boxShadow: open ? `0 0 0 6px ${PX.copper}22` : 'none',
+                        transition: 'all .3s ease',
+                      }}
+                    />
+                  </div>
 
-                {/* Orange accent top-left bar */}
-                <div
-                  className="absolute top-0 left-0"
-                  style={{ width: 4, height: 48, backgroundColor: "#F97316", borderRadius: "0 0 4px 0" }}
-                />
+                  {/* Mobile numeral */}
+                  <div className="lg:hidden flex items-center gap-3" style={{ gridColumn: '1 / -1' }}>
+                    <span
+                      style={{
+                        
+                        fontStyle: 'italic',
+                        fontWeight: 300,
+                        fontSize: 48,
+                        color: open ? PX.copper : 'rgba(26,26,26,0.15)',
+                        transition: 'color .3s ease',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {it.n}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: '0.28em',
+                        textTransform: 'uppercase',
+                        color: PX.copper,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {it.kicker}
+                    </span>
+                  </div>
 
-                {/* Icon + title row */}
-                <div className="flex items-center gap-3 mb-4 relative z-[1]">
-                  <adv.Icon
-                    style={{ width: 22, height: 22, color: "#F97316", flexShrink: 0 }}
-                    strokeWidth={1.8}
-                  />
-                  <h3
-                    className="font-display font-bold uppercase"
-                    style={{ color: "#1a1a1a", fontSize: "1rem", letterSpacing: "0.06em" }}
-                  >
-                    {adv.title}
-                  </h3>
+                  {/* Content */}
+                  <div className="lg:pl-10 lg:pt-4" style={{ gridColumn: 'span 1' }}>
+                    <div
+                      className="hidden lg:block"
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: '0.28em',
+                        textTransform: 'uppercase',
+                        color: PX.copper,
+                        fontWeight: 600,
+                        marginBottom: 14,
+                      }}
+                    >
+                      {it.kicker}
+                    </div>
+                    <h3
+                      style={{
+                        
+                        fontWeight: 400,
+                        fontSize: 'clamp(22px, 3vw, 42px)',
+                        lineHeight: 1.15,
+                        letterSpacing: '-0.015em',
+                        color: PX.ink,
+                        margin: 0,
+                        textWrap: 'balance',
+                        maxWidth: 720,
+                      }}
+                    >
+                      {it.t}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 16,
+                        lineHeight: 1.75,
+                        color: PX.muted,
+                        margin: '20px 0 0',
+                        maxWidth: 680,
+                      }}
+                    >
+                      {it.d}
+                    </p>
+
+                    {/* KPI strip, revealed when open */}
+                    <div
+                      style={{
+                        maxHeight: open ? 140 : 0,
+                        overflow: 'hidden',
+                        transition: 'max-height .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease .1s, margin-top .3s ease',
+                        opacity: open ? 1 : 0,
+                        marginTop: open ? 28 : 0,
+                      }}
+                    >
+                      <div
+                        className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
+                        style={{ paddingTop: 24, borderTop: `1px solid ${PX.line}` }}
+                      >
+                        {it.kpi.map(k => (
+                          <div key={k.l}>
+                            <div
+                              style={{
+                                
+                                fontWeight: 400,
+                                fontSize: 'clamp(24px, 3vw, 36px)',
+                                color: PX.copper,
+                                letterSpacing: '-0.02em',
+                                lineHeight: 1,
+                              }}
+                            >
+                              {k.v}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: 12,
+                                color: PX.muted,
+                                marginTop: 8,
+                                maxWidth: 220,
+                                lineHeight: 1.5,
+                              }}
+                            >
+                              {k.l}
+                            </div>
+                          </div>
+                        ))}
+                        <div className="hidden sm:flex flex-1 items-end justify-end">
+                          <Link
+                            to={it.link}
+                            className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
+                            style={{
+                              fontSize: 11,
+                              letterSpacing: '0.2em',
+                              textTransform: 'uppercase',
+                              color: PX.copper,
+                              fontWeight: 600,
+                            }}
+                          >
+                            Approfondisci <ArrowRight size={14} color={PX.copper} />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <p className="relative z-[1]" style={{ color: "#666", lineHeight: 1.75, fontSize: "0.9rem" }}>
-                  {adv.desc}
-                </p>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            );
+          })}
         </div>
       </div>
     </section>

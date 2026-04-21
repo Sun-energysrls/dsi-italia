@@ -172,7 +172,7 @@ const FeaturedModels = () => {
             </AnimatedSection>
             <AnimatedSection from="up" distance={40} duration={0.9} delay={0}>
               <h2
-                className="font-display font-black"
+                className="font-display font-normal"
                 style={{ color: "currentColor", fontSize: "3rem", lineHeight: 1.05 }}
               >
                 Trattori <em style={{ fontStyle: "italic", color: "#e8860c" }}>potenti</em>, pronti per ogni sfida
