@@ -385,8 +385,6 @@ const ApproachSection = () => {
                 </p>
               </div>
             </div>
-
-              </div>
             </AnimatedSection>
           </div>
 
