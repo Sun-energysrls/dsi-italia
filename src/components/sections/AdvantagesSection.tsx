@@ -51,8 +51,8 @@ const AdvantagesSection = () => {
 
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ background: "transparent", padding: "clamp(80px, 10vw, 160px) 0" }}
+      className="relative"
+      style={{ background: "transparent", padding: "clamp(80px, 10vw, 160px) 0", overflowX: 'clip' }}
     >
       <div
         aria-hidden="true"
@@ -222,9 +222,8 @@ const AdvantagesSection = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="lg:pl-10 lg:pt-4" style={{ gridColumn: 'span 1' }}>
-                    <div
-                      className="hidden lg:block"
+                  <div className="lg:pl-10 lg:pt-4" style={{ gridColumn: '1 / -1' }}>
+                    <div className="lg:block hidden"
                       style={{
                         fontSize: 11,
                         letterSpacing: '0.28em',

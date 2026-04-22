@@ -26,8 +26,8 @@ const principles = [
 const ApproachSection = () => {
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ background: "transparent", padding: "clamp(80px, 10vw, 160px) 0" }}
+      className="relative"
+      style={{ background: "transparent", padding: "clamp(80px, 10vw, 160px) 0", overflowX: 'clip' }}
     >
       {/* Faint paper texture */}
       <div
@@ -84,17 +84,17 @@ const ApproachSection = () => {
                 className="font-display"
                 style={{
                   fontWeight: 400,
-                  fontSize: 'clamp(36px, 5vw, 72px)',
-                  lineHeight: 1.02,
+                  fontSize: 'clamp(28px, 5vw, 72px)',
+                  lineHeight: 1.05,
                   letterSpacing: '-0.025em',
                   color: PX.ink,
                   margin: '28px 0 0',
-                  textWrap: 'balance',
+                  wordBreak: 'break-word',
                 }}
               >
-                Importiamo <br className="hidden md:block" />
+                Importiamo{' '}
                 <em style={{ fontStyle: 'italic', color: PX.copper, fontWeight: 400 }}>direttamente</em>.<br />
-                Configuriamo. <br className="hidden md:block" />
+                Configuriamo.<br />
                 Consegniamo.
               </h2>
             </AnimatedSection>
