@@ -49,18 +49,35 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 text-secondary shrink-0" />
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>Via dell'Industria 42, 00100 Roma, Italia</span>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
+                  Via Cesare Battisti 101<br />
+                  67051 Avezzano (AQ)
+                </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-4 w-4 text-secondary shrink-0" />
-                <a href="tel:+390000000000" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
-                  +39 000 000 0000
+              <li className="flex flex-col items-start gap-1 pt-2">
+                <div className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 text-secondary shrink-0" />
+                  <a href="tel:+393338590639" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
+                    Ugo Di Stefano: +39 333 8590639
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="h-4 w-4 shrink-0" />
+                  <a href="tel:+393384116588" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
+                    Alessio Iannotti: +39 338 411 6588
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-center gap-3 pt-2">
+                <Mail className="h-4 w-4 text-secondary shrink-0" />
+                <a href="mailto:vendite@dsimportsrl.com" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
+                  vendite@dsimportsrl.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-secondary shrink-0" />
-                <a href="mailto:info@dsi-import.it" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
-                  info@dsi-import.it
+                <a href="mailto:dsiimportsrl@pec.it" style={{ color: "rgba(255,255,255,0.6)" }} className="hover:text-secondary transition-colors text-sm">
+                  dsiimportsrl@pec.it
                 </a>
               </li>
             </ul>
@@ -68,12 +85,17 @@ const Footer = () => {
         </div>
 
         <div
-          className="mt-14 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+          className="mt-14 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left"
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
         >
-          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.875rem" }}>
-            © {new Date().getFullYear()} DSI Import — For Industry and Agriculture. Tutti i diritti riservati.
-          </p>
+          <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.875rem" }}>
+            <p className="mb-1">
+              © {new Date().getFullYear()} DSI IMPORT S.R.L. — Tutti i diritti riservati.
+            </p>
+            <p style={{ fontSize: "0.75rem", opacity: 0.8 }}>
+              P.IVA / C.F. 02217120662 | REA: AQ - 218903
+            </p>
+          </div>
           <div className="flex gap-6">
             <a href="#" style={{ color: "rgba(255,255,255,0.4)" }} className="hover:text-secondary text-sm transition-colors">Privacy Policy</a>
             <a href="#" style={{ color: "rgba(255,255,255,0.4)" }} className="hover:text-secondary text-sm transition-colors">Cookie Policy</a>

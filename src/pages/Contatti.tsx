@@ -78,22 +78,41 @@ const Contatti = () => {
                     <div className="flex items-start gap-4">
                       <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-bold text-foreground text-sm uppercase tracking-wide">Sede</p>
-                        <p className="text-muted-foreground text-sm">Via dell'Industria 42, 00100 Roma, Italia</p>
+                        <p className="font-bold text-foreground text-sm uppercase tracking-wide">Sede Operativa e Legale</p>
+                        <p className="text-muted-foreground text-sm">
+                          DSI IMPORT S.R.L.<br />
+                          Via Cesare Battisti 101<br />
+                          67051 Avezzano (AQ)<br />
+                          <span className="text-xs mt-1 block opacity-80">P.IVA / C.F. 02217120662 | REA: AQ - 218903</span>
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
                       <Phone className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-bold text-foreground text-sm uppercase tracking-wide">Telefono</p>
-                        <a href="tel:+390000000000" className="text-muted-foreground text-sm hover:text-secondary transition-colors">+39 000 000 0000</a>
+                      <div className="flex flex-col gap-2">
+                        <div>
+                          <p className="font-bold text-foreground text-sm uppercase tracking-wide">Contatti Telefonici</p>
+                          <a href="tel:+393338590639" className="text-muted-foreground text-sm hover:text-secondary transition-colors block">
+                            Ugo Di Stefano: +39 333 8590639
+                          </a>
+                          <a href="tel:+393384116588" className="text-muted-foreground text-sm hover:text-secondary transition-colors block mt-1">
+                            Alessio Iannotti: +39 338 411 6588
+                          </a>
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
                       <Mail className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-bold text-foreground text-sm uppercase tracking-wide">Email</p>
-                        <a href="mailto:info@dsi-import.it" className="text-muted-foreground text-sm hover:text-secondary transition-colors">info@dsi-import.it</a>
+                      <div className="flex flex-col gap-2">
+                        <div>
+                          <p className="font-bold text-foreground text-sm uppercase tracking-wide">Email & PEC</p>
+                          <a href="mailto:vendite@dsimportsrl.com" className="text-muted-foreground text-sm hover:text-secondary transition-colors block">
+                            vendite@dsimportsrl.com
+                          </a>
+                          <a href="mailto:dsiimportsrl@pec.it" className="text-muted-foreground text-sm hover:text-secondary transition-colors block mt-1">
+                            dsiimportsrl@pec.it
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -102,13 +121,13 @@ const Contatti = () => {
                 {/* Quick actions */}
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="tel:+390000000000"
+                    href="tel:+393338590639"
                     className="flex-1 gradient-primary text-primary-foreground py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card"
                   >
                     <Phone className="h-4 w-4" /> Chiamaci
                   </a>
                   <a
-                    href="https://wa.me/390000000000"
+                    href="https://wa.me/393338590639"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 bg-[hsl(142,70%,40%)] text-primary-foreground py-4 font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-card"
