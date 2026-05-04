@@ -29,7 +29,7 @@ const steps = [
   {
     num: "04",
     title: "Consegna & Assistenza",
-    desc: "Il tuo trattore arriva pronto all'uso con supporto tecnico dedicato e assistenza post-vendita inclusi. Dal campo al tuo terreno.",
+    desc: "Il tuo trattore arriva pronto all'uso con assistenza post-vendita e ricambi originali inclusi. Dal campo al tuo terreno.",
     side: "right" as const,
     image: processStep4,
   },

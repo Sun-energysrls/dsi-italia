@@ -31,9 +31,9 @@ const items = [
   {
     n: '03',
     kicker: 'Assistenza',
-    t: 'Tecnici certificati in tutta Italia.',
-    d: "Rete di officine partner qualificate sul prodotto DSI. Manutenzione programmata, interventi d'urgenza e ricambi originali garantiti.",
-    kpi: [{ v: '< 48h', l: 'Intervento medio garantito' }, { v: 'Italia', l: 'Copertura nazionale' }],
+    t: 'Ricambi originali e autodiagnosi.',
+    d: "Sistemi di autodiagnosi integrati per monitorare l'efficienza della macchina. Fornitura rapida di ricambi originali garantiti direttamente dalla casa madre.",
+    kpi: [{ v: '100%', l: 'Ricambi originali' }, { v: 'Smart', l: 'Autodiagnosi integrata' }],
     link: '/assistenza',
   },
   {
