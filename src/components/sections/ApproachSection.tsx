@@ -20,7 +20,7 @@ const principles = [
   { k: '01', t: 'Selezione diretta', d: 'Verifichiamo produttori, linee e catene di fornitura prima di firmare.' },
   { k: '02', t: 'Configurazione', d: 'Ogni trattore è costruito sulla tua azienda, non su un listino standard.' },
   { k: '03', t: 'Logistica integrata', d: 'Dogana, trasporto e omologazione gestiti da un unico referente.' },
-  { k: '04', t: 'Post-vendita', d: 'Ricambi originali e tecnici certificati su tutto il territorio nazionale.' },
+  { k: '04', t: 'Post-vendita', d: 'Sistemi di autodiagnosi integrati e ricambi originali garantiti.' },
 ];
 
 const ApproachSection = () => {
