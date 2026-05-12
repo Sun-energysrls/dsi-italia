@@ -32,7 +32,7 @@ const Assistenza = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal text-white mb-4 uppercase tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal mb-4 uppercase tracking-tight" style={{ color: '#ffffff' }}>
               Assistenza DSI
             </h1>
             <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem", maxWidth: 600 }}>
@@ -47,7 +47,7 @@ const Assistenza = () => {
                 { val: "Zero", label: "Pensieri" },
               ].map((s) => (
                 <div key={s.label}>
-                  <span className="font-display font-normal text-white" style={{ fontSize: "1.8rem" }}>{s.val}</span>
+                  <span className="font-display font-normal" style={{ fontSize: "1.8rem", color: '#ffffff' }}>{s.val}</span>
                   <span className="block" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
                     {s.label}
                   </span>
@@ -121,7 +121,7 @@ const Assistenza = () => {
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection>
             <ShieldCheck className="h-10 w-10 mx-auto mb-4" style={{ color: "#F97316" }} />
-            <h2 className="text-2xl md:text-3xl font-display font-normal mb-4 uppercase tracking-tight text-white">
+            <h2 className="text-2xl md:text-3xl font-display font-normal mb-4 uppercase tracking-tight" style={{ color: '#ffffff' }}>
               Sempre al Tuo Fianco
             </h2>
             <p className="mb-10 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
