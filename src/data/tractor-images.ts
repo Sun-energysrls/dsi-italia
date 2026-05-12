@@ -18,8 +18,16 @@ import tavol554Photo from "@/assets/tavol-554-2.png";
 import tavol704Photo from "@/assets/tavol-704-2.png";
 import tavol804Photo from "@/assets/tavol-804-2.png";
 import tavol904Photo from "@/assets/tavol-904-2.png";
-import tavol1004Photo from "@/assets/tavol-1004-2.jpg";
+import tavol1004Photo from "@/assets/tavol-1004-2.png";
 import tavol1204Photo from "@/assets/tavol-1204-2.png";
+import tavol1404Photo from "@/assets/tavol-1404-2.png";
+import tavol1604Photo from "@/assets/tavol-1604-2.png";
+import tavol1804Photo from "@/assets/tavol-1804-2.png";
+import tavol2004Photo from "@/assets/tavol-2004-2.png";
+import tavol2204Photo from "@/assets/tavol-2204-2.png";
+import tavol2404Photo from "@/assets/tavol-2404-2.png";
+import tavol2604Photo from "@/assets/tavol-2604-2.png";
+import tavol2804Photo from "@/assets/tavol-2804-2.png";
 
 // Maps tractor IDs to their transparent product images (for configurator)
 export const tractorImageMap: Record<string, string> = {
@@ -31,7 +39,6 @@ export const tractorImageMap: Record<string, string> = {
   "tavol-1004": tavol1004,
   "tavol-1204": tavol1204,
   "tavol-1404": tavol1404,
-  "tavol-1504": tavol1404,
   "tavol-1604": tavol1604,
   "tavol-1804": tavol1804,
   "tavol-2004": tavol2004,
@@ -50,6 +57,14 @@ export const tractorPhotoMap: Record<string, string> = {
   "tavol-904-creeper": tavol904Photo,
   "tavol-1004": tavol1004Photo,
   "tavol-1204": tavol1204Photo,
+  "tavol-1404": tavol1404Photo,
+  "tavol-1604": tavol1604Photo,
+  "tavol-1804": tavol1804Photo,
+  "tavol-2004": tavol2004Photo,
+  "tavol-2204": tavol2204Photo,
+  "tavol-2404": tavol2404Photo,
+  "tavol-2604": tavol2604Photo,
+  "tavol-2804": tavol2804Photo,
 };
 
 /** Transparent image — use in configurator */
