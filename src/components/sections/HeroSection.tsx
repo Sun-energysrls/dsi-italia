@@ -134,10 +134,10 @@ const HeroSection = ({ videoReady = true }: { videoReady?: boolean }) => {
       {/* Scroll indicator — pulsing arrow */}
       <button
         onClick={scrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors z-[3]"
+        className="absolute bottom-10 left-0 right-0 mx-auto w-fit flex flex-col items-center gap-2 text-white/50 hover:text-white/70 transition-colors z-[3]"
         style={{ animation: "dsiHeroLine 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both" }}
       >
-        <span className="text-xs uppercase tracking-[0.3em] font-medium block" style={{ marginRight: "0.3em" }}>
+        <span className="text-xs uppercase font-medium block" style={{ letterSpacing: "0.3em", paddingLeft: "0.3em" }}>
           Scorri
         </span>
         <ArrowDown className="h-5 w-5 dsi-scroll-pulse" />
