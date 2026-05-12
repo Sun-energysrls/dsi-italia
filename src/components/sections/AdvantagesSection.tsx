@@ -25,7 +25,7 @@ const items = [
     kicker: 'Configurazione',
     t: 'Costruito sulla tua azienda.',
     d: 'Potenza, trasmissione, cabina, idraulica, pneumatici e allestimenti. Ogni trattore viene configurato prima della produzione, non assemblato al volo sul piazzale.',
-    kpi: [{ v: '50+', l: 'Variabili di configurazione' }, { v: '4–8 sett.', l: 'Tempo medio di consegna' }],
+    kpi: [{ v: '50+', l: 'Variabili di configurazione' }, { v: '~8 sett.', l: 'Tempo medio di consegna' }],
     link: '/configuratore',
   },
   {

@@ -17,10 +17,10 @@ const PX = {
 };
 
 const principles = [
-  { k: '01', t: 'Selezione diretta', d: 'Verifichiamo produttori, linee e catene di fornitura prima di firmare.' },
-  { k: '02', t: 'Configurazione', d: 'Ogni trattore è costruito sulla tua azienda, non su un listino standard.' },
-  { k: '03', t: 'Logistica integrata', d: 'Dogana, trasporto e omologazione gestiti da un unico referente.' },
-  { k: '04', t: 'Post-vendita', d: 'Sistemi di autodiagnosi integrati e ricambi originali garantiti.' },
+  { k: '01', t: 'Selezione diretta', d: 'Verifichiamo produttori, linee e catene di fornitura prima di firmare.', link: '/trattori' },
+  { k: '02', t: 'Configurazione', d: 'Ogni trattore è costruito sulla tua azienda, non su un listino standard.', link: '/configuratore' },
+  { k: '03', t: 'Logistica integrata', d: 'Dogana, trasporto e omologazione gestiti da un unico referente.', link: '/contatti' },
+  { k: '04', t: 'Post-vendita', d: 'Sistemi di autodiagnosi integrati e ricambi originali garantiti.', link: '/assistenza' },
 ];
 
 const ApproachSection = () => {
@@ -119,8 +119,9 @@ const ApproachSection = () => {
             <div style={{ marginTop: 64, borderTop: `1px solid ${PX.line}` }}>
               {principles.map((p, i) => (
                 <AnimatedSection key={p.k} from="up" distance={16} duration={0.6} delay={0.25 + i * 0.08}>
-                  <div
-                    className="group cursor-pointer"
+                  <Link
+                    to={p.link}
+                    className="group block"
                     style={{
                       display: 'grid',
                       gridTemplateColumns: '60px 1fr auto',
@@ -129,6 +130,7 @@ const ApproachSection = () => {
                       padding: '24px 0',
                       borderBottom: `1px solid ${PX.line}`,
                       transition: 'padding .25s ease, background .25s ease',
+                      textDecoration: 'none',
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.paddingLeft = '12px';
@@ -177,13 +179,13 @@ const ApproachSection = () => {
                         {p.d}
                       </p>
                     </div>
-                    <div 
-                      style={{ color: PX.copper, alignSelf: 'center', transition: 'all .25s ease' }} 
+                    <div
+                      style={{ color: PX.copper, alignSelf: 'center', transition: 'all .25s ease' }}
                       className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1"
                     >
                       <ArrowRight size={18} />
                     </div>
-                  </div>
+                  </Link>
                 </AnimatedSection>
               ))}
             </div>
