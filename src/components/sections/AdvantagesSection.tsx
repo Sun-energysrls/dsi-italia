@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
@@ -46,8 +46,40 @@ const items = [
   },
 ];
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    setMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  return mobile;
+}
+
 const AdvantagesSection = () => {
   const [openIdx, setOpenIdx] = useState(0);
+  const isMobile = useIsMobile();
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Mobile: auto-highlight items as they scroll into view
+  useEffect(() => {
+    if (!isMobile) return;
+    const observers: IntersectionObserver[] = [];
+    itemRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setOpenIdx(i);
+        },
+        { threshold: 0.5 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, [isMobile]);
 
   return (
     <section
@@ -93,7 +125,6 @@ const AdvantagesSection = () => {
             <AnimatedSection from="up" distance={30} duration={0.9} delay={0.1}>
               <h2
                 style={{
-                  
                   fontWeight: 400,
                   fontSize: 'clamp(36px, 5vw, 72px)',
                   lineHeight: 1.02,
@@ -127,42 +158,32 @@ const AdvantagesSection = () => {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical copper rule — desktop only */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:block absolute"
-            style={{
-              left: 180,
-              top: 20,
-              bottom: 20,
-              width: 1,
-              background: `linear-gradient(180deg, transparent 0%, ${PX.copper}55 10%, ${PX.copper}55 90%, transparent 100%)`,
-            }}
-          />
-
           {items.map((it, i) => {
             const open = openIdx === i;
             return (
               <AnimatedSection key={it.n} from="up" distance={20} duration={0.7} delay={0.2 + i * 0.1}>
                 <div
+                  ref={el => { itemRefs.current[i] = el; }}
                   className="cursor-pointer"
-                  onMouseEnter={() => setOpenIdx(i)}
+                  onMouseEnter={() => { if (!isMobile) setOpenIdx(i); }}
                   onClick={() => setOpenIdx(i)}
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'auto 1fr',
-                    gap: 'clamp(16px, 3vw, 48px)',
+                    gap: 0,
                     padding: '32px 0',
                     borderBottom: i === items.length - 1 ? 'none' : `1px solid ${PX.line}`,
                     position: 'relative',
                     transition: 'all .4s ease',
                   }}
                 >
-                  {/* Big numeral */}
-                  <div className="relative text-right hidden lg:block" style={{ width: 180, paddingRight: 32 }}>
+                  {/* ── Desktop: numeral + line ── */}
+                  <div
+                    className="relative text-right hidden lg:flex items-start justify-end"
+                    style={{ width: 160, paddingRight: 40 }}
+                  >
                     <span
                       style={{
-                        
                         fontWeight: 300,
                         fontStyle: 'italic',
                         fontSize: 'clamp(60px, 8vw, 120px)',
@@ -175,55 +196,43 @@ const AdvantagesSection = () => {
                     >
                       {it.n}
                     </span>
-                    {/* Dot on rule */}
+                    {/* Vertical segment with dot */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute"
+                      style={{
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        width: 1,
+                        background: i === 0
+                          ? `linear-gradient(180deg, transparent 0%, ${PX.copper}55 40%, ${PX.copper}55 100%)`
+                          : i === items.length - 1
+                          ? `linear-gradient(180deg, ${PX.copper}55 0%, ${PX.copper}55 60%, transparent 100%)`
+                          : `${PX.copper}55`,
+                      }}
+                    />
                     <span
                       aria-hidden="true"
                       className="absolute"
                       style={{
-                        right: -8,
-                        top: 60,
-                        width: 16,
-                        height: 16,
+                        right: -7,
+                        top: 32,
+                        width: 14,
+                        height: 14,
                         borderRadius: '50%',
                         background: open ? PX.copper : PX.paper,
                         border: `2px solid ${open ? PX.copper : PX.copper + '55'}`,
-                        boxShadow: open ? `0 0 0 6px ${PX.copper}22` : 'none',
+                        boxShadow: open ? `0 0 0 5px ${PX.copper}22` : 'none',
                         transition: 'all .3s ease',
+                        zIndex: 1,
                       }}
                     />
                   </div>
 
-                  {/* Mobile numeral */}
-                  <div className="lg:hidden flex items-center gap-3" style={{ gridColumn: '1 / -1' }}>
-                    <span
-                      style={{
-                        
-                        fontStyle: 'italic',
-                        fontWeight: 300,
-                        fontSize: 48,
-                        color: open ? PX.copper : 'rgba(26,26,26,0.15)',
-                        transition: 'color .3s ease',
-                        lineHeight: 1,
-                      }}
-                    >
-                      {it.n}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: '0.28em',
-                        textTransform: 'uppercase',
-                        color: PX.copper,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {it.kicker}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="lg:pl-10 lg:pt-4" style={{ gridColumn: '1 / -1' }}>
-                    <div className="lg:block hidden"
+                  {/* ── Desktop content (second column) ── */}
+                  <div className="hidden lg:block pl-10 pt-1">
+                    <div
                       style={{
                         fontSize: 11,
                         letterSpacing: '0.28em',
@@ -237,7 +246,6 @@ const AdvantagesSection = () => {
                     </div>
                     <h3
                       style={{
-                        
                         fontWeight: 400,
                         fontSize: 'clamp(22px, 3vw, 42px)',
                         lineHeight: 1.15,
@@ -262,7 +270,7 @@ const AdvantagesSection = () => {
                       {it.d}
                     </p>
 
-                    {/* KPI strip, revealed when open */}
+                    {/* KPI strip */}
                     <div
                       style={{
                         maxHeight: open ? 500 : 0,
@@ -273,14 +281,13 @@ const AdvantagesSection = () => {
                       }}
                     >
                       <div
-                        className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start pb-6"
+                        className="flex flex-row gap-10 items-start pb-6"
                         style={{ paddingTop: 24, borderTop: `1px solid ${PX.line}` }}
                       >
                         {it.kpi.map(k => (
                           <div key={k.l}>
                             <div
                               style={{
-                                
                                 fontWeight: 400,
                                 fontSize: 'clamp(24px, 3vw, 36px)',
                                 color: PX.copper,
@@ -303,7 +310,7 @@ const AdvantagesSection = () => {
                             </div>
                           </div>
                         ))}
-                        <div className="hidden sm:flex flex-1 items-end justify-end">
+                        <div className="flex flex-1 items-end justify-end">
                           <Link
                             to={it.link}
                             className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
@@ -319,6 +326,110 @@ const AdvantagesSection = () => {
                           </Link>
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* ── Mobile layout ── */}
+                  <div className="lg:hidden" style={{ gridColumn: '1 / -1' }}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 300,
+                          fontSize: 48,
+                          color: open ? PX.copper : 'rgba(26,26,26,0.15)',
+                          transition: 'color .4s ease',
+                          lineHeight: 1,
+                        }}
+                      >
+                        {it.n}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          letterSpacing: '0.28em',
+                          textTransform: 'uppercase',
+                          color: open ? PX.copper : PX.muted,
+                          fontWeight: 600,
+                          transition: 'color .4s ease',
+                        }}
+                      >
+                        {it.kicker}
+                      </span>
+                    </div>
+                    <h3
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 'clamp(22px, 3vw, 42px)',
+                        lineHeight: 1.15,
+                        letterSpacing: '-0.015em',
+                        color: open ? PX.ink : 'rgba(26,26,26,0.35)',
+                        margin: 0,
+                        textWrap: 'balance',
+                        transition: 'color .4s ease',
+                      }}
+                    >
+                      {it.t}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 16,
+                        lineHeight: 1.75,
+                        color: open ? PX.muted : 'rgba(26,26,26,0.2)',
+                        margin: '16px 0 0',
+                        transition: 'color .4s ease',
+                      }}
+                    >
+                      {it.d}
+                    </p>
+
+                    {/* Mobile KPI */}
+                    <div
+                      style={{
+                        maxHeight: open ? 500 : 0,
+                        overflow: 'hidden',
+                        transition: 'max-height .5s cubic-bezier(.2,.8,.2,1), opacity .4s ease .1s, margin-top .3s ease',
+                        opacity: open ? 1 : 0,
+                        marginTop: open ? 20 : 0,
+                      }}
+                    >
+                      <div
+                        className="flex flex-col sm:flex-row gap-5 sm:gap-8 items-start pb-4"
+                        style={{ paddingTop: 20, borderTop: `1px solid ${PX.line}` }}
+                      >
+                        {it.kpi.map(k => (
+                          <div key={k.l}>
+                            <div
+                              style={{
+                                fontWeight: 400,
+                                fontSize: 24,
+                                color: PX.copper,
+                                letterSpacing: '-0.02em',
+                                lineHeight: 1,
+                              }}
+                            >
+                              {k.v}
+                            </div>
+                            <div style={{ fontSize: 12, color: PX.muted, marginTop: 6, lineHeight: 1.5 }}>
+                              {k.l}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <Link
+                        to={it.link}
+                        className="inline-flex items-center gap-2"
+                        style={{
+                          fontSize: 11,
+                          letterSpacing: '0.2em',
+                          textTransform: 'uppercase',
+                          color: PX.copper,
+                          fontWeight: 600,
+                          paddingBottom: 8,
+                        }}
+                      >
+                        Approfondisci <ArrowRight size={14} color={PX.copper} />
+                      </Link>
                     </div>
                   </div>
                 </div>
