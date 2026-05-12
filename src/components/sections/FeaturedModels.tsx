@@ -49,14 +49,15 @@ const FeaturedModels = () => {
           justify-content: flex-end;
           padding: 2.5rem;
         }
-        /* Gradient overlay limited to the bottom just to keep text readable */
+        /* Gradient overlay for text readability */
         .pgamma-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to top,
-            rgba(18, 42, 33, 0.9) 0%,
-            transparent 50%
+            rgba(18, 42, 33, 0.95) 0%,
+            rgba(18, 42, 33, 0.6) 35%,
+            transparent 60%
           );
           z-index: 1;
           transition: opacity 0.5s ease;
@@ -103,6 +104,7 @@ const FeaturedModels = () => {
           text-transform: uppercase;
           margin-bottom: 0.75rem;
           font-weight: 700;
+          text-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
 
         .pgamma-name {
@@ -112,6 +114,7 @@ const FeaturedModels = () => {
           color: #ffffff;
           margin-bottom: 0.5rem;
           letter-spacing: -0.02em;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
 
         .small-card .pgamma-name {
@@ -120,10 +123,23 @@ const FeaturedModels = () => {
 
         .pgamma-desc {
           display: block;
-          color: rgba(255,255,255,0.8);
+          color: rgba(255,255,255,0.9);
           font-size: 0.85rem;
           letter-spacing: 0.02em;
           margin-bottom: 1.5rem;
+          text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 1023px) {
+          .pgamma-name {
+            font-size: 2rem;
+          }
+          .small-card .pgamma-name {
+            font-size: 1.75rem;
+          }
+          .pgamma-inner {
+            padding: 1.5rem !important;
+          }
         }
 
         .pgamma-link {
@@ -204,7 +220,7 @@ const FeaturedModels = () => {
             }}
           >
             <Link to={`/trattori/${cards[0].id}`} className="block h-full outline-none">
-              <div className="pgamma-inner lg:h-[700px] h-[450px]">
+              <div className="pgamma-inner lg:h-[700px] h-[380px]">
                 <img
                   className="pgamma-photo"
                   src={getTractorPhoto(cards[0].id)}
@@ -243,7 +259,7 @@ const FeaturedModels = () => {
                   }}
                 >
                   <Link to={`/trattori/${item.id}`} className="block h-full outline-none">
-                    <div className="pgamma-inner lg:h-[338px] h-[350px]">
+                    <div className="pgamma-inner lg:h-[338px] h-[320px]">
                       <img
                         className="pgamma-photo"
                         src={getTractorPhoto(item.id)}

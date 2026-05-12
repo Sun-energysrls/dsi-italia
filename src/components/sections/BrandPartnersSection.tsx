@@ -104,7 +104,6 @@ const BrandPartnersSection = () => {
                   textTransform: 'uppercase',
                 }}
               >
-                <span aria-hidden="true" style={{ width: 28, height: 1, background: 'currentColor', opacity: 0.5 }} />
                 I nostri partner
               </span>
             </AnimatedSection>
@@ -424,7 +423,6 @@ const BrandPartnersSection = () => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  <span aria-hidden="true" style={{ width: 28, height: 1, background: 'currentColor', opacity: 0.5 }} />
                   Garanzia DSI
                 </span>
                 <h4

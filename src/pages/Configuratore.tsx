@@ -106,15 +106,17 @@ const Configuratore = () => {
           style={{ background: "var(--dsi-green-gradient)" }}
         >
           {/* Stepper */}
-          <div className="px-6 lg:px-10 pt-8 pb-6" style={{ marginBottom: 0 }}>
-            <div className="flex items-start justify-between">
+          <div className="px-4 sm:px-6 lg:px-10 pt-8 pb-6" style={{ marginBottom: 0 }}>
+            <div className="flex items-start">
               {stepLabels.map((label, i) => {
                 const isDone = step > i;
                 const isActive = step === i;
+                const isFirst = i === 0;
+                const isLast = i === stepLabels.length - 1;
                 return (
-                  <div key={i} className="flex flex-col items-center flex-1">
+                  <div key={i} className="flex flex-col items-center" style={{ flex: isFirst || isLast ? '0 0 auto' : '1 1 0%' }}>
                     <div className="flex items-center w-full">
-                      {i > 0 && (
+                      {!isFirst && (
                         <div
                           className="flex-1 h-px"
                           style={{ background: step > i - 1 ? "#F97316" : "rgba(255,255,255,0.15)" }}
@@ -123,8 +125,8 @@ const Configuratore = () => {
                       <div
                         className="shrink-0 flex items-center justify-center"
                         style={{
-                          width: 32,
-                          height: 32,
+                          width: 28,
+                          height: 28,
                           borderRadius: "50%",
                           ...(isDone
                             ? { background: "#F97316", border: "none" }
@@ -134,11 +136,11 @@ const Configuratore = () => {
                         }}
                       >
                         {isDone ? (
-                          <Check className="h-4 w-4 text-white" />
+                          <Check className="h-3.5 w-3.5 text-white" />
                         ) : (
                           <span
                             style={{
-                              fontSize: "0.7rem",
+                              fontSize: "0.65rem",
                               fontWeight: 700,
                               color: isActive ? "#F97316" : "rgba(255,255,255,0.35)",
                             }}
@@ -147,7 +149,7 @@ const Configuratore = () => {
                           </span>
                         )}
                       </div>
-                      {i < stepLabels.length - 1 && (
+                      {!isLast && (
                         <div
                           className="flex-1 h-px"
                           style={{ background: step > i ? "#F97316" : "rgba(255,255,255,0.15)" }}
@@ -157,10 +159,10 @@ const Configuratore = () => {
                     <span
                       className="mt-1.5 whitespace-nowrap"
                       style={{
-                        fontSize: "0.55rem",
-                        letterSpacing: "0.12em",
+                        fontSize: "0.5rem",
+                        letterSpacing: "0.1em",
                         textTransform: "uppercase",
-                        color: isActive ? "#F97316" : "rgba(255,255,255,0.4)",
+                        color: isActive || isDone ? "#F97316" : "rgba(255,255,255,0.4)",
                       }}
                     >
                       {label}

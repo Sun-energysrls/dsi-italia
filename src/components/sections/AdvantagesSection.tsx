@@ -73,7 +73,7 @@ const AdvantagesSection = () => {
         ([entry]) => {
           if (entry.isIntersecting) setOpenIdx(i);
         },
-        { threshold: 0.5 }
+        { threshold: 0.15, rootMargin: '-20% 0px -30% 0px' }
       );
       obs.observe(el);
       observers.push(obs);
@@ -118,7 +118,6 @@ const AdvantagesSection = () => {
                   textTransform: 'uppercase',
                 }}
               >
-                <span aria-hidden="true" style={{ width: 28, height: 1, background: 'currentColor', opacity: 0.5 }} />
                 I nostri vantaggi
               </span>
             </AnimatedSection>
