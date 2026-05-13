@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import logoLight from "@/assets/logo-light.png";
 
 const Footer = () => {
+  useEffect(() => {
+    // Load iubenda.js for embed links
+    const s = document.createElement("script");
+    s.src = "https://cdn.iubenda.com/iubenda.js";
+    s.async = true;
+    document.body.appendChild(s);
+    return () => { document.body.removeChild(s); };
+  }, []);
+
   return (
     <footer style={{ background: "var(--dsi-green-gradient)" }} className="text-white">
       <div className="container mx-auto px-4 lg:px-8 py-20">
@@ -97,8 +107,8 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex gap-6">
-            <a href="#" style={{ color: "rgba(255,255,255,0.4)" }} className="hover:text-secondary text-sm transition-colors">Privacy Policy</a>
-            <a href="#" style={{ color: "rgba(255,255,255,0.4)" }} className="hover:text-secondary text-sm transition-colors">Cookie Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/64380274" className="iubenda-white iubenda-noiframe iubenda-embed hover:text-secondary text-sm transition-colors" style={{ color: "rgba(255,255,255,0.4)" }} title="Privacy Policy">Privacy Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/64380274/cookie-policy" className="iubenda-white iubenda-noiframe iubenda-embed hover:text-secondary text-sm transition-colors" style={{ color: "rgba(255,255,255,0.4)" }} title="Cookie Policy">Cookie Policy</a>
           </div>
         </div>
       </div>
