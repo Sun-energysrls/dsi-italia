@@ -17,15 +17,39 @@ const Contatti = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [gdpr, setGdpr] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !subject || !message || !gdpr) {
       toast.error("Compila tutti i campi obbligatori");
       return;
     }
-    toast.success("Messaggio inviato con successo!");
-    setName(""); setEmail(""); setPhone(""); setSubject(""); setMessage(""); setGdpr(false);
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, subject, message }),
+      });
+
+      if (res.ok) {
+        toast.success("Grazie! Ti ricontatteremo a breve.");
+        setName(""); setEmail(""); setPhone(""); setSubject(""); setMessage(""); setGdpr(false);
+      } else if (res.status === 429) {
+        toast.error("Troppe richieste, riprova tra qualche minuto.");
+      } else if (res.status === 400) {
+        const data = await res.json();
+        toast.error(data.error || "Dati non validi.");
+      } else {
+        toast.error("Si è verificato un errore, riprova o contattaci direttamente a vendite@dsimportsrl.com");
+      }
+    } catch {
+      toast.error("Si è verificato un errore, riprova o contattaci direttamente a vendite@dsimportsrl.com");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -147,8 +171,8 @@ const Contatti = () => {
                       Acconsento al trattamento dei dati personali ai sensi del GDPR. *
                     </span>
                   </label>
-                  <button type="submit" className="w-full gradient-accent text-accent-foreground py-4 font-normal uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated rounded">
-                    <Send className="h-4 w-4" /> Invia Messaggio
+                  <button type="submit" disabled={loading} className="w-full gradient-accent text-accent-foreground py-4 font-normal uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-elevated rounded disabled:opacity-50 disabled:cursor-not-allowed">
+                    <Send className="h-4 w-4" /> {loading ? "Invio in corso..." : "Invia Messaggio"}
                   </button>
                 </form>
               </div>
