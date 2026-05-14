@@ -3,7 +3,7 @@ import { Resend } from "resend";
 
 // --- Rate limiting (in-memory, per serverless instance) ---
 const rateMap = new Map<string, number[]>();
-const RATE_LIMIT = 3;
+const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 
 function isRateLimited(ip: string): boolean {
@@ -189,12 +189,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ].join("\n");
   }
 
+  // Check env vars
+  if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL_FROM || !process.env.CONTACT_EMAIL_TO) {
+    console.error("Missing env vars:", {
+      hasApiKey: !!process.env.RESEND_API_KEY,
+      hasFrom: !!process.env.CONTACT_EMAIL_FROM,
+      hasTo: !!process.env.CONTACT_EMAIL_TO,
+    });
+    return res.status(500).json({ error: "Configurazione server mancante." });
+  }
+
   // Send via Resend
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error } = await resend.emails.send({
-      from: process.env.CONTACT_EMAIL_FROM!,
-      to: process.env.CONTACT_EMAIL_TO!,
+    const { data, error } = await resend.emails.send({
+      from: process.env.CONTACT_EMAIL_FROM,
+      to: process.env.CONTACT_EMAIL_TO,
       replyTo: email,
       subject: emailSubject,
       html,
@@ -202,15 +212,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend error:", JSON.stringify(error));
       return res
         .status(500)
         .json({ error: "Errore nell'invio dell'email. Riprova più tardi." });
     }
 
+    console.log("Email sent successfully:", data);
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error("Unexpected error:", err);
+    console.error("Unexpected error:", err instanceof Error ? err.message : err);
     return res
       .status(500)
       .json({ error: "Errore nell'invio dell'email. Riprova più tardi." });
