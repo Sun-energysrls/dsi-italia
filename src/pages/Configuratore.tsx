@@ -34,6 +34,7 @@ const Configuratore = () => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [animKey, setAnimKey] = useState(0);
 
   const selectedTractor = tractors.find((t) => t.id === model);
@@ -69,9 +70,43 @@ const Configuratore = () => {
     setAnimKey((k) => k + 1);
     setStep((s) => s - 1);
   };
-  const handleSubmit = () => {
-    toast.success("Richiesta inviata con successo!");
-    setSubmitted(true);
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "configuratore",
+          name,
+          email,
+          phone,
+          brand: selectedBrand,
+          model: selectedTractor?.name || model,
+          hp: selectedTractor?.hp,
+          transmission,
+          color,
+          accessories: accessories.trim() || "",
+          notes,
+        }),
+      });
+
+      if (res.ok) {
+        toast.success("Richiesta inviata con successo!");
+        setSubmitted(true);
+      } else if (res.status === 429) {
+        toast.error("Troppe richieste, riprova tra qualche minuto.");
+      } else if (res.status === 400) {
+        const data = await res.json();
+        toast.error(data.error || "Dati non validi.");
+      } else {
+        toast.error("Si è verificato un errore, riprova o contattaci direttamente a vendite@dsimportsrl.com");
+      }
+    } catch {
+      toast.error("Si è verificato un errore, riprova o contattaci direttamente a vendite@dsimportsrl.com");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -586,12 +621,12 @@ const Configuratore = () => {
               </button>
             ) : (
               <button
-                onClick={() => canGoNext() && handleSubmit()}
-                disabled={!canGoNext()}
+                onClick={() => canGoNext() && !loading && handleSubmit()}
+                disabled={!canGoNext() || loading}
                 className="btn-orange !py-3 !px-8 !text-xs w-full lg:w-auto"
-                style={!canGoNext() ? { opacity: 0.4, cursor: "not-allowed" } : {}}
+                style={!canGoNext() || loading ? { opacity: 0.4, cursor: "not-allowed" } : {}}
               >
-                <Send className="h-4 w-4" /> Invia Preventivo
+                <Send className="h-4 w-4" /> {loading ? "Invio in corso..." : "Invia Preventivo"}
               </button>
             )}
           </div>

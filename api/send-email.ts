@@ -24,23 +24,31 @@ function isRateLimited(ip: string): boolean {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validate(body: Record<string, unknown>): string | null {
-  const { name, email, subject, message } = body;
+  const { name, email, type } = body;
 
   if (!name || typeof name !== "string" || !name.trim())
     return "Il campo Nome è obbligatorio.";
   if (!email || typeof email !== "string" || !email.trim())
     return "Il campo Email è obbligatorio.";
   if (!EMAIL_RE.test(email)) return "Indirizzo email non valido.";
-  if (!subject || typeof subject !== "string" || !subject.trim())
-    return "Seleziona un argomento.";
-  if (!message || typeof message !== "string" || !message.trim())
-    return "Il campo Messaggio è obbligatorio.";
+
+  if (type === "configuratore") {
+    // Configurator requires phone
+    if (!body.phone || typeof body.phone !== "string" || !body.phone.trim())
+      return "Il campo Telefono è obbligatorio.";
+  } else {
+    // Contact form requires subject + message
+    if (!body.subject || typeof body.subject !== "string" || !(body.subject as string).trim())
+      return "Seleziona un argomento.";
+    if (!body.message || typeof body.message !== "string" || !(body.message as string).trim())
+      return "Il campo Messaggio è obbligatorio.";
+  }
 
   if ((name as string).length > 100)
     return "Il nome non può superare i 100 caratteri.";
   if ((email as string).length > 254)
     return "L'email non può superare i 254 caratteri.";
-  if ((message as string).length > 2000)
+  if (typeof body.message === "string" && body.message.length > 2000)
     return "Il messaggio non può superare i 2000 caratteri.";
   if (typeof body.phone === "string" && body.phone.length > 30)
     return "Il telefono non può superare i 30 caratteri.";
@@ -83,17 +91,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Validate
-  const { name, email, phone, subject, message } = req.body || {};
-  const validationError = validate(req.body || {});
+  const body = req.body || {};
+  const validationError = validate(body);
   if (validationError) {
     return res.status(400).json({ error: validationError });
   }
 
-  const subjectLabel = subjectLabels[subject] || subject;
-  const phoneLine = phone ? phone : "Non fornito";
+  const { name, email, phone, type } = body;
+  const isConfigurator = type === "configuratore";
 
-  // Build email content
-  const html = `
+  let emailSubject: string;
+  let html: string;
+  let text: string;
+
+  if (isConfigurator) {
+    const { brand, model, hp, transmission, color, accessories, notes } = body;
+    emailSubject = `Richiesta Preventivo Configuratore — ${name}`;
+
+    const rows = [
+      { label: "Nome", value: name },
+      { label: "Email", value: `<a href="mailto:${esc(email)}" style="color: #F97316;">${esc(email)}</a>`, raw: email },
+      { label: "Telefono", value: phone },
+      { label: "Brand", value: brand || "—" },
+      { label: "Modello", value: model || "—" },
+      { label: "Potenza", value: hp ? `${hp} HP` : "—" },
+      { label: "Cambio", value: transmission || "—" },
+      { label: "Colore", value: color || "—" },
+      { label: "Accessori", value: accessories || "Nessuno" },
+      { label: "Note", value: notes || "Nessuna" },
+    ];
+
+    html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+      <div style="border-bottom: 3px solid #F97316; padding-bottom: 16px; margin-bottom: 24px;">
+        <h1 style="margin: 0; font-size: 20px; color: #1b3a2d;">Richiesta Preventivo dal Configuratore</h1>
+      </div>
+      <table style="width: 100%; border-collapse: collapse;">
+        ${rows.map((r) => `<tr>
+          <td style="padding: 10px 12px; font-weight: 600; color: #555; width: 140px; vertical-align: top; border-bottom: 1px solid #eee;">${esc(r.label)}</td>
+          <td style="padding: 10px 12px; color: #222; border-bottom: 1px solid #eee; white-space: pre-wrap;">${r.label === "Email" ? r.value : esc(r.value)}</td>
+        </tr>`).join("")}
+      </table>
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee; font-size: 12px; color: #999;">
+        Inviato dal configuratore su dsimportsrl.com
+      </div>
+    </div>`;
+
+    text = rows.map((r) => `${r.label}: ${r.raw || r.value}`).join("\n");
+  } else {
+    const { subject, message } = body;
+    const subjectLabel = subjectLabels[subject] || subject;
+    const phoneLine = phone || "Non fornito";
+    emailSubject = `Nuova richiesta dal sito DSI Import — ${name}`;
+
+    html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
       <div style="border-bottom: 3px solid #F97316; padding-bottom: 16px; margin-bottom: 24px;">
         <h1 style="margin: 0; font-size: 20px; color: #1b3a2d;">Nuova richiesta dal sito DSI Import</h1>
@@ -123,20 +174,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee; font-size: 12px; color: #999;">
         Inviato dal form di contatto su dsimportsrl.com
       </div>
-    </div>
-  `;
+    </div>`;
 
-  const text = [
-    `Nuova richiesta dal sito DSI Import`,
-    ``,
-    `Nome: ${name}`,
-    `Email: ${email}`,
-    `Telefono: ${phoneLine}`,
-    `Argomento: ${subjectLabel}`,
-    ``,
-    `Messaggio:`,
-    message,
-  ].join("\n");
+    text = [
+      `Nuova richiesta dal sito DSI Import`,
+      ``,
+      `Nome: ${name}`,
+      `Email: ${email}`,
+      `Telefono: ${phoneLine}`,
+      `Argomento: ${subjectLabel}`,
+      ``,
+      `Messaggio:`,
+      message,
+    ].join("\n");
+  }
 
   // Send via Resend
   try {
@@ -145,7 +196,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       from: process.env.CONTACT_EMAIL_FROM!,
       to: process.env.CONTACT_EMAIL_TO!,
       replyTo: email,
-      subject: `Nuova richiesta dal sito DSI Import — ${name}`,
+      subject: emailSubject,
       html,
       text,
     });

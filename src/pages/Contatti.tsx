@@ -40,8 +40,12 @@ const Contatti = () => {
       } else if (res.status === 429) {
         toast.error("Troppe richieste, riprova tra qualche minuto.");
       } else if (res.status === 400) {
-        const data = await res.json();
-        toast.error(data.error || "Dati non validi.");
+        try {
+          const data = await res.json();
+          toast.error(data.error || "Dati non validi.");
+        } catch {
+          toast.error("Dati non validi.");
+        }
       } else {
         toast.error("Si è verificato un errore, riprova o contattaci direttamente a vendite@dsimportsrl.com");
       }
