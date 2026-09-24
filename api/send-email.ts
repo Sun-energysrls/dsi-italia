@@ -32,8 +32,8 @@ function validate(body: Record<string, unknown>): string | null {
     return "Il campo Email è obbligatorio.";
   if (!EMAIL_RE.test(email)) return "Indirizzo email non valido.";
 
-  if (type === "configuratore") {
-    // Configurator requires phone
+  if (type === "configuratore" || type === "preordine") {
+    // Configurator and pre-order require phone
     if (!body.phone || typeof body.phone !== "string" || !body.phone.trim())
       return "Il campo Telefono è obbligatorio.";
   } else {
@@ -52,6 +52,8 @@ function validate(body: Record<string, unknown>): string | null {
     return "Il messaggio non può superare i 2000 caratteri.";
   if (typeof body.phone === "string" && body.phone.length > 30)
     return "Il telefono non può superare i 30 caratteri.";
+  if (typeof body.notes === "string" && body.notes.length > 2000)
+    return "Le note non possono superare i 2000 caratteri.";
 
   return null;
 }
@@ -99,12 +101,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { name, email, phone, type } = body;
   const isConfigurator = type === "configuratore";
+  const isPreorder = type === "preordine";
 
   let emailSubject: string;
   let html: string;
   let text: string;
 
-  if (isConfigurator) {
+  if (isPreorder) {
+    const { brand, company, location, power, usage, transmission, cab, color, accessories, timing, notes } = body;
+    emailSubject = `Preordine ${brand || "trattore"} — ${name}`;
+
+    const rows = [
+      { label: "Nome", value: name },
+      { label: "Azienda", value: company || "—" },
+      { label: "Email", value: `<a href="mailto:${esc(email)}" style="color: #F97316;">${esc(email)}</a>`, raw: email },
+      { label: "Telefono", value: phone },
+      { label: "Località", value: location || "—" },
+      { label: "Brand", value: brand || "—" },
+      { label: "Potenza", value: power || "—" },
+      { label: "Utilizzo", value: usage || "—" },
+      { label: "Trasmissione", value: transmission || "—" },
+      { label: "Posto di guida", value: cab || "—" },
+      { label: "Colore", value: color || "—" },
+      { label: "Accessori", value: accessories || "Nessuno" },
+      { label: "Tempistiche", value: timing || "—" },
+      { label: "Note", value: notes || "Nessuna" },
+    ].map((r) => ({ ...r, value: String(r.value).slice(0, 2000) }));
+
+    html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+      <div style="border-bottom: 3px solid #F97316; padding-bottom: 16px; margin-bottom: 24px;">
+        <h1 style="margin: 0; font-size: 20px; color: #1b3a2d;">Nuovo preordine ${esc(String(brand || ""))} su ordinazione</h1>
+      </div>
+      <table style="width: 100%; border-collapse: collapse;">
+        ${rows.map((r) => `<tr>
+          <td style="padding: 10px 12px; font-weight: 600; color: #555; width: 140px; vertical-align: top; border-bottom: 1px solid #eee;">${esc(r.label)}</td>
+          <td style="padding: 10px 12px; color: #222; border-bottom: 1px solid #eee; white-space: pre-wrap;">${r.label === "Email" ? r.value : esc(r.value)}</td>
+        </tr>`).join("")}
+      </table>
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee; font-size: 12px; color: #999;">
+        Inviato dal modulo di preordine su dsimportsrl.com
+      </div>
+    </div>`;
+
+    text = rows.map((r) => `${r.label}: ${r.raw || r.value}`).join("\n");
+  } else if (isConfigurator) {
     const { brand, model, hp, transmission, color, accessories, notes } = body;
     emailSubject = `Richiesta Preventivo Configuratore — ${name}`;
 

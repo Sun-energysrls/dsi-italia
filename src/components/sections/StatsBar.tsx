@@ -1,9 +1,10 @@
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
+import { brands, tractors } from "@/data/tractors";
 
 const stats = [
-  { value: 2, suffix: "", label: "Brand Partner", sublabel: "selezionati a livello mondiale" },
-  { value: 16, suffix: "+", label: "Modelli Disponibili", sublabel: "in catalogo e configurabili" },
+  { value: brands.length, suffix: "", label: "Brand Partner", sublabel: "selezionati a livello mondiale" },
+  { value: tractors.length, suffix: "+", label: "Modelli Disponibili", sublabel: "in catalogo e configurabili" },
   { value: 50, suffix: "+", label: "Configurazioni", sublabel: "personalizzazioni possibili" },
   { value: 100, suffix: "%", label: "Clienti Soddisfatti", sublabel: "soddisfazione certificata" },
 ];

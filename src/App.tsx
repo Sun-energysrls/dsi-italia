@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import GammaTrattori from "./pages/GammaTrattori";
 import SchedaProdotto from "./pages/SchedaProdotto";
+import SchedaBrand from "./pages/SchedaBrand";
 import Configuratore from "./pages/Configuratore";
 import Accessori from "./pages/Accessori";
 import Contatti from "./pages/Contatti";
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/trattori" element={<GammaTrattori />} />
           <Route path="/trattori/:id" element={<SchedaProdotto />} />
+          <Route path="/marchi/:id" element={<SchedaBrand />} />
           <Route path="/configuratore" element={<Configuratore />} />
           <Route path="/accessori" element={<Accessori />} />
           <Route path="/assistenza" element={<Assistenza />} />

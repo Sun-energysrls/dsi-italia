@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
-import { brands } from "@/data/brands";
+
+function brandStats(hpMax: string, founded: string) {
+  return [
+    { v: hpMax, l: 'HP massimi', s: 'in gamma' },
+    { v: '4WD', l: 'Trazione integrale', s: 'su ordinazione' },
+    { v: founded, l: 'Anno di fondazione', s: '' },
+  ];
+}
 
 const PX = {
   forestDeep: '#0f2a1f',
@@ -32,15 +39,47 @@ const brandData = [
     wordmark: 'ZOOMLION',
     country: 'Cina',
     since: 'Dal 1992',
-    tagline: 'Smart Agriculture · 5G · AI',
-    description: "Colosso globale della meccanizzazione, pioniere dell'agricoltura intelligente. Quotato a Shenzhen e Hong Kong. In arrivo nel portfolio DSI dal 2026.",
-    stats: [
-      { v: '1992', l: 'Anno di fondazione', s: '' },
-      { v: '50+', l: 'Paesi di export', s: 'a livello globale' },
-      { v: 'AI', l: 'Agricoltura smart', s: 'flotte connesse' },
-    ],
-    color: '#1a5fa8',
-    locked: true,
+    tagline: 'Smart Agriculture · Powershift · GPS',
+    description: "Colosso globale della meccanizzazione, pioniere dell'agricoltura intelligente. Quotato a Shenzhen e Hong Kong, porta in gamma trattori fino a 230 HP con trasmissione powershift ZF.",
+    stats: brandStats('300+', '1992'),
+    color: '#a4ce4e',
+    locked: false,
+  },
+  {
+    id: 'yto',
+    name: 'YTO',
+    wordmark: 'YTO',
+    country: 'Cina',
+    since: 'Dal 1955',
+    tagline: 'Heritage · Dongfanghong · Stage V',
+    description: "First Tractor Company di Luoyang: dal 1955 il primo costruttore di trattori della Cina. Modelli Stage V sviluppati per il mercato europeo e una gamma fino a 240 HP.",
+    stats: brandStats('300', '1955'),
+    color: '#c8102e',
+    locked: false,
+  },
+  {
+    id: 'lovol',
+    name: 'Lovol',
+    wordmark: 'LOVOL',
+    country: 'Cina',
+    since: 'Dal 1998',
+    tagline: 'Weichai Power · CVT · Stage V',
+    description: "Weichai Lovol, tra i maggiori produttori di macchine agricole al mondo, con radici tecniche italiane nell'ex marchio Arbos. Gamma europea Stage V e ammiraglia CVT da 240 HP.",
+    stats: brandStats('240', '1998'),
+    color: '#2e7d32',
+    locked: false,
+  },
+  {
+    id: 'liugong',
+    name: 'LiuGong',
+    wordmark: 'LIUGONG',
+    country: 'Cina',
+    since: 'Dal 1958',
+    tagline: 'Industrial Strength · Yuchai · Affidabilità',
+    description: "Gruppo industriale fondato nel 1958 e leader mondiale nelle macchine movimento terra. La serie di trattori LT porta la stessa robustezza in campo, da 110 a 200 HP.",
+    stats: brandStats('200', '1958'),
+    color: '#0057a8',
+    locked: false,
   },
 ];
 
@@ -135,7 +174,7 @@ const BrandPartnersSection = () => {
                 margin: 0,
               }}
             >
-              Due brand oggi, più in arrivo. Ogni partnership nasce da anni di relazione
+              Cinque brand oggi, più in arrivo. Ogni partnership nasce da anni di relazione
               diretta con le linee di produzione.
             </p>
           </AnimatedSection>
@@ -276,7 +315,7 @@ const BrandPartnersSection = () => {
                     background: brand.locked ? PX.copper : '#4ade80',
                   }}
                 />
-                {brand.locked ? 'In arrivo · 2026' : 'Attivo · disponibile'}
+                {brand.locked ? 'In arrivo · 2026' : brand.id === 'tavol' ? 'Attivo · disponibile' : 'Disponibile su ordinazione'}
               </div>
 
               <div className="relative z-[2]">
@@ -392,8 +431,8 @@ const BrandPartnersSection = () => {
                       Richiedi accesso anticipato <ArrowRight size={14} />
                     </span>
                   ) : (
-                    <Link to="/trattori" className="btn-orange">
-                      Scopri i modelli <ArrowRight size={14} />
+                    <Link to={brand.id === 'tavol' ? '/trattori?brand=Tavol' : `/marchi/${brand.id}`} className="btn-orange">
+                      {brand.id === 'tavol' ? 'Scopri i modelli' : 'Scopri e preordina'} <ArrowRight size={14} />
                     </Link>
                   )}
                 </div>
@@ -491,7 +530,7 @@ const BrandPartnersSection = () => {
                         marginBottom: 12,
                       }}
                     >
-                      03 · In arrivo
+                      {String(brandData.length + 1).padStart(2, '0')} · In arrivo
                     </div>
                     <h4
                       style={{

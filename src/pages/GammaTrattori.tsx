@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { AnimatedSection } from "@/hooks/useScrollAnimation";
 import { categories, tractors, brands } from "@/data/tractors";
 import { ArrowRight, Tractor } from "lucide-react";
 import type { Tractor as TractorType } from "@/data/tractors";
 import { getTractorPhoto } from "@/data/tractor-images";
+import { getBrandByName, preorderBrands, type Brand as BrandInfo } from "@/data/brands";
 
 // Power range groupings — xl merged into large
 const powerRanges = [
@@ -19,6 +20,7 @@ const GammaTrattori = () => {
   const activeBrand = searchParams.get("brand") || "all";
   const activeCategory = searchParams.get("categoria") || "all";
   const [animating, setAnimating] = useState(false);
+  const navigate = useNavigate();
 
   const filteredTractors = tractors.filter((t) => {
     const brandMatch = activeBrand === "all" || t.brand === activeBrand;
@@ -77,7 +79,7 @@ const GammaTrattori = () => {
                 Gamma Trattori DSI
               </h1>
               <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem" }}>
-                16 modelli professionali di 1 brand partner.
+                {tractors.length} modelli pronti da configurare e {preorderBrands.length} brand partner disponibili su ordinazione.
               </p>
             </AnimatedSection>
           </div>
@@ -97,9 +99,18 @@ const GammaTrattori = () => {
               </span>
               <div className="flex flex-wrap gap-2">
                 <FilterBtn active={activeBrand === "all"} onClick={() => setFilter("brand", "all")}>Tutti</FilterBtn>
-                {brands.map((b) => (
-                  <FilterBtn key={b} active={activeBrand === b} onClick={() => setFilter("brand", b)}>{b}</FilterBtn>
-                ))}
+                {brands.map((b) => {
+                  const info = getBrandByName(b);
+                  return (
+                    <FilterBtn
+                      key={b}
+                      active={activeBrand === b}
+                      onClick={() => (info?.preorder ? navigate(`/marchi/${info.id}`) : setFilter("brand", b))}
+                    >
+                      {b}
+                    </FilterBtn>
+                  );
+                })}
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -178,6 +189,32 @@ const GammaTrattori = () => {
                     </AnimatedSection>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {activeBrand === "all" && (
+              <div className="mt-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div style={{ width: 4, height: 28, backgroundColor: "#F97316", borderRadius: 2 }} />
+                  <h2
+                    className="font-display font-bold uppercase"
+                    style={{ fontSize: "0.85rem", letterSpacing: "0.15em", color: "#333" }}
+                  >
+                    Brand su ordinazione
+                  </h2>
+                  <div className="flex-1 h-px" style={{ background: "#DDD" }} />
+                  <span style={{ color: "#999", fontSize: "0.75rem" }}>{preorderBrands.length} brand</span>
+                </div>
+                <p className="mb-6" style={{ color: "#777", fontSize: "0.85rem" }}>
+                  Trattori importati su richiesta e personalizzati secondo le tue preferenze.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7">
+                  {preorderBrands.map((b, i) => (
+                    <AnimatedSection key={b.id} delay={i * 0.05}>
+                      <PreorderBrandCard brand={b} />
+                    </AnimatedSection>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -301,5 +338,50 @@ const CatalogCard = ({ tractor }: { tractor: TractorType }) => (
     </div>
   </div>
 );
+
+const PreorderBrandCard = ({ brand }: { brand: BrandInfo }) => {
+  const cover = brand.gallery?.[brand.gallery.length - 1];
+  const fit = brand.imageFit ?? "cover";
+  return (
+    <Link
+      to={`/marchi/${brand.id}`}
+      className="group flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
+      style={{ background: "white", borderRadius: 8, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)", border: "1px solid #EDE9E3" }}
+    >
+      <div className="relative overflow-hidden" style={{ height: 200, background: "#F9F7F5" }}>
+        {cover && (
+          <img
+            src={cover.image}
+            alt={`Trattori ${brand.name}`}
+            className="w-full h-full group-hover:scale-[1.04] transition-transform duration-500"
+            style={{ objectFit: fit, padding: fit === "contain" ? 12 : 0, mixBlendMode: fit === "contain" ? "multiply" : "normal" }}
+            loading="lazy"
+          />
+        )}
+        <div
+          className="absolute top-3 right-3 font-bold text-white uppercase"
+          style={{ background: "#F97316", borderRadius: 4, padding: "4px 10px", fontSize: "0.62rem", letterSpacing: "0.1em" }}
+        >
+          Su ordinazione
+        </div>
+      </div>
+      <div className="flex flex-col flex-grow" style={{ padding: 22 }}>
+        <span className="uppercase font-semibold" style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "#F97316" }}>
+          {brand.powerRange}
+        </span>
+        <h3 className="font-display text-xl font-bold mt-1 mb-2" style={{ color: "#1a1a1a" }}>{brand.name}</h3>
+        <p className="flex-grow line-clamp-3" style={{ color: "#666", fontSize: "0.85rem", lineHeight: 1.6 }}>
+          {brand.description}
+        </p>
+        <span
+          className="mt-4 inline-flex items-center gap-2 font-semibold uppercase group-hover:tracking-wider transition-all duration-300"
+          style={{ color: "#F97316", fontSize: "0.75rem", letterSpacing: "0.1em" }}
+        >
+          Scopri e preordina <ArrowRight className="h-3.5 w-3.5" />
+        </span>
+      </div>
+    </Link>
+  );
+};
 
 export default GammaTrattori;

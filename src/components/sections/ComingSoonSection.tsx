@@ -4,16 +4,6 @@ import tractorLarge from "@/assets/tractor-large.jpg";
 
 const comingSoonBrands = [
   {
-    name: "Zoomlion",
-    country: "Cina",
-    initials: "ZL",
-    tagline: "Smart Agriculture Leader",
-    description:
-      "Colosso globale fondato nel 1992 a Changsha. Pioniere nell'agricoltura intelligente con integrazione di AI e tecnologia 5G nelle macchine agricole. In arrivo una gamma completa di trattori high-tech.",
-    eta: "Prossimamente",
-    color: "#1a5fa8",
-  },
-  {
     name: "Nuovi Modelli in Arrivo",
     country: "Cina",
     initials: "+",
@@ -64,7 +54,7 @@ const ComingSoonSection = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className={`grid grid-cols-1 gap-6 mx-auto ${comingSoonBrands.length > 1 ? "md:grid-cols-2 max-w-4xl" : "max-w-xl"}`}>
           {comingSoonBrands.map((brand, i) => (
             <AnimatedSection key={brand.name} delay={i * 0.12} duration={0.7} withScale>
               <div

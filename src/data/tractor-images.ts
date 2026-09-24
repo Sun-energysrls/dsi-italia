@@ -67,9 +67,9 @@ export const tractorPhotoMap: Record<string, string> = {
   "tavol-2804": tavol2804Photo,
 };
 
-/** Transparent image — use in configurator */
+/** Transparent image — use in configurator. Falls back to the real photo. */
 export function getTractorImage(tractorId: string): string {
-  return tractorImageMap[tractorId] || tavol804;
+  return tractorImageMap[tractorId] || tractorPhotoMap[tractorId] || tavol804;
 }
 
 /** Real-world photo — use in cards & detail pages. Falls back to transparent. */

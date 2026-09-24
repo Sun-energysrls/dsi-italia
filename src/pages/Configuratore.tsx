@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { Send, CheckCircle, ChevronRight, ChevronLeft, Check, Tractor as TractorIcon } from "lucide-react";
 import Layout from "@/components/Layout";
 import { tractors, globalColorOptions } from "@/data/tractors";
@@ -11,6 +11,7 @@ const stepLabels = ["Brand", "Modello", "Cambio", "Colore", "Accessori", "Riepil
 
 const Configuratore = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   // Preselect from query params
   const paramBrand = searchParams.get("brand") || "";
@@ -248,7 +249,7 @@ const Configuratore = () => {
                     {brandData.map((b) => (
                       <button
                         key={b.id}
-                        onClick={() => handleBrandSelect(b.name)}
+                        onClick={() => (b.preorder ? navigate(`/marchi/${b.id}#preordina`) : handleBrandSelect(b.name))}
                         className="w-full flex items-center gap-4 transition-all duration-200"
                         style={{
                           background: selectedBrand === b.name ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.06)",
@@ -266,8 +267,13 @@ const Configuratore = () => {
                         </div>
                         <div className="text-left flex-1">
                           <span className="text-white font-semibold block" style={{ fontSize: "1rem" }}>{b.name}</span>
-                          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>{b.country}</span>
+                          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                            {b.preorder ? `Su ordinazione · ${b.powerRange}` : b.country}
+                          </span>
                         </div>
+                        {b.preorder ? (
+                          <ChevronRight className="h-5 w-5 shrink-0" style={{ color: "#F97316" }} />
+                        ) : (
                         <div
                           className="shrink-0"
                           style={{
@@ -283,6 +289,7 @@ const Configuratore = () => {
                         >
                           {selectedBrand === b.name && <Check className="h-3 w-3 text-white" />}
                         </div>
+                        )}
                       </button>
                     ))}
                   </div>
