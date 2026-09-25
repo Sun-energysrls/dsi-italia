@@ -10,9 +10,10 @@ import lovolCompact from "@/assets/lovol-compatto.jpg";
 import lovolMedium from "@/assets/lovol-medio.jpg";
 import lovolLarge from "@/assets/lovol-alto.jpg";
 import lovolXl from "@/assets/lovol-top.png";
-import liugongMedium from "@/assets/liugong-medio.png";
-import liugongLarge from "@/assets/liugong-alto.png";
-import liugongXl from "@/assets/liugong-top.png";
+import lingongMedium from "@/assets/lingong-medio.png";
+import lingongLarge from "@/assets/lingong-alto.png";
+import lingongXl from "@/assets/lingong-grande.png";
+import lingongTop from "@/assets/lingong-top.png";
 
 export interface BrandGalleryItem {
   image: string;
@@ -132,31 +133,32 @@ export const brands: Brand[] = [
     transmissions: ["Meccanica sincronizzata", "Inversore / Power shuttle", "Powershift", "CVT a variazione continua"],
   },
   {
-    id: "liugong",
-    name: "LiuGong",
+    id: "lingong",
+    name: "Lingong",
     initials: "LG",
     country: "Cina",
     preorder: true,
-    since: "1958",
-    tagline: "Forza industriale · Robustezza · Semplicità",
-    powerRange: "Da 110 a 200 HP",
+    since: "1972",
+    tagline: "Innovazione · Alta potenza · Ibrido",
+    powerRange: "Da 90 a circa 600 HP",
     imageFit: "contain",
-    description: "Gruppo industriale fondato nel 1958 e leader mondiale nelle macchine movimento terra. I suoi trattori portano in campo la stessa robustezza: meccanica semplice, motori generosi e idraulica potente.",
+    description: "Divisione agricola del gruppo Lingong (LGMG), colosso cinese delle macchine da costruzione nato nel 1972. Dal 2023 produce a Linyi una gamma moderna di trattori, dai modelli da 90 HP fino alle macchine ibride di nuova generazione da circa 600 HP.",
     gallery: [
-      { image: liugongMedium, label: "Media potenza", hp: "110–120 HP" },
-      { image: liugongLarge, label: "Alta potenza", hp: "160 HP" },
-      { image: liugongXl, label: "Top di gamma", hp: "200 HP" },
+      { image: lingongMedium, label: "Media potenza", hp: "90–120 HP" },
+      { image: lingongLarge, label: "Alta potenza", hp: "180–210 HP" },
+      { image: lingongXl, label: "Grande potenza", hp: "240–300 HP" },
+      { image: lingongTop, label: "Ibrido top di gamma", hp: "Fino a circa 600 HP" },
     ],
     highlights: [
-      "Robustezza da costruttore di macchine movimento terra",
-      "Motori Yuchai turbo con grande coppia",
-      "Cambi meccanici sincronizzati semplici e affidabili",
-      "Sollevatori posteriori fino a oltre 65 kN",
-      "Idraulica ad alta portata sui modelli di punta",
-      "Telaio e assali rinforzati",
+      "Gamma da 90 a circa 600 HP",
+      "Gruppo Lingong: oltre 50 anni di esperienza industriale",
+      "Motori Yuchai, Shangchai e Quanchai",
+      "Cambi sincronizzati, power shuttle, powershift e a variazione continua",
+      "Trattori ibridi di nuova generazione per le grandi aziende",
+      "Cabine insonorizzate e climatizzate, sospese sui modelli di alta gamma",
     ],
-    powerClasses: ["Media potenza (110–120 HP)", "Alta potenza (160 HP)", "Top di gamma (200 HP)"],
-    transmissions: ["Meccanica sincronizzata"],
+    powerClasses: ["Media potenza (90–120 HP)", "Alta potenza (180–210 HP)", "Grande potenza (240–300 HP)", "Oltre 300 HP / ibrido"],
+    transmissions: ["Meccanica sincronizzata", "Inversore / Power shuttle", "Powershift", "CVT a variazione continua", "Ibrida"],
   },
 ];
 

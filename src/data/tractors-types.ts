@@ -40,7 +40,7 @@ export const globalColorOptions: ColorOption[] = [
   { name: "Verde", value: "#2d5a3d" },
 ];
 
-export const brands = ["Tavol", "Zoomlion", "YTO", "Lovol", "LiuGong"] as const;
+export const brands = ["Tavol", "Zoomlion", "YTO", "Lovol", "Lingong"] as const;
 export type Brand = (typeof brands)[number];
 
 export const categories = [
